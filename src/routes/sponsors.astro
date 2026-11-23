@@ -1,0 +1,7 @@
+---
+// Injected once for each language, which the page's path tells.
+import SponsorsPage from '../components/SponsorsPage.astro';
+import { langOfPath } from '../site';
+---
+
+<SponsorsPage lang={langOfPath(Astro.url.pathname)} />

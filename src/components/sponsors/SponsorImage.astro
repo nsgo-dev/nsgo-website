@@ -1,0 +1,22 @@
+---
+// A sponsor's logo or avatar, with its dark-theme logo in its place when it
+// has one.
+import { Image } from 'astro:assets';
+import { images } from 'virtual:nsgo-website/assets';
+import type { ResolvedSponsor } from '../../resolve';
+
+interface Props {
+	sponsor: ResolvedSponsor;
+	/** The height it shows at, in pixels; raster images are drawn twice as dense. */
+	height: number;
+	/** The name is beside it, so the image is only decoration. */
+	decorative?: boolean;
+}
+const { sponsor, height, decorative } = Astro.props;
+const light = sponsor.image ? images[sponsor.image] : undefined;
+const dark = sponsor.imageDark ? images[sponsor.imageDark] : undefined;
+const alt = decorative ? '' : sponsor.name;
+---
+
+{light && <Image class:list={['sponsor-image', { 'theme-light': dark }]} src={light} alt={alt} height={height} densities={[1, 2]} />}
+{dark && <Image class="sponsor-image theme-dark" src={dark} alt={alt} height={height} densities={[1, 2]} />}

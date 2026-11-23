@@ -1,9 +1,10 @@
 ---
 // The footer every page shares, home and docs alike: one line, the
 // copyright with the code's license on the left, the key links on the
-// right.
+// right and, in the corner, the sponsors page.
 import { Icon } from '@astrojs/starlight/components';
 import { langOf, site } from '../../site';
+import KIcon from '../KIcon.astro';
 
 const f = site[langOf(Astro.locals.starlightRoute.lang)].footer;
 ---
@@ -30,6 +31,16 @@ const f = site[langOf(Astro.locals.starlightRoute.lang)].footer;
 						</a>
 					</li>
 				))
+			}
+			{
+				f.sponsors && (
+					<li>
+						<a class="footer-sponsors" href={f.sponsors.href} data-kubai-trigger>
+							<KIcon name="heart" size={14} color="#ec4899" />
+							{f.sponsors.label}
+						</a>
+					</li>
+				)
 			}
 		</ul>
 	</div>

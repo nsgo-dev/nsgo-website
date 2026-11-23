@@ -1,6 +1,6 @@
-// The integration: Starlight set up as an NSGo project's site, its home and
-// roadmap pages, and the settings handed to the pages through virtual
-// modules.
+// The integration: Starlight set up as an NSGo project's site, its home,
+// roadmap and sponsors pages, and the settings handed to the pages through
+// virtual modules.
 import { createRequire } from 'node:module';
 import { isAbsolute, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -78,6 +78,13 @@ export default function nsgoWebsite(given: SiteOptions): AstroIntegration {
 					console.warn(`[roadmap] left out: ${roadmap.owner}/${roadmap.name}#${roadmap.tracking} not found`);
 					options = { ...options, roadmap: false };
 				}
+				// A tier's places are kept by the sponsors in it, so a full tier
+				// shows them all and only warns.
+				for (const tier of options.sponsors ? options.sponsors.tiers : []) {
+					if (tier.places !== undefined && tier.sponsors.length > tier.places) {
+						console.warn(`[sponsors] ${localize(tier.title, languagesOf(options)[0])} has ${tier.sponsors.length} sponsors for ${tier.places} places`);
+					}
+				}
 				const docsDir = options.docs?.dir ?? '../docs/public';
 				const langs = languagesOf(options);
 				const [first, ...others] = langs;
@@ -148,6 +155,7 @@ export default function nsgoWebsite(given: SiteOptions): AstroIntegration {
 				for (const prefix of prefixes) {
 					if (options.home) injectRoute({ pattern: `${prefix}/`, entrypoint: `${pkg}/routes/home.astro` });
 					if (options.roadmap) injectRoute({ pattern: `${prefix}/roadmap/`, entrypoint: `${pkg}/routes/roadmap.astro` });
+					if (options.sponsors) injectRoute({ pattern: `${prefix}/sponsors/`, entrypoint: `${pkg}/routes/sponsors.astro` });
 				}
 			},
 			'astro:config:done': ({ injectTypes }) => {

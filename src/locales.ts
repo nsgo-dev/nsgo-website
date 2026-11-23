@@ -1,12 +1,13 @@
 // Every language a site may turn on, with the words of the site's frame in
-// it: the header, its menus, the footer and the roadmap. A site lists the
+// it: the header, its menus, the footer, the roadmap and the sponsors page.
+// A site lists the
 // ones it uses in its languages setting; the first is served at the root and
 // each other under its code, as zh/ or ja/. A project changes the plain words
 // with its strings setting.
 import type { Link } from './config';
 
 export interface UI {
-	nav: Record<'label' | 'menu' | 'docs' | 'roadmap' | 'features' | 'github' | 'community' | 'feedback' | 'changelog', string>;
+	nav: Record<'label' | 'menu' | 'docs' | 'roadmap' | 'features' | 'github' | 'community' | 'feedback' | 'changelog' | 'sponsors', string>;
 	theme: Record<'name' | 'light' | 'dark' | 'auto', string>;
 	language: Record<'name' | 'auto', string>;
 	start: string;
@@ -31,6 +32,17 @@ export interface UI {
 	};
 	/** The notes of NSGo's places, the default community menu. */
 	community: { nsgo: string; telegram: string; awesome: string };
+	sponsors: {
+		title: string;
+		description: (name: string) => string;
+		become: string;
+		/** The button of a maintainer's card. */
+		sponsor: string;
+		/** Under the home page's first tier. */
+		homeText: (name: string) => string;
+		/** On the invitation to a tier's empty places. */
+		left: (n: number) => string;
+	};
 }
 
 export interface Locale {
@@ -48,7 +60,7 @@ export interface Locale {
 }
 
 const en: UI = {
-	nav: { label: 'Main', menu: 'Menu', docs: 'Docs', roadmap: 'Roadmap', features: 'Features', github: 'GitHub', community: 'Community', feedback: 'Feedback', changelog: 'Changelog' },
+	nav: { label: 'Main', menu: 'Menu', docs: 'Docs', roadmap: 'Roadmap', features: 'Features', github: 'GitHub', community: 'Community', feedback: 'Feedback', changelog: 'Changelog', sponsors: 'Sponsors' },
 	theme: { name: 'Theme', light: 'Light', dark: 'Dark', auto: 'Auto' },
 	language: { name: 'Language', auto: 'Auto' },
 	start: 'Get started',
@@ -69,10 +81,18 @@ const en: UI = {
 		unavailable: ['This build could not read the issues from GitHub (', '). See them on ', '.'],
 	},
 	community: { nsgo: 'The cross-platform native UI engine', telegram: 'NSGo Telegram', awesome: 'Apps, libraries and resources' },
+	sponsors: {
+		title: 'Sponsors',
+		description: (name) => `The companies and people whose sponsorship keeps ${name} going.`,
+		become: 'Become a sponsor',
+		sponsor: 'Sponsor',
+		homeText: (name) => `${name} is kept going by these sponsors.`,
+		left: (n) => `${n} ${n === 1 ? 'place' : 'places'} left`,
+	},
 };
 
 const zh: UI = {
-	nav: { label: '主导航', menu: '菜单', docs: '文档', roadmap: '路线图', features: '功能', github: 'GitHub', community: '社区', feedback: '反馈', changelog: '更新日志' },
+	nav: { label: '主导航', menu: '菜单', docs: '文档', roadmap: '路线图', features: '功能', github: 'GitHub', community: '社区', feedback: '反馈', changelog: '更新日志', sponsors: '赞助' },
 	theme: { name: '主题', light: '浅色', dark: '深色', auto: '自动' },
 	language: { name: '语言', auto: '自动' },
 	start: '入门指南',
@@ -93,10 +113,18 @@ const zh: UI = {
 		unavailable: ['这次构建没能从 GitHub 读取 issue（', '）。请到 ', ' 查看。'],
 	},
 	community: { nsgo: '跨平台原生 UI 引擎', telegram: 'NSGo Telegram 群组', awesome: '应用、库和资源' },
+	sponsors: {
+		title: '赞助',
+		description: (name) => `感谢这些企业和个人的赞助，让 ${name} 得以持续发展。`,
+		become: '成为赞助者',
+		sponsor: '赞助',
+		homeText: (name) => `这些赞助者支持着 ${name} 的持续发展。`,
+		left: (n) => `还剩 ${n} 个位置`,
+	},
 };
 
 const zhTW: UI = {
-	nav: { label: '主導覽', menu: '選單', docs: '文件', roadmap: '路線圖', features: '功能', github: 'GitHub', community: '社群', feedback: '意見回饋', changelog: '更新紀錄' },
+	nav: { label: '主導覽', menu: '選單', docs: '文件', roadmap: '路線圖', features: '功能', github: 'GitHub', community: '社群', feedback: '意見回饋', changelog: '更新紀錄', sponsors: '贊助' },
 	theme: { name: '主題', light: '淺色', dark: '深色', auto: '自動' },
 	language: { name: '語言', auto: '自動' },
 	start: '入門指南',
@@ -117,10 +145,18 @@ const zhTW: UI = {
 		unavailable: ['這次建置無法從 GitHub 讀取 issue（', '）。請到 ', ' 查看。'],
 	},
 	community: { nsgo: '跨平台原生 UI 引擎', telegram: 'NSGo Telegram 群組', awesome: '應用程式、函式庫和資源' },
+	sponsors: {
+		title: '贊助',
+		description: (name) => `感謝這些企業和個人的贊助，讓 ${name} 得以持續發展。`,
+		become: '成為贊助者',
+		sponsor: '贊助',
+		homeText: (name) => `這些贊助者支持著 ${name} 的持續發展。`,
+		left: (n) => `還剩 ${n} 個位置`,
+	},
 };
 
 const ja: UI = {
-	nav: { label: 'メイン', menu: 'メニュー', docs: 'ドキュメント', roadmap: 'ロードマップ', features: '機能', github: 'GitHub', community: 'コミュニティ', feedback: 'フィードバック', changelog: '変更履歴' },
+	nav: { label: 'メイン', menu: 'メニュー', docs: 'ドキュメント', roadmap: 'ロードマップ', features: '機能', github: 'GitHub', community: 'コミュニティ', feedback: 'フィードバック', changelog: '変更履歴', sponsors: 'スポンサー' },
 	theme: { name: 'テーマ', light: 'ライト', dark: 'ダーク', auto: '自動' },
 	language: { name: '言語', auto: '自動' },
 	start: 'はじめる',
@@ -141,10 +177,18 @@ const ja: UI = {
 		unavailable: ['このビルドでは GitHub から issue を読み込めませんでした（', '）。', ' で確認してください。'],
 	},
 	community: { nsgo: 'クロスプラットフォームのネイティブ UI エンジン', telegram: 'NSGo Telegram', awesome: 'アプリ、ライブラリ、リソース' },
+	sponsors: {
+		title: 'スポンサー',
+		description: (name) => `${name} の開発を支えてくださる企業と個人のスポンサーです。`,
+		become: 'スポンサーになる',
+		sponsor: 'スポンサー',
+		homeText: (name) => `${name} はこれらのスポンサーに支えられています。`,
+		left: (n) => `残り ${n} 枠`,
+	},
 };
 
 const ko: UI = {
-	nav: { label: '주요', menu: '메뉴', docs: '문서', roadmap: '로드맵', features: '기능', github: 'GitHub', community: '커뮤니티', feedback: '피드백', changelog: '변경 내역' },
+	nav: { label: '주요', menu: '메뉴', docs: '문서', roadmap: '로드맵', features: '기능', github: 'GitHub', community: '커뮤니티', feedback: '피드백', changelog: '변경 내역', sponsors: '후원' },
 	theme: { name: '테마', light: '라이트', dark: '다크', auto: '자동' },
 	language: { name: '언어', auto: '자동' },
 	start: '시작하기',
@@ -165,10 +209,18 @@ const ko: UI = {
 		unavailable: ['이번 빌드에서 GitHub 이슈를 읽지 못했습니다 (', '). ', '에서 확인하세요.'],
 	},
 	community: { nsgo: '크로스 플랫폼 네이티브 UI 엔진', telegram: 'NSGo Telegram', awesome: '앱, 라이브러리, 리소스' },
+	sponsors: {
+		title: '후원',
+		description: (name) => `${name}의 개발을 이어 가게 해 주는 기업과 개인 후원자입니다.`,
+		become: '후원하기',
+		sponsor: '후원하기',
+		homeText: (name) => `${name}은(는) 이 후원사들의 지원으로 이어지고 있습니다.`,
+		left: (n) => `${n}자리 남음`,
+	},
 };
 
 const es: UI = {
-	nav: { label: 'Principal', menu: 'Menú', docs: 'Documentación', roadmap: 'Hoja de ruta', features: 'Funciones', github: 'GitHub', community: 'Comunidad', feedback: 'Comentarios', changelog: 'Cambios' },
+	nav: { label: 'Principal', menu: 'Menú', docs: 'Documentación', roadmap: 'Hoja de ruta', features: 'Funciones', github: 'GitHub', community: 'Comunidad', feedback: 'Comentarios', changelog: 'Cambios', sponsors: 'Patrocinadores' },
 	theme: { name: 'Tema', light: 'Claro', dark: 'Oscuro', auto: 'Automático' },
 	language: { name: 'Idioma', auto: 'Automático' },
 	start: 'Empezar',
@@ -189,10 +241,18 @@ const es: UI = {
 		unavailable: ['Esta compilación no pudo leer las issues de GitHub (', '). Consúltalas en ', '.'],
 	},
 	community: { nsgo: 'El motor de UI nativa multiplataforma', telegram: 'NSGo en Telegram', awesome: 'Apps, bibliotecas y recursos' },
+	sponsors: {
+		title: 'Patrocinadores',
+		description: (name) => `Las empresas y personas cuyo patrocinio mantiene ${name} en marcha.`,
+		become: 'Patrocinar',
+		sponsor: 'Patrocinar',
+		homeText: (name) => `${name} sigue adelante gracias a estos patrocinadores.`,
+		left: (n) => (n === 1 ? 'Queda 1 lugar' : `Quedan ${n} lugares`),
+	},
 };
 
 const fr: UI = {
-	nav: { label: 'Principal', menu: 'Menu', docs: 'Documentation', roadmap: 'Feuille de route', features: 'Fonctionnalités', github: 'GitHub', community: 'Communauté', feedback: 'Retours', changelog: 'Changements' },
+	nav: { label: 'Principal', menu: 'Menu', docs: 'Documentation', roadmap: 'Feuille de route', features: 'Fonctionnalités', github: 'GitHub', community: 'Communauté', feedback: 'Retours', changelog: 'Changements', sponsors: 'Sponsors' },
 	theme: { name: 'Thème', light: 'Clair', dark: 'Sombre', auto: 'Automatique' },
 	language: { name: 'Langue', auto: 'Automatique' },
 	start: 'Commencer',
@@ -213,10 +273,18 @@ const fr: UI = {
 		unavailable: ['Cette compilation n’a pas pu lire les issues de GitHub (', '). Consultez-les sur ', '.'],
 	},
 	community: { nsgo: 'Le moteur d’UI native multiplateforme', telegram: 'NSGo sur Telegram', awesome: 'Apps, bibliothèques et ressources' },
+	sponsors: {
+		title: 'Sponsors',
+		description: (name) => `Les entreprises et les personnes dont le soutien fait avancer ${name}.`,
+		become: 'Devenir sponsor',
+		sponsor: 'Sponsoriser',
+		homeText: (name) => `${name} avance grâce à ces sponsors.`,
+		left: (n) => (n === 1 ? '1 place restante' : `${n} places restantes`),
+	},
 };
 
 const de: UI = {
-	nav: { label: 'Haupt', menu: 'Menü', docs: 'Dokumentation', roadmap: 'Roadmap', features: 'Funktionen', github: 'GitHub', community: 'Community', feedback: 'Feedback', changelog: 'Änderungen' },
+	nav: { label: 'Haupt', menu: 'Menü', docs: 'Dokumentation', roadmap: 'Roadmap', features: 'Funktionen', github: 'GitHub', community: 'Community', feedback: 'Feedback', changelog: 'Änderungen', sponsors: 'Sponsoren' },
 	theme: { name: 'Design', light: 'Hell', dark: 'Dunkel', auto: 'Automatisch' },
 	language: { name: 'Sprache', auto: 'Automatisch' },
 	start: 'Loslegen',
@@ -237,10 +305,18 @@ const de: UI = {
 		unavailable: ['Dieser Build konnte die Issues nicht von GitHub lesen (', '). Siehe ', '.'],
 	},
 	community: { nsgo: 'Die plattformübergreifende native UI-Engine', telegram: 'NSGo auf Telegram', awesome: 'Apps, Bibliotheken und Ressourcen' },
+	sponsors: {
+		title: 'Sponsoren',
+		description: (name) => `Die Unternehmen und Menschen, deren Unterstützung ${name} am Laufen hält.`,
+		become: 'Sponsor werden',
+		sponsor: 'Sponsern',
+		homeText: (name) => `${name} wird von diesen Sponsoren getragen.`,
+		left: (n) => (n === 1 ? '1 Platz frei' : `${n} Plätze frei`),
+	},
 };
 
 const pt: UI = {
-	nav: { label: 'Principal', menu: 'Menu', docs: 'Documentação', roadmap: 'Roteiro', features: 'Recursos', github: 'GitHub', community: 'Comunidade', feedback: 'Feedback', changelog: 'Alterações' },
+	nav: { label: 'Principal', menu: 'Menu', docs: 'Documentação', roadmap: 'Roteiro', features: 'Recursos', github: 'GitHub', community: 'Comunidade', feedback: 'Feedback', changelog: 'Alterações', sponsors: 'Patrocinadores' },
 	theme: { name: 'Tema', light: 'Claro', dark: 'Escuro', auto: 'Automático' },
 	language: { name: 'Idioma', auto: 'Automático' },
 	start: 'Começar',
@@ -261,10 +337,18 @@ const pt: UI = {
 		unavailable: ['Esta compilação não conseguiu ler as issues do GitHub (', '). Veja-as em ', '.'],
 	},
 	community: { nsgo: 'O motor de UI nativa multiplataforma', telegram: 'NSGo no Telegram', awesome: 'Apps, bibliotecas e recursos' },
+	sponsors: {
+		title: 'Patrocinadores',
+		description: (name) => `As empresas e pessoas cujo patrocínio mantém ${name} em andamento.`,
+		become: 'Patrocinar',
+		sponsor: 'Patrocinar',
+		homeText: (name) => `${name} segue em frente graças a estes patrocinadores.`,
+		left: (n) => (n === 1 ? 'Resta 1 vaga' : `Restam ${n} vagas`),
+	},
 };
 
 const ru: UI = {
-	nav: { label: 'Основное', menu: 'Меню', docs: 'Документация', roadmap: 'Дорожная карта', features: 'Возможности', github: 'GitHub', community: 'Сообщество', feedback: 'Отзывы', changelog: 'Изменения' },
+	nav: { label: 'Основное', menu: 'Меню', docs: 'Документация', roadmap: 'Дорожная карта', features: 'Возможности', github: 'GitHub', community: 'Сообщество', feedback: 'Отзывы', changelog: 'Изменения', sponsors: 'Спонсоры' },
 	theme: { name: 'Тема', light: 'Светлая', dark: 'Тёмная', auto: 'Авто' },
 	language: { name: 'Язык', auto: 'Авто' },
 	start: 'Начать',
@@ -285,10 +369,18 @@ const ru: UI = {
 		unavailable: ['Эта сборка не смогла прочитать issue с GitHub (', '). Смотрите их в ', '.'],
 	},
 	community: { nsgo: 'Кроссплатформенный нативный UI-движок', telegram: 'NSGo в Telegram', awesome: 'Приложения, библиотеки и ресурсы' },
+	sponsors: {
+		title: 'Спонсоры',
+		description: (name) => `Компании и люди, чья поддержка помогает развивать ${name}.`,
+		become: 'Стать спонсором',
+		sponsor: 'Поддержать',
+		homeText: (name) => `${name} развивается благодаря этим спонсорам.`,
+		left: (n) => `Свободно мест: ${n}`,
+	},
 };
 
 const it: UI = {
-	nav: { label: 'Principale', menu: 'Menu', docs: 'Documentazione', roadmap: 'Roadmap', features: 'Funzionalità', github: 'GitHub', community: 'Community', feedback: 'Feedback', changelog: 'Modifiche' },
+	nav: { label: 'Principale', menu: 'Menu', docs: 'Documentazione', roadmap: 'Roadmap', features: 'Funzionalità', github: 'GitHub', community: 'Community', feedback: 'Feedback', changelog: 'Modifiche', sponsors: 'Sponsor' },
 	theme: { name: 'Tema', light: 'Chiaro', dark: 'Scuro', auto: 'Automatico' },
 	language: { name: 'Lingua', auto: 'Automatica' },
 	start: 'Inizia',
@@ -309,10 +401,18 @@ const it: UI = {
 		unavailable: ['Questa build non è riuscita a leggere le issue da GitHub (', '). Consultale su ', '.'],
 	},
 	community: { nsgo: 'Il motore di UI nativa multipiattaforma', telegram: 'NSGo su Telegram', awesome: 'App, librerie e risorse' },
+	sponsors: {
+		title: 'Sponsor',
+		description: (name) => `Le aziende e le persone il cui sostegno porta avanti ${name}.`,
+		become: 'Diventa sponsor',
+		sponsor: 'Sponsorizza',
+		homeText: (name) => `${name} va avanti grazie a questi sponsor.`,
+		left: (n) => (n === 1 ? 'Resta 1 posto' : `Restano ${n} posti`),
+	},
 };
 
 const vi: UI = {
-	nav: { label: 'Chính', menu: 'Menu', docs: 'Tài liệu', roadmap: 'Lộ trình', features: 'Tính năng', github: 'GitHub', community: 'Cộng đồng', feedback: 'Góp ý', changelog: 'Thay đổi' },
+	nav: { label: 'Chính', menu: 'Menu', docs: 'Tài liệu', roadmap: 'Lộ trình', features: 'Tính năng', github: 'GitHub', community: 'Cộng đồng', feedback: 'Góp ý', changelog: 'Thay đổi', sponsors: 'Nhà tài trợ' },
 	theme: { name: 'Giao diện', light: 'Sáng', dark: 'Tối', auto: 'Tự động' },
 	language: { name: 'Ngôn ngữ', auto: 'Tự động' },
 	start: 'Bắt đầu',
@@ -333,10 +433,18 @@ const vi: UI = {
 		unavailable: ['Bản dựng này không đọc được issue từ GitHub (', '). Xem tại ', '.'],
 	},
 	community: { nsgo: 'Engine UI gốc đa nền tảng', telegram: 'NSGo trên Telegram', awesome: 'Ứng dụng, thư viện và tài nguyên' },
+	sponsors: {
+		title: 'Nhà tài trợ',
+		description: (name) => `Các công ty và cá nhân có sự tài trợ giúp ${name} tiếp tục phát triển.`,
+		become: 'Trở thành nhà tài trợ',
+		sponsor: 'Tài trợ',
+		homeText: (name) => `${name} tiếp tục phát triển nhờ các nhà tài trợ này.`,
+		left: (n) => `Còn ${n} chỗ trống`,
+	},
 };
 
 const id: UI = {
-	nav: { label: 'Utama', menu: 'Menu', docs: 'Dokumentasi', roadmap: 'Peta jalan', features: 'Fitur', github: 'GitHub', community: 'Komunitas', feedback: 'Masukan', changelog: 'Perubahan' },
+	nav: { label: 'Utama', menu: 'Menu', docs: 'Dokumentasi', roadmap: 'Peta jalan', features: 'Fitur', github: 'GitHub', community: 'Komunitas', feedback: 'Masukan', changelog: 'Perubahan', sponsors: 'Sponsor' },
 	theme: { name: 'Tema', light: 'Terang', dark: 'Gelap', auto: 'Otomatis' },
 	language: { name: 'Bahasa', auto: 'Otomatis' },
 	start: 'Mulai',
@@ -357,10 +465,18 @@ const id: UI = {
 		unavailable: ['Build ini tidak dapat membaca issue dari GitHub (', '). Lihat di ', '.'],
 	},
 	community: { nsgo: 'Mesin UI native lintas platform', telegram: 'NSGo di Telegram', awesome: 'Aplikasi, pustaka, dan sumber daya' },
+	sponsors: {
+		title: 'Sponsor',
+		description: (name) => `Perusahaan dan orang-orang yang dukungannya membuat ${name} terus berjalan.`,
+		become: 'Jadi sponsor',
+		sponsor: 'Sponsori',
+		homeText: (name) => `${name} terus berjalan berkat para sponsor ini.`,
+		left: (n) => `Tersisa ${n} tempat`,
+	},
 };
 
 const tr: UI = {
-	nav: { label: 'Ana', menu: 'Menü', docs: 'Belgeler', roadmap: 'Yol haritası', features: 'Özellikler', github: 'GitHub', community: 'Topluluk', feedback: 'Geri bildirim', changelog: 'Değişiklikler' },
+	nav: { label: 'Ana', menu: 'Menü', docs: 'Belgeler', roadmap: 'Yol haritası', features: 'Özellikler', github: 'GitHub', community: 'Topluluk', feedback: 'Geri bildirim', changelog: 'Değişiklikler', sponsors: 'Sponsorlar' },
 	theme: { name: 'Tema', light: 'Açık', dark: 'Koyu', auto: 'Otomatik' },
 	language: { name: 'Dil', auto: 'Otomatik' },
 	start: 'Başlayın',
@@ -381,6 +497,14 @@ const tr: UI = {
 		unavailable: ['Bu derleme GitHub’dan issue’ları okuyamadı (', '). Şurada görün: ', '.'],
 	},
 	community: { nsgo: 'Çapraz platform yerel UI motoru', telegram: 'Telegram’da NSGo', awesome: 'Uygulamalar, kütüphaneler ve kaynaklar' },
+	sponsors: {
+		title: 'Sponsorlar',
+		description: (name) => `${name} projesini sürdüren şirketler ve kişiler.`,
+		become: 'Sponsor ol',
+		sponsor: 'Sponsor ol',
+		homeText: (name) => `${name} bu sponsorların desteğiyle sürüyor.`,
+		left: (n) => `${n} yer kaldı`,
+	},
 };
 
 export const locales = {

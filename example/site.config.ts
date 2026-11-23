@@ -21,7 +21,7 @@ export default defineSite({
 	// The docs here are samples, not the repository's.
 	editLink: false,
 	// The package's links, with the project's own demo page among them.
-	nav: ['features', 'docs', { label: { en: 'Demo', zh: '演示' }, href: 'demo/' }, 'roadmap', 'community', 'feedback'],
+	nav: ['features', 'docs', { label: { en: 'Demo', zh: '演示' }, href: 'demo/' }, 'roadmap', 'community', 'feedback', 'sponsors'],
 	accounts: [{ label: 'Sample Notes', note: '@sample_notes', href: 'https://x.com/sample_notes', icon: 'x.com' }],
 	community: [
 		{ label: 'NSGo', note: { en: 'The UI engine Sample Notes is built on', zh: '示例笔记所用的 UI 引擎' }, href: 'https://nsgo.dev', icon: 'nsgo' },
@@ -36,6 +36,91 @@ export default defineSite({
 		],
 	},
 	roadmap: { tracking: 1 },
+	// Made-up sponsors in every layout; their links go to example.com.
+	sponsors: {
+		// NSGo's own people, whom readers sponsor through GitHub Sponsors.
+		maintainers: [
+			{ name: 'ONEO', login: 'oneo-me', avatar: './src/assets/sponsors/oneo-me.jpg', text: { en: 'Founder, building NSGo since its first line of code', zh: '创始人，从第一行代码开始打造 NSGo' } },
+			{ name: '小莫', login: 'houko', avatar: './src/assets/sponsors/houko.png', text: { en: 'Core driver, taking NSGo into its fastest growth', zh: '核心推动者，带 NSGo 进入高速发展' } },
+		],
+		// The project's own tiers, in order, each with its own title; gold
+		// also shows on the home page, with ten places.
+		tiers: [
+			{
+				title: { en: 'Gold sponsors', zh: '金牌赞助商' },
+				layout: 'featured',
+				home: true,
+				places: 10,
+				sponsors: [
+					{
+						name: 'Northwind',
+						href: 'https://example.com',
+						image: './src/assets/sponsors/northwind.svg',
+						imageDark: './src/assets/sponsors/northwind-dark.svg',
+						text: { en: 'Cloud folders for teams', zh: '团队云文件夹' },
+					},
+					{ name: 'Lumen Labs', href: 'https://example.com', image: './src/assets/sponsors/lumen.svg', text: { en: 'Fonts for small screens', zh: '为小屏幕设计的字体' } },
+				],
+			},
+			{
+				title: { en: 'Silver sponsors', zh: '银牌赞助商' },
+				layout: 'large',
+				sponsors: [
+					{ name: 'Orbit', href: 'https://example.com', image: './src/assets/sponsors/orbit.svg' },
+					{ name: 'Kestrel', href: 'https://example.com', image: './src/assets/sponsors/kestrel.svg' },
+					{ name: 'Fernway', href: 'https://example.com', image: './src/assets/sponsors/fernway.svg' },
+					{ name: 'Quarry', href: 'https://example.com', image: './src/assets/sponsors/quarry.svg' },
+				],
+			},
+			{
+				title: { en: 'Bronze sponsors', zh: '铜牌赞助商' },
+				layout: 'small',
+				sponsors: [
+					{ name: 'Tidewater', href: 'https://example.com', image: './src/assets/sponsors/tidewater.svg' },
+					{ name: 'Brightloop', href: 'https://example.com', image: './src/assets/sponsors/brightloop.svg' },
+					{ name: 'Cobalt', href: 'https://example.com', image: './src/assets/sponsors/cobalt.svg' },
+					{ name: 'Mapleforge', href: 'https://example.com', image: './src/assets/sponsors/mapleforge.svg' },
+					{ name: 'Sundial', href: 'https://example.com', image: './src/assets/sponsors/sundial.svg' },
+					{ name: 'Pillar', image: './src/assets/sponsors/pillar.svg' },
+				],
+			},
+			{
+				title: { en: 'In-kind sponsors', zh: '服务赞助商' },
+				layout: 'service',
+				sponsors: [
+					{ name: 'Relay CI', href: 'https://example.com', image: './src/assets/sponsors/relay.svg', text: { en: 'Build machines for CI', zh: '为 CI 提供构建机器' } },
+					{ name: 'Harbor', href: 'https://example.com', image: './src/assets/sponsors/harbor.svg', text: { en: 'Hosting for downloads', zh: '托管下载文件' } },
+				],
+			},
+			{
+				title: { en: 'Backers', zh: '个人赞助者' },
+				layout: 'avatar',
+				sponsors: [
+					{ name: 'Alex Chen', href: 'https://example.com', image: './src/assets/sponsors/avatar-alex.svg' },
+					{ name: 'Mira Patel', href: 'https://example.com', image: './src/assets/sponsors/avatar-mira.svg' },
+					{ name: 'Jonas Berg', href: 'https://example.com', image: './src/assets/sponsors/avatar-jonas.svg' },
+					{ name: 'Sofia Rossi', image: './src/assets/sponsors/avatar-sofia.svg' },
+					{ name: 'Kenji Sato', href: 'https://example.com', image: './src/assets/sponsors/avatar-kenji.svg' },
+					{ name: 'Lena Novak', image: './src/assets/sponsors/avatar-lena.svg' },
+					{ name: 'Diego Ruiz', href: 'https://example.com', image: './src/assets/sponsors/avatar-diego.svg' },
+					{ name: 'Ava Kim', image: './src/assets/sponsors/avatar-ava.svg' },
+				],
+			},
+			{
+				title: { en: 'Supporters', zh: '支持者' },
+				layout: 'name',
+				sponsors: [
+					{ name: 'Priya Nair', href: 'https://example.com' },
+					{ name: 'Tom Walsh' },
+					{ name: 'Yuki Mori' },
+					{ name: 'Omar Haddad', href: 'https://example.com' },
+					{ name: 'Clara Weiss' },
+					{ name: 'Lucas Martin' },
+					{ name: 'Hana Park' },
+				],
+			},
+		],
+	},
 	// This repository's own license, which is not the default MIT.
 	footer: { license: { label: { en: 'All rights reserved', zh: '保留所有权利' }, href: `${repo}/blob/main/LICENSE` } },
 	share: {

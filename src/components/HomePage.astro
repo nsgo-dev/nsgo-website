@@ -1,6 +1,7 @@
 ---
 // The home page from the home setting: the hero with the project's visual,
-// then its sections in order. A project's own home page may render this
+// then its sections in order, with the sponsors' home tiers before the
+// closing card. A project's own home page may render this
 // with other content, or compose the sections itself.
 import { components } from 'virtual:nsgo-website/assets';
 import '../styles/home.css';
@@ -13,6 +14,7 @@ import Features from './home/Features.astro';
 import Cards from './home/Cards.astro';
 import Split from './home/Split.astro';
 import End from './home/End.astro';
+import SponsorTier from './sponsors/Tier.astro';
 
 interface Props {
 	lang: Lang;
@@ -24,6 +26,10 @@ const s = site[lang];
 const home = Astro.props.home ?? s.home;
 if (!home) throw new Error('nsgo-website: HomePage needs the home setting or a home prop');
 const Visual = home.visual ? components[home.visual] : undefined;
+// The home tiers go before the closing card, or last without one.
+const end = home.sections.findIndex((section) => section.type === 'end');
+const sponsorsAt = end === -1 ? home.sections.length : end;
+const homeTiers = s.sponsors ? s.sponsors.home : [];
 ---
 
 <Page lang={lang} title={s.title} description={s.description}>
@@ -43,13 +49,24 @@ const Visual = home.visual ? components[home.visual] : undefined;
 						return <Split {...section}>{Component && <Component lang={lang} />}</Split>;
 					}
 					case 'end':
-						return <End lang={lang} {...section} />;
+						return (
+							<>
+								{homeTiers.map((tier, n) => (
+									<SponsorTier lang={lang} tier={tier} text={n === 0 ? s.t.sponsors.homeText(s.name) : undefined} />
+								))}
+								<End lang={lang} {...section} />
+							</>
+						);
 					case 'component': {
 						const Component = components[section.component];
 						return <Component lang={lang} />;
 					}
 				}
 			})
+		}
+		{
+			sponsorsAt === home.sections.length &&
+				homeTiers.map((tier, n) => <SponsorTier lang={lang} tier={tier} text={n === 0 ? s.t.sponsors.homeText(s.name) : undefined} />)
 		}
 	</div>
 </Page>

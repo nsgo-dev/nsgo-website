@@ -124,6 +124,10 @@ body {
 	background-color: var(--surface);
 	color: var(--text);
 }
+/* The sponsors page's link leads with its heart. */
+.nav > a.nav-sponsors {
+	gap: 0.375rem;
+}
 .actions {
 	display: flex;
 	align-items: center;
@@ -694,6 +698,9 @@ body:has(.menu-pane:popover-open) {
 }
 .footer-links .external {
 	color: var(--faint);
+}
+.footer-links .footer-sponsors {
+	gap: 0.375rem;
 }
 
 /* Kubai icons keep their size inline. */

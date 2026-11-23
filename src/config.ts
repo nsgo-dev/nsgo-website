@@ -30,8 +30,8 @@ export interface Link {
 	avatar?: string;
 }
 
-/** The header's own links: the home page's #features, the docs, the roadmap, the community menu and feedback. */
-export type BuiltinNav = 'features' | 'docs' | 'roadmap' | 'community' | 'feedback';
+/** The header's own links: the home page's #features, the docs, the roadmap, the community menu, feedback and the sponsors page. */
+export type BuiltinNav = 'features' | 'docs' | 'roadmap' | 'community' | 'feedback' | 'sponsors';
 
 /** A link of the header's navigation, a menu of links when it has links, or one of the package's own by name. */
 export type NavItem = BuiltinNav | { label: Text; href: Text } | { label: Text; links: Link[] };
@@ -169,9 +169,78 @@ export interface ShareOptions {
 	css?: string;
 }
 
+/** A sponsor of the project, as its tier shows it. */
+export interface Sponsor {
+	name: string;
+	/** Where the sponsor's logo, avatar or name links to. */
+	href?: string;
+	/** An image file from the site's root: a logo, or a person's avatar; the name tier shows none. */
+	image?: string;
+	/** The logo on the dark theme, for one that would not show on a dark background. */
+	imageDark?: string;
+	/** A line under a featured sponsor's logo, or what a service sponsor gives. */
+	text?: Text;
+}
+
+/**
+ * A tier of the sponsors page: its title, as the project's own tiers name
+ * it, and how its sponsors show. featured is a card of a logo and a line,
+ * large and small are logos, service a logo with what the sponsor gives
+ * instead of money, avatar a person's picture over their name and name the
+ * name alone.
+ */
+export interface SponsorTier {
+	title: Text;
+	layout: 'featured' | 'large' | 'small' | 'service' | 'avatar' | 'name';
+	/** Whether the home page shows the tier too, before its closing card. */
+	home?: boolean;
+	/**
+	 * The places the tier offers. Its empty places show as one invitation;
+	 * sponsors beyond them still show, and the build warns, as a tier's
+	 * places are kept by the sponsors already in it.
+	 */
+	places?: number;
+	sponsors: Sponsor[];
+}
+
+/** A person readers sponsor, as GitHub Sponsors shows them. */
+export interface Maintainer {
+	name: string;
+	/** Their GitHub login, shown under the name. */
+	login: string;
+	/** An image file from the site's root. */
+	avatar: string;
+	/** What they do for the project. */
+	text?: Text;
+	/** Where they are sponsored; defaults to their GitHub Sponsors. */
+	href?: string;
+}
+
+/**
+ * The sponsors page, its links in the header's navigation and the
+ * footer's corner, and its home tiers on the home page. A tier shows when it has sponsors or empty
+ * places.
+ */
+export interface SponsorsOptions {
+	/**
+	 * Where readers sponsor the project; defaults to the repository owner's
+	 * GitHub Sponsors. Unused with maintainers.
+	 */
+	href?: string;
+	/**
+	 * The people readers sponsor, as cards atop the page in place of its
+	 * button; invitations to empty places then lead to them.
+	 */
+	maintainers?: Maintainer[];
+	/** The words under the page's title. */
+	description?: Text;
+	/** In the order the page shows them. */
+	tiers: SponsorTier[];
+}
+
 /** Words of the site's frame, to change from the package's own. */
 export interface Strings {
-	nav?: Partial<Record<'label' | 'menu' | 'docs' | 'roadmap' | 'features' | 'github' | 'community' | 'feedback' | 'changelog', string>>;
+	nav?: Partial<Record<'label' | 'menu' | 'docs' | 'roadmap' | 'features' | 'github' | 'community' | 'feedback' | 'changelog' | 'sponsors', string>>;
 	theme?: Partial<Record<'name' | 'light' | 'dark' | 'auto', string>>;
 	language?: Partial<Record<'name' | 'auto', string>>;
 	start?: string;
@@ -223,6 +292,8 @@ export interface SiteOptions {
 	home: Localized<HomeContent> | false;
 	/** The roadmap page from the tracking issue's sub-issues; none without, or when GitHub cannot find the issue. */
 	roadmap?: RoadmapOptions | false;
+	/** The sponsors page and its tiers on the home page; none without. */
+	sponsors?: SponsorsOptions | false;
 	footer?: FooterOptions;
 	share?: ShareOptions;
 	strings?: Localized<Strings>;

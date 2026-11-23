@@ -1,0 +1,65 @@
+---
+// The sponsors page: an invitation to sponsor, as the maintainers' cards
+// when there are any and a button otherwise, then the project's own tiers in
+// order.
+import '../styles/home.css';
+import '../styles/sponsors.css';
+import type { Lang } from '../config';
+import { Image } from 'astro:assets';
+import { images } from 'virtual:nsgo-website/assets';
+import { site } from '../site';
+import KIcon from './KIcon.astro';
+import Page from './Page.astro';
+import ActionButton from './home/ActionButton.astro';
+import SponsorTier from './sponsors/Tier.astro';
+
+interface Props {
+	lang: Lang;
+}
+const { lang } = Astro.props;
+const s = site[lang];
+if (!s.sponsors) throw new Error('nsgo-website: SponsorsPage needs the sponsors setting');
+const { href, description, maintainers, tiers } = s.sponsors;
+const ext = { target: '_blank', rel: 'noopener noreferrer' };
+const t = s.t.sponsors;
+---
+
+<Page lang={lang} title={t.title} description={description}>
+	<div class="home sponsors">
+		<header class="sponsors-hero container" data-kubai-trigger>
+			<span class="sponsors-mark rise" style="--i: 0">
+				<KIcon name="heart" size={32} color="#ec4899" />
+			</span>
+			<h1 id="_top" class="rise" style="--i: 0">{t.title}</h1>
+			<p class="lead rise" style="--i: 1">{description}</p>
+			{
+				maintainers.length > 0 ? (
+					<ul id="become" class="maintainers rise" style="--i: 2">
+						{maintainers.map((m) => (
+							<li class="maintainer">
+								<div class="maintainer-who">
+									<Image class="maintainer-avatar" src={images[m.avatar]} alt="" width={56} height={56} densities={[1, 2]} />
+									<div>
+										<p class="maintainer-name">{m.name}</p>
+										<p class="maintainer-login">{m.login}</p>
+									</div>
+								</div>
+								{m.text && <p class="maintainer-text">{m.text}</p>}
+								<a class="button secondary maintainer-button" href={m.href} {...ext} data-kubai-trigger>
+									<KIcon name="heart" size={18} color="#ec4899" />
+									{t.sponsor}
+								</a>
+							</li>
+						))}
+					</ul>
+				) : (
+					<div class="cta center rise" style="--i: 2">
+						<ActionButton lang={lang} action={{ label: t.become, href }} index={0} />
+					</div>
+				)
+			}
+		</header>
+
+		{tiers.map((tier) => <SponsorTier lang={lang} tier={tier} />)}
+	</div>
+</Page>

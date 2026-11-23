@@ -1,6 +1,6 @@
 # NSGo Website architecture
 
-An Astro integration that turns a project's settings into its whole site. It sets up Starlight with the package's own header, footer and page frame, injects the home and roadmap pages, and hands the settings to every page through virtual modules. The project keeps only its settings, its docs and whatever pages or components it wants of its own.
+An Astro integration that turns a project's settings into its whole site. It sets up Starlight with the package's own header, footer and page frame, injects the home, roadmap and sponsors pages, and hands the settings to every page through virtual modules. The project keeps only its settings, its docs and whatever pages or components it wants of its own.
 
 ## Code map
 
@@ -27,7 +27,7 @@ An Astro integration that turns a project's settings into its whole site. It set
 
 ## Core flows
 
-**Build.** `astro:config:setup` adds Starlight with the overrides, registers the Vite plugin that serves the virtual modules and injects the home and roadmap pages once per language when those settings exist; each page tells its language by its path. Pages call `site[lang]` for their content.
+**Build.** `astro:config:setup` adds Starlight with the overrides, registers the Vite plugin that serves the virtual modules and injects the home, roadmap and sponsors pages once per language when those settings exist; each page tells its language by its path. Pages call `site[lang]` for their content.
 
 **Roadmap.** The roadmap page reads the tracking issue's sub-issues once per build through GitHub's GraphQL API. Without a token a local build shows a notice, while a build under `CI` fails rather than publish an empty roadmap. A tracking issue GitHub cannot find leaves the roadmap out instead: the integration checks it before injecting routes and drops the page and its links.
 

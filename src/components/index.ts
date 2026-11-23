@@ -4,6 +4,8 @@
 export { default as Page } from './Page.astro';
 export { default as HomePage } from './HomePage.astro';
 export { default as RoadmapPage } from './RoadmapPage.astro';
+export { default as SponsorsPage } from './SponsorsPage.astro';
+export { default as SponsorTier } from './sponsors/Tier.astro';
 export { default as Hero } from './home/Hero.astro';
 export { default as Features } from './home/Features.astro';
 export { default as Cards } from './home/Cards.astro';

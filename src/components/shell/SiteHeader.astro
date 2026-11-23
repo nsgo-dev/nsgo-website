@@ -47,6 +47,11 @@ const colors = { languages: '#8b5cf6', globe: '#14b8a6', sun: '#f59e0b', moon: '
 			s.nav.map((item) =>
 				item.links ? (
 					<NavMenu label={item.label} links={item.links} />
+				) : s.sponsors && item.href === s.paths.sponsors ? (
+					<a class="nav-sponsors" href={item.href} aria-current={current(item.href) ? 'page' : undefined} data-kubai-trigger>
+						<KIcon name="heart" size={15} color="#ec4899" />
+						{item.label}
+					</a>
 				) : item.external ? (
 					<a href={item.href} target="_blank" rel="noopener noreferrer">
 						{item.label}

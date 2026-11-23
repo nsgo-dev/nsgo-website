@@ -64,6 +64,8 @@ export const collections = { docs: docsCollection() };
 
 `languages` 选择站点的语言，不设时是英文和中文。可选 en、zh、zh-tw、ja、ko、es、fr、de、pt、ru、it、vi、id 和 tr，包里已备好这些语言的页头、页脚和路线图文字。第一种语言放在根路径，其他语言放在各自代码下。任何文字、列表或分区都可以是所有语言共用的一个值，也可以按语言分别写，如 `{ en, zh }`；没写到的语言用第一种语言的值。文档是按语言代码分文件夹的 Markdown，默认在 `../docs/public` 下。每项设置的说明见 [`src/config.ts`](src/config.ts)。
 
+`sponsors` 会加上赞助页，入口在页头导航的最后一项（`nav` 可调整位置）和页脚最右端。档位由项目自己定义，每档写标题和显示方式：`featured` 卡片，大号或小号 Logo，`service` 是 Logo 加一句它用什么代替出钱（如 CI），以及 `avatar` 头像或 `name` 名称。`maintainers` 在页面顶部用卡片展示可赞助的人，和 GitHub Sponsors 一样。`home` 让这一档也上首页，`places` 为空位邀请赞助；名额满了仍保留已有赞助商、全部显示，只在构建时警告。
+
 页脚链接项目的许可证，没用 `footer.license` 指定别的时显示 MIT。替项目搭站点的 Agent 必须在这里写项目自己仓库里的许可证，不能用项目没有采用的许可证。
 
 设置之外还想改的：

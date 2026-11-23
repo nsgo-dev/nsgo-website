@@ -65,7 +65,8 @@ describe('resolveSite', () => {
 			{ label: '入门指南', href: 'docs/' },
 			{ label: 'GitHub', href: 'https://github.com/owner/demo', icon: 'github' },
 		]);
-		expect(s.paths).toEqual({ home: '/demo/zh/', docs: '/demo/zh/docs/', roadmap: '/demo/zh/roadmap/' });
+		expect(s.paths).toEqual({ home: '/demo/zh/', docs: '/demo/zh/docs/', roadmap: '/demo/zh/roadmap/', sponsors: '/demo/zh/sponsors/' });
+		expect(s.sponsors).toBe(false);
 	});
 	test('leaves out what is turned off', () => {
 		const s = resolveSite({ ...options, home: false, roadmap: false, feedback: false, community: false, footer: { license: false } }, 'en', '/');
@@ -112,6 +113,40 @@ test('assetsOf lists the files and icons the settings name', () => {
 	expect(a.images).toEqual(['./logo.png', './end.svg']);
 	expect(a.icons).toContain('film');
 	expect(a.icons).toContain('sun');
+});
+
+test('sponsors keep the tiers with sponsors or places, and every sponsor past the places', () => {
+	const sponsors = {
+		tiers: [
+			{ title: { en: 'Gold', zh: '金牌' }, layout: 'featured' as const, home: true, places: 2, sponsors: [1, 2, 3].map((n) => ({ name: `G${n}`, text: { en: 'Line', zh: '一句' } })) },
+			{ title: 'Silver', layout: 'small' as const, places: 4, sponsors: [{ name: 'S', image: './s.svg', imageDark: './s-dark.svg' }] },
+			{ title: 'Open', layout: 'large' as const, places: 3, sponsors: [] },
+			{ title: 'Empty', layout: 'large' as const, sponsors: [] },
+			{ title: 'Names', layout: 'name' as const, sponsors: [{ name: 'N', image: './unused.svg' }] },
+		],
+	};
+	const s = resolveSite({ ...options, sponsors }, 'zh', '/demo/');
+	if (!s.sponsors) throw new Error('no sponsors');
+	expect(s.sponsors.href).toBe('https://github.com/sponsors/owner');
+	expect(s.sponsors.invite).toBe('https://github.com/sponsors/owner');
+	const withPeople = resolveSite({ ...options, sponsors: { ...sponsors, maintainers: [{ name: 'A', login: 'a', avatar: './a.png', text: { en: 'Lead', zh: '负责人' } }] } }, 'zh', '/demo/');
+	expect(withPeople.sponsors && withPeople.sponsors.maintainers).toEqual([{ name: 'A', login: 'a', avatar: './a.png', text: '负责人', href: 'https://github.com/sponsors/a' }]);
+	expect(withPeople.sponsors && withPeople.sponsors.invite).toBe('/demo/zh/sponsors/#become');
+	expect(assetsOf({ ...options, sponsors: { ...sponsors, maintainers: [{ name: 'A', login: 'a', avatar: './a.png' }] } }).images).toContain('./a.png');
+	expect(s.sponsors.tiers.map((t) => [t.title, t.sponsors.length, t.left])).toEqual([
+		['金牌', 3, 0],
+		['Silver', 1, 3],
+		['Open', 0, 3],
+		['Names', 1, 0],
+	]);
+	expect(s.sponsors.tiers[0].sponsors[0].text).toBe('一句');
+	expect(s.sponsors.home.map((t) => t.title)).toEqual(['金牌']);
+	expect(s.nav.map((n) => n.label).at(-1)).toBe('赞助');
+	expect(s.footer.sponsors).toMatchObject({ label: '赞助', href: '/demo/zh/sponsors/' });
+	const a = assetsOf({ ...options, sponsors });
+	expect(a.images).toContain('./s-dark.svg');
+	expect(a.images).not.toContain('./unused.svg');
+	expect(a.icons).toContain('heart');
 });
 
 test('repoOf reads a GitHub address', () => {

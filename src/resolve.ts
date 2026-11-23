@@ -1,7 +1,7 @@
 // The settings for one language, with every default filled in: what the
 // pages render. Pure, so the integration, the pages and the share-cards
 // command share it.
-import type { Action, BuiltinNav, HomeContent, Item, Lang, Link, Localized, NavItem, Section, SidebarItem, SiteOptions, Strings } from './config';
+import type { Action, BuiltinNav, HomeContent, Item, Lang, Link, Localized, Maintainer, NavItem, Section, SidebarItem, SiteOptions, Sponsor, SponsorTier, Strings } from './config';
 import { isLang, locales, nsgoCommunity, type UI } from './locales';
 
 /** The site's languages, its first served at the root; English and Chinese unless set. */
@@ -90,6 +90,29 @@ export interface ResolvedRoadmap {
 	description: string;
 }
 
+export type ResolvedSponsor = Unlocalized<Sponsor>;
+
+export interface ResolvedSponsors {
+	/** Where readers sponsor the project, without maintainers. */
+	href: string;
+	maintainers: (Unlocalized<Maintainer> & { href: string })[];
+	/** Where invitations to empty places lead: the maintainers' cards, or href. */
+	invite: string;
+	description: string;
+	/** Only those with sponsors or empty places. */
+	tiers: ResolvedTier[];
+	/** Those the home page shows. */
+	home: ResolvedTier[];
+}
+
+export interface ResolvedTier {
+	title: string;
+	layout: SponsorTier['layout'];
+	sponsors: ResolvedSponsor[];
+	/** Its empty places. */
+	left: number;
+}
+
 /** The owner and name of a GitHub repository's address. */
 export function repoOf(url: string): { owner: string; name: string } {
 	const m = url.match(/github\.com\/([^/]+)\/([^/#?]+)/);
@@ -152,6 +175,25 @@ export function resolveSite(options: SiteOptions, lang: Lang, base: string) {
 		};
 	})();
 
+	const sponsors: ResolvedSponsors | false = (() => {
+		if (!options.sponsors) return false;
+		const o = options.sponsors;
+		const list = (l: Sponsor[]) => l.map((x) => loc(x) as ResolvedSponsor);
+		const left = (tier: SponsorTier) => Math.max(0, (tier.places ?? 0) - tier.sponsors.length);
+		const shown = o.tiers.filter((tier) => tier.sponsors.length || left(tier));
+		const tiers: ResolvedTier[] = shown.map((tier) => ({ title: loc(tier.title), layout: tier.layout, sponsors: list(tier.sponsors), left: left(tier) }));
+		const href = o.href ?? `https://github.com/sponsors/${repoOf(repo).owner}`;
+		const maintainers = (o.maintainers ?? []).map((m) => ({ ...(loc(m) as Unlocalized<Maintainer>), href: m.href ?? `https://github.com/sponsors/${m.login}` }));
+		return {
+			href,
+			maintainers,
+			invite: maintainers.length ? resolveHref('sponsors/#become', lang, first, base).href : href,
+			description: o.description ? loc(o.description) : t.sponsors.description(options.name),
+			tiers,
+			home: tiers.filter((_, i) => shown[i].home),
+		};
+	})();
+
 	const community = (options.community === false ? [] : (options.community ?? nsgoCommunity(t))).map(link);
 	const accounts = (options.accounts ?? []).map(link);
 
@@ -163,6 +205,7 @@ export function resolveSite(options: SiteOptions, lang: Lang, base: string) {
 		roadmap: roadmap ? [link({ label: t.nav.roadmap, href: 'roadmap/' })] : [],
 		community: community.length ? [{ label: t.nav.community, links: community }] : [],
 		feedback: feedback ? [link({ label: t.nav.feedback, href: feedback })] : [],
+		sponsors: sponsors ? [link({ label: t.nav.sponsors, href: 'sponsors/' })] : [],
 	};
 	const nav: ResolvedNav[] = (options.nav ?? (Object.keys(builtin) as BuiltinNav[])).flatMap((n: NavItem): ResolvedNav[] =>
 		typeof n === 'string' ? builtin[n] : 'links' in n ? [{ label: loc(n.label), links: n.links.map(link) }] : [link({ label: n.label, href: n.href })],
@@ -186,6 +229,8 @@ export function resolveSite(options: SiteOptions, lang: Lang, base: string) {
 				{ label: 'GitHub', href: repo },
 			]
 		).map(link),
+		/** At the end of the row, after the links, whatever they are. */
+		sponsors: sponsors ? link({ label: t.nav.sponsors, href: 'sponsors/' }) : undefined,
 	};
 
 	const root = base.replace(/\/$/, '');
@@ -210,12 +255,14 @@ export function resolveSite(options: SiteOptions, lang: Lang, base: string) {
 		accounts,
 		home,
 		roadmap,
+		sponsors,
 		footer,
 		share: { cards: options.share?.cards ?? true },
 		paths: {
 			home: `${root}/${pagePath('', lang, first)}`,
 			docs: `${root}/${pagePath('docs/', lang, first)}`,
 			roadmap: `${root}/${pagePath('roadmap/', lang, first)}`,
+			sponsors: `${root}/${pagePath('sponsors/', lang, first)}`,
 		},
 	};
 }
@@ -246,6 +293,11 @@ export function assetsOf(options: SiteOptions): { components: string[]; images: 
 	const links: Link[] = [...(options.accounts ?? []), ...(options.community || [])];
 	for (const n of options.nav ?? []) if (typeof n !== 'string' && 'links' in n) links.push(...n.links);
 	for (const l of links) if (l.avatar) images.add(l.avatar);
+	if (options.sponsors) {
+		icons.add('heart');
+		const shown = [...(options.sponsors.maintainers ?? []).map((m) => ({ image: m.avatar })), ...options.sponsors.tiers.flatMap((tier) => (tier.layout === 'name' ? [] : tier.sponsors))];
+		for (const s of shown as { image?: string; imageDark?: string }[]) for (const m of [s.image, s.imageDark]) if (m) images.add(m);
+	}
 	for (const lang of languagesOf(options)) {
 		if (!options.home) break;
 		const h = localize(options.home, lang, languagesOf(options)[0]) as Unlocalized<HomeContent>;
