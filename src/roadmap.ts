@@ -99,7 +99,7 @@ interface GqlStage extends GqlIssue {
 }
 
 // The token GitHub's API takes: the workflow's, or the GitHub CLI's locally.
-function token(): string | undefined {
+export function token(): string | undefined {
 	const env = process.env.GITHUB_TOKEN ?? process.env.GH_TOKEN;
 	if (env) return env;
 	try {
