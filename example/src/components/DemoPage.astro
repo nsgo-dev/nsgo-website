@@ -36,7 +36,7 @@ const t = words[lang as keyof typeof words] ?? words.en;
 			lang={lang}
 			headline={t.headline}
 			lead={t.lead}
-			actions={[{ label: t.source, href: 'https://github.com/nsgo-dev/sample-notes/tree/main/examples/demo', icon: 'github' }]}
+			actions={[{ label: t.source, href: 'https://github.com/nsgo-dev/nsgo-website/blob/main/example/src/components/DemoPage.astro', icon: 'github' }]}
 		/>
 		<Split title={t.run} text={t.runText} code={{ lang: 'sh', code: 'go tool nsgo dev examples/demo' }} />
 	</div>

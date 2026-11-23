@@ -52,7 +52,7 @@ const en: UI = {
 	theme: { name: 'Theme', light: 'Light', dark: 'Dark', auto: 'Auto' },
 	language: { name: 'Language', auto: 'Auto' },
 	start: 'Get started',
-	license: 'MIT License',
+	license: 'MIT',
 	other: 'Other',
 	roadmap: {
 		title: 'Roadmap',
@@ -76,7 +76,7 @@ const zh: UI = {
 	theme: { name: '主题', light: '浅色', dark: '深色', auto: '自动' },
 	language: { name: '语言', auto: '自动' },
 	start: '入门指南',
-	license: 'MIT 许可证',
+	license: 'MIT',
 	other: '其他',
 	roadmap: {
 		title: '路线图',
@@ -100,7 +100,7 @@ const zhTW: UI = {
 	theme: { name: '主題', light: '淺色', dark: '深色', auto: '自動' },
 	language: { name: '語言', auto: '自動' },
 	start: '入門指南',
-	license: 'MIT 授權條款',
+	license: 'MIT',
 	other: '其他',
 	roadmap: {
 		title: '路線圖',
@@ -124,7 +124,7 @@ const ja: UI = {
 	theme: { name: 'テーマ', light: 'ライト', dark: 'ダーク', auto: '自動' },
 	language: { name: '言語', auto: '自動' },
 	start: 'はじめる',
-	license: 'MIT ライセンス',
+	license: 'MIT',
 	other: 'その他',
 	roadmap: {
 		title: 'ロードマップ',
@@ -148,7 +148,7 @@ const ko: UI = {
 	theme: { name: '테마', light: '라이트', dark: '다크', auto: '자동' },
 	language: { name: '언어', auto: '자동' },
 	start: '시작하기',
-	license: 'MIT 라이선스',
+	license: 'MIT',
 	other: '기타',
 	roadmap: {
 		title: '로드맵',
@@ -172,7 +172,7 @@ const es: UI = {
 	theme: { name: 'Tema', light: 'Claro', dark: 'Oscuro', auto: 'Automático' },
 	language: { name: 'Idioma', auto: 'Automático' },
 	start: 'Empezar',
-	license: 'Licencia MIT',
+	license: 'MIT',
 	other: 'Otros',
 	roadmap: {
 		title: 'Hoja de ruta',
@@ -196,7 +196,7 @@ const fr: UI = {
 	theme: { name: 'Thème', light: 'Clair', dark: 'Sombre', auto: 'Automatique' },
 	language: { name: 'Langue', auto: 'Automatique' },
 	start: 'Commencer',
-	license: 'Licence MIT',
+	license: 'MIT',
 	other: 'Autres',
 	roadmap: {
 		title: 'Feuille de route',
@@ -220,7 +220,7 @@ const de: UI = {
 	theme: { name: 'Design', light: 'Hell', dark: 'Dunkel', auto: 'Automatisch' },
 	language: { name: 'Sprache', auto: 'Automatisch' },
 	start: 'Loslegen',
-	license: 'MIT-Lizenz',
+	license: 'MIT',
 	other: 'Sonstiges',
 	roadmap: {
 		title: 'Roadmap',
@@ -244,7 +244,7 @@ const pt: UI = {
 	theme: { name: 'Tema', light: 'Claro', dark: 'Escuro', auto: 'Automático' },
 	language: { name: 'Idioma', auto: 'Automático' },
 	start: 'Começar',
-	license: 'Licença MIT',
+	license: 'MIT',
 	other: 'Outros',
 	roadmap: {
 		title: 'Roteiro',
@@ -268,7 +268,7 @@ const ru: UI = {
 	theme: { name: 'Тема', light: 'Светлая', dark: 'Тёмная', auto: 'Авто' },
 	language: { name: 'Язык', auto: 'Авто' },
 	start: 'Начать',
-	license: 'Лицензия MIT',
+	license: 'MIT',
 	other: 'Другое',
 	roadmap: {
 		title: 'Дорожная карта',
@@ -292,7 +292,7 @@ const it: UI = {
 	theme: { name: 'Tema', light: 'Chiaro', dark: 'Scuro', auto: 'Automatico' },
 	language: { name: 'Lingua', auto: 'Automatica' },
 	start: 'Inizia',
-	license: 'Licenza MIT',
+	license: 'MIT',
 	other: 'Altro',
 	roadmap: {
 		title: 'Roadmap',
@@ -316,7 +316,7 @@ const vi: UI = {
 	theme: { name: 'Giao diện', light: 'Sáng', dark: 'Tối', auto: 'Tự động' },
 	language: { name: 'Ngôn ngữ', auto: 'Tự động' },
 	start: 'Bắt đầu',
-	license: 'Giấy phép MIT',
+	license: 'MIT',
 	other: 'Khác',
 	roadmap: {
 		title: 'Lộ trình',
@@ -340,7 +340,7 @@ const id: UI = {
 	theme: { name: 'Tema', light: 'Terang', dark: 'Gelap', auto: 'Otomatis' },
 	language: { name: 'Bahasa', auto: 'Otomatis' },
 	start: 'Mulai',
-	license: 'Lisensi MIT',
+	license: 'MIT',
 	other: 'Lainnya',
 	roadmap: {
 		title: 'Peta jalan',
@@ -364,7 +364,7 @@ const tr: UI = {
 	theme: { name: 'Tema', light: 'Açık', dark: 'Koyu', auto: 'Otomatik' },
 	language: { name: 'Dil', auto: 'Otomatik' },
 	start: 'Başlayın',
-	license: 'MIT Lisansı',
+	license: 'MIT',
 	other: 'Diğer',
 	roadmap: {
 		title: 'Yol haritası',

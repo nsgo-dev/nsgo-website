@@ -57,7 +57,7 @@ describe('resolveSite', () => {
 		expect(s.feedback).toBe('https://github.com/owner/demo/issues');
 		expect(s.nav.map((n) => n.label)).toEqual(['功能', '文档', '路线图', '社区', '反馈']);
 		expect(s.nav[0]).toMatchObject({ href: '/demo/zh/#features', external: false });
-		expect(s.footer.license).toEqual({ label: 'MIT 许可证', href: 'https://github.com/owner/demo/blob/main/LICENSE' });
+		expect(s.footer.license).toEqual({ label: 'MIT', href: 'https://github.com/owner/demo/blob/main/LICENSE' });
 		expect(s.footer.links.map((l) => l.href)).toContain('/demo/zh/roadmap/');
 		expect(s.roadmap).toMatchObject({ owner: 'owner', name: 'demo', ref: 'demo#2', url: 'https://github.com/owner/demo/issues/2' });
 		expect(s.home && s.home.headline).toEqual(['一', '二']);

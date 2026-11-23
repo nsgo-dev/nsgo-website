@@ -29,7 +29,7 @@ An Astro integration that turns a project's settings into its whole site. It set
 
 **Build.** `astro:config:setup` adds Starlight with the overrides, registers the Vite plugin that serves the virtual modules and injects the home and roadmap pages once per language when those settings exist; each page tells its language by its path. Pages call `site[lang]` for their content.
 
-**Roadmap.** The roadmap page reads the tracking issue's sub-issues once per build through GitHub's GraphQL API. Without a token a local build shows a notice, while a build under `CI` fails rather than publish an empty roadmap.
+**Roadmap.** The roadmap page reads the tracking issue's sub-issues once per build through GitHub's GraphQL API. Without a token a local build shows a notice, while a build under `CI` fails rather than publish an empty roadmap. A tracking issue GitHub cannot find leaves the roadmap out instead: the integration checks it before injecting routes and drops the page and its links.
 
 ## Verification
 

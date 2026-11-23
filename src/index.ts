@@ -8,7 +8,8 @@ import starlight from '@astrojs/starlight';
 import type { AstroIntegration } from 'astro';
 import type { SiteOptions } from './config';
 import { locales } from './locales';
-import { assetsOf, languagesOf, localize, starlightSidebar } from './resolve';
+import { loadRoadmap } from './roadmap';
+import { assetsOf, languagesOf, localize, resolveSite, starlightSidebar } from './resolve';
 
 export type * from './config';
 export { defineSite } from './config';
@@ -62,13 +63,21 @@ function settings(options: SiteOptions, root: string) {
 }
 
 /** The site of an NSGo project, from its settings. */
-export default function nsgoWebsite(options: SiteOptions): AstroIntegration {
+export default function nsgoWebsite(given: SiteOptions): AstroIntegration {
 	return {
 		name: pkg,
 		hooks: {
-			'astro:config:setup': ({ command, config, updateConfig, injectRoute }) => {
+			'astro:config:setup': async ({ command, config, updateConfig, injectRoute }) => {
 				const root = fileURLToPath(config.root);
 				const base = config.base.replace(/\/$/, '');
+				// A roadmap whose tracking issue does not exist is left out, with
+				// its page and links, as if the setting were not there.
+				let options = given;
+				const roadmap = resolveSite(options, languagesOf(options)[0], base).roadmap;
+				if (roadmap && (await loadRoadmap(roadmap)).status === 'missing') {
+					console.warn(`[roadmap] left out: ${roadmap.owner}/${roadmap.name}#${roadmap.tracking} not found`);
+					options = { ...options, roadmap: false };
+				}
 				const docsDir = options.docs?.dir ?? '../docs/public';
 				const langs = languagesOf(options);
 				const [first, ...others] = langs;

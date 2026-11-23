@@ -1,15 +1,15 @@
-// A sample project's settings, as an example of every part of them; the
-// project and its docs are made up. astro.config.mjs and the share-cards
-// command both read this file.
+// This repository's own site, as an example of every part of the settings;
+// the app its pages describe and its docs are made up. astro.config.mjs and
+// the share-cards command both read this file.
 import { defineSite } from 'nsgo-website/config';
 
-const repo = 'https://github.com/nsgo-dev/sample-notes';
+const repo = 'https://github.com/nsgo-dev/nsgo-website';
 
 export default defineSite({
 	// The site's languages, the first at the root; any of en, zh, zh-tw, ja,
 	// ko, es, fr, de, pt, ru, it, vi, id and tr may be added.
 	languages: ['en', 'zh'],
-	name: 'Sample Notes',
+	name: 'NSGO',
 	title: { en: 'Sample Notes: a notes app built with NSGo', zh: '示例笔记：用 NSGo 构建的笔记应用' },
 	description: {
 		en: 'A made-up notes app that shows every part of an NSGo project’s website: notes in plain text, kept on the device and found as you type.',
@@ -36,7 +36,8 @@ export default defineSite({
 		],
 	},
 	roadmap: { tracking: 1 },
-	footer: { copyright: '© 2026 nsgo-dev' },
+	// This repository's own license, which is not the default MIT.
+	footer: { license: { label: { en: 'All rights reserved', zh: '保留所有权利' }, href: `${repo}/blob/main/LICENSE` } },
 	share: {
 		visual: `<div class="window"><div class="bar"><i></i><i></i><i></i></div><div class="body"><div class="list"><b class="on"></b><b></b><b></b></div><div class="note"><b class="title"></b><b></b><b></b><b class="short"></b></div></div></div>`,
 		css: `.window { border: 1.5px solid var(--border); border-radius: 28px; overflow: hidden; background: var(--surface); box-shadow: 0 40px 80px -40px rgb(16 24 40 / 0.45); }
