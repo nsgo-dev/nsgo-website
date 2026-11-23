@@ -64,6 +64,8 @@ export const collections = { docs: docsCollection() };
 
 `languages` picks the site's languages, English and Chinese unless set: any of en, zh, zh-tw, ja, ko, es, fr, de, pt, ru, it, vi, id and tr, whose header, footer and roadmap words the package has. The first is served at the root and each other under its code. Any text, list or section may be one value for every language or one per language, as `{ en, zh }`; a language left out takes the first's. The docs are Markdown in one folder per language code, under `../docs/public` by default. [`src/config.ts`](src/config.ts) documents every setting.
 
+The footer links the project's license, MIT unless `footer.license` names another. An agent setting up a site must give there the license in the project's own repository, never one the project does not use.
+
 To change more than the settings allow:
 
 - **Home page**: give `home.visual` or a `component` section an `.astro` file of the project's, or set `home: false` and write `src/pages/index.astro` and `src/pages/<code>/index.astro` from `HomePage` or the section components.
@@ -72,7 +74,7 @@ To change more than the settings allow:
 
 `nsgo-website-share-cards` draws `public/share/<code>.png`, the images of shared links, from the settings; it needs Chrome.
 
-[`example/`](example) is a complete site, a made-up project's settings with sample docs.
+[`example/`](example) is a complete site, this repository's own, describing a made-up app with sample docs.
 
 ## Development
 
@@ -84,7 +86,7 @@ bun run build   # builds the example into example/dist
 bun run dev     # serves the example
 ```
 
-A project's `dev` script runs `astro dev --ignore-lock`, as Astro otherwise moves its server to the background when an AI agent starts it. The roadmap reads GitHub with `GITHUB_TOKEN` or the GitHub CLI's sign-in; a build without either leaves it out. See [ARCHITECTURE.md](ARCHITECTURE.md) and [AGENTS.md](AGENTS.md). Changes are in [CHANGELOG.md](CHANGELOG.md).
+A project's `dev` script runs `astro dev --ignore-lock`, as Astro otherwise moves its server to the background when an AI agent starts it. The roadmap reads GitHub with `GITHUB_TOKEN` or the GitHub CLI's sign-in; a build without either leaves it out, and a tracking issue that does not exist hides it with its links. See [ARCHITECTURE.md](ARCHITECTURE.md) and [AGENTS.md](AGENTS.md). Changes are in [CHANGELOG.md](CHANGELOG.md).
 
 ## License
 

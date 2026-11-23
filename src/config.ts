@@ -151,7 +151,7 @@ export interface RoadmapOptions {
 export interface FooterOptions {
 	/** Defaults to © the year and the project's name. */
 	copyright?: Text;
-	/** Defaults to the MIT License in the repository's LICENSE; false shows none. */
+	/** Defaults to MIT, linking the repository's LICENSE; false shows none. */
 	license?: { label: Text; href: string } | false;
 	/** Defaults to the docs, the roadmap, feedback, the changelog and GitHub. */
 	links?: Link[];
@@ -221,7 +221,7 @@ export interface SiteOptions {
 	docs?: DocsOptions;
 	/** The home page from these settings, or false for a project's own src/pages/index.astro and <code>/index.astro. */
 	home: Localized<HomeContent> | false;
-	/** The roadmap page from the tracking issue's sub-issues; none without. */
+	/** The roadmap page from the tracking issue's sub-issues; none without, or when GitHub cannot find the issue. */
 	roadmap?: RoadmapOptions | false;
 	footer?: FooterOptions;
 	share?: ShareOptions;

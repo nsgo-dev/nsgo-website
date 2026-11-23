@@ -54,7 +54,11 @@ export interface Stage extends Ref {
 	areas: Area[];
 }
 
-export type Roadmap = { status: 'ok'; fetchedAt: string; stages: Stage[] } | { status: 'unavailable'; reason: string };
+export type Roadmap =
+	| { status: 'ok'; fetchedAt: string; stages: Stage[] }
+	| { status: 'unavailable'; reason: string }
+	// The tracking issue or its repository does not exist; the site leaves the roadmap out.
+	| { status: 'missing'; reason: string };
 
 // The page sizes keep the query within GitHub's limit on the nodes it may return.
 const QUERY = `query($owner: String!, $name: String!, $number: Int!) {
@@ -175,16 +179,21 @@ async function fetchRoadmap(r: ResolvedRoadmap): Promise<Roadmap> {
 		body: JSON.stringify({ query: QUERY, variables: { owner: r.owner, name: r.name, number: r.tracking } }),
 	});
 	if (!res.ok) throw new Error(`GitHub answered ${res.status}`);
-	const json = (await res.json()) as { data?: { repository: { issue: { subIssues: { nodes: GqlStage[] } } | null } }; errors?: { message: string }[] };
+	const json = (await res.json()) as {
+		data?: { repository: { issue: { subIssues: { nodes: GqlStage[] } } | null } | null };
+		errors?: { type?: string; message: string }[];
+	};
+	const missing = { status: 'missing', reason: `${r.owner}/${r.name}#${r.tracking} not found` } as const;
+	if (json.errors?.some((e) => e.type === 'NOT_FOUND')) return missing;
 	if (json.errors?.length) throw new Error(json.errors[0].message);
-	const issue = json.data?.repository.issue;
-	if (!issue) throw new Error(`issue #${r.tracking} not found`);
+	const issue = json.data?.repository?.issue;
+	if (!issue) return missing;
 	return { status: 'ok', fetchedAt: new Date().toISOString(), stages: issue.subIssues.nodes.map(stage, r) };
 }
 
 const cache = new Map<string, Promise<Roadmap>>();
 
-/** The roadmap, read once for both languages' pages. */
+/** The roadmap, read once for the integration and both languages' pages. */
 export function loadRoadmap(r: ResolvedRoadmap): Promise<Roadmap> {
 	const key = `${r.owner}/${r.name}#${r.tracking}`;
 	const cached = cache.get(key);
