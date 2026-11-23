@@ -8,6 +8,7 @@ import { images } from 'virtual:nsgo-website/assets';
 import KIcon from '../KIcon.astro';
 import HeaderMenu from './HeaderMenu.astro';
 import NavMenu from './NavMenu.astro';
+import { colors, languageChoices, themeChoices } from './choices';
 import { locales } from '../../locales';
 import { langOf, langs, pathIn, site } from '../../site';
 import { loadStars } from '../../stars';
@@ -24,17 +25,12 @@ const current = (href: string) => !href.includes('#') && href !== s.paths.home &
 const is404 = Astro.locals.starlightRoute.entry.id === '404';
 const paths = Object.fromEntries(langs.map((l) => [l, is404 ? site[l].paths.home : pathIn(here, l)]));
 const choices = langs.map((code) => ({ code, tag: locales[code].tag }));
-const languages = [{ label: t.language.auto, value: 'auto' }, ...langs.map((l) => ({ label: locales[l].label, value: l }))];
-// Each language's mark in a color of its own.
-const tagColors = ['#3b82f6', '#ef4444', '#f59e0b', '#22a45d', '#8b5cf6', '#0ea5e9', '#ec4899', '#14b8a6'];
-const themes = (['auto', 'light', 'dark'] as const).map((value) => ({ label: t.theme[value], value }));
+const languages = languageChoices(lang);
+const themes = themeChoices(lang);
 
 // The repository's stars in the page's language's short form, such as 1.2K.
 const stars = await loadStars(s.repo);
 const starLabel = stars === undefined ? undefined : new Intl.NumberFormat(locales[lang].tag, { notation: 'compact' }).format(stars);
-
-// Each choice's icon, in a color of its own.
-const colors = { languages: '#8b5cf6', globe: '#14b8a6', sun: '#f59e0b', moon: '#6366f1', monitor: '#0ea5e9' };
 ---
 
 <div class="container header-row">
@@ -66,29 +62,38 @@ const colors = { languages: '#8b5cf6', globe: '#14b8a6', sun: '#f59e0b', moon: '
 		}
 	</nav>
 	<div class="actions" data-paths={JSON.stringify(paths)} data-langs={JSON.stringify(choices)} data-lang={lang}>
+		{
+			s.sponsors && (
+				<a class="icon-button sponsor-button" href={s.paths.sponsors} aria-current={current(s.paths.sponsors) ? 'page' : undefined} data-kubai-trigger>
+					<KIcon name="heart" size={15} color="#ec4899" />
+					{t.nav.sponsors}
+				</a>
+			)
+		}
 		<Search />
 		{
 			langs.length > 1 && (
-				<HeaderMenu name="language" label={t.language.name} items={languages}>
+				<HeaderMenu name="language" label={t.language.name} items={languages} class="hide-sm">
 					<KIcon slot="icon" name="languages" size={18} color={colors.languages} />
-					<KIcon slot="icon-auto" name="globe" size={16} color={colors.globe} />
-					{langs.map((l, i) => (
-						<span slot={`icon-${l}`} class="lang-tag" style={`--tag: ${tagColors[i % tagColors.length]}`}>
-							{locales[l].mark}
-						</span>
-					))}
+					{languages.map((c) =>
+						c.icon ? (
+							<KIcon slot={`icon-${c.value}`} name={c.icon} size={16} color={c.color} />
+						) : (
+							<span slot={`icon-${c.value}`} class="lang-tag" style={`--tag: ${c.color}`}>
+								{c.mark}
+							</span>
+						),
+					)}
 				</HeaderMenu>
 			)
 		}
-		<HeaderMenu name="theme" label={t.theme.name} items={themes}>
+		<HeaderMenu name="theme" label={t.theme.name} items={themes} class="hide-sm">
 			<span slot="icon" class="theme-icon">
 				<span class="when-light"><KIcon name="sun" size={18} color={colors.sun} /></span>
 				<span class="when-dark"><KIcon name="moon" size={18} color={colors.moon} /></span>
 				<span class="when-auto"><KIcon name="monitor" size={18} color={colors.monitor} /></span>
 			</span>
-			<KIcon slot="icon-light" name="sun" size={16} color={colors.sun} />
-			<KIcon slot="icon-dark" name="moon" size={16} color={colors.moon} />
-			<KIcon slot="icon-auto" name="monitor" size={16} color={colors.monitor} />
+			{themes.map((c) => <KIcon slot={`icon-${c.value}`} name={c.icon!} size={16} color={c.color} />)}
 		</HeaderMenu>
 		{s.accounts.length > 0 && <NavMenu label="X" links={s.accounts} icon="x.com" class="x-menu hide-sm" />}
 		<a class="icon-button github hide-sm" href={s.repo} target="_blank" rel="noopener noreferrer" aria-label={t.nav.github}>
@@ -118,7 +123,7 @@ const colors = { languages: '#8b5cf6', globe: '#14b8a6', sun: '#f59e0b', moon: '
 	const apply = (choice: Choice) => {
 		document.documentElement.dataset.theme = choice === 'auto' ? (system.matches ? 'light' : 'dark') : choice;
 		document.documentElement.dataset.themeChoice = choice;
-		for (const menu of document.querySelectorAll<HTMLElement & { select?(v: string): void }>('header-menu[data-name="theme"]')) {
+		for (const menu of document.querySelectorAll<HTMLElement & { select?(v: string): void }>(':is(header-menu, choice-group)[data-name="theme"]')) {
 			menu.select?.(choice);
 		}
 	};
@@ -130,13 +135,14 @@ const colors = { languages: '#8b5cf6', globe: '#14b8a6', sun: '#f59e0b', moon: '
 	const paths: Record<string, string> = JSON.parse(actions?.dataset.paths ?? '{}');
 	const langs: LanguageChoice[] = JSON.parse(actions?.dataset.langs ?? '[]');
 	const pageLanguage = actions?.dataset.lang;
-	for (const menu of document.querySelectorAll<HTMLElement & { select?(v: string): void }>('header-menu[data-name="language"]')) {
+	const languageMenus = document.querySelectorAll<HTMLElement & { select?(v: string): void }>(':is(header-menu, choice-group)[data-name="language"]');
+	for (const menu of languageMenus) {
 		menu.select?.(localStorage.getItem('site-language') || 'auto');
 		menu.addEventListener('choose', (e) => {
 			const choice = (e as CustomEvent<string>).detail;
 			localStorage.setItem('site-language', choice);
 			document.documentElement.dataset.languageChoice = choice;
-			menu.select?.(choice);
+			for (const m of languageMenus) m.select?.(choice);
 			const want = choice === 'auto' ? pickLanguage(navigator.languages || [navigator.language], langs) : choice;
 			if (want !== pageLanguage && paths[want]) location.href = paths[want];
 		});
@@ -147,7 +153,7 @@ const colors = { languages: '#8b5cf6', globe: '#14b8a6', sun: '#f59e0b', moon: '
 	onScroll();
 	addEventListener('scroll', onScroll, { passive: true });
 	system.addEventListener('change', () => stored() === 'auto' && apply('auto'));
-	for (const menu of document.querySelectorAll('header-menu[data-name="theme"]')) {
+	for (const menu of document.querySelectorAll(':is(header-menu, choice-group)[data-name="theme"]')) {
 		menu.addEventListener('choose', (e) => {
 			const choice = (e as CustomEvent<Choice>).detail;
 			localStorage.setItem('starlight-theme', choice === 'auto' ? '' : choice);

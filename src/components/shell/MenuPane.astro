@@ -1,10 +1,13 @@
 ---
-// The menu: on phones, a popover with the site's links and, in the docs,
-// the sidebar; on wider screens the docs show it beside the content.
+// The menu: on phones, a popover with the site's links, the language and
+// theme choices the header has no room for and, in the docs, the sidebar;
+// on wider screens the docs show it beside the content.
 import { Icon } from '@astrojs/starlight/components';
 import { Image } from 'astro:assets';
 import { images } from 'virtual:nsgo-website/assets';
-import { langOf, site } from '../../site';
+import { langOf, langs, site } from '../../site';
+import ChoiceGroup from './ChoiceGroup.astro';
+import { languageChoices, themeChoices } from './choices';
 import type { ResolvedLink } from '../../resolve';
 
 interface Props {
@@ -12,7 +15,8 @@ interface Props {
 	docked: boolean;
 }
 const { docked } = Astro.props;
-const s = site[langOf(Astro.locals.starlightRoute.lang)];
+const lang = langOf(Astro.locals.starlightRoute.lang);
+const s = site[lang];
 const t = s.t;
 // The header's own links, then GitHub, then each of its menus as a group.
 const links: ResolvedLink[] = [...s.nav.flatMap((n) => (n.links ? [] : [n])), { label: 'GitHub', href: s.repo, external: true }];
@@ -47,6 +51,10 @@ const ext = (link: ResolvedLink) => (link.external ? { target: '_blank', rel: 'n
 				))
 			}
 		</nav>
+		<div class="menu-choices">
+			{langs.length > 1 && <ChoiceGroup name="language" label={t.language.name} items={languageChoices(lang)} />}
+			<ChoiceGroup name="theme" label={t.theme.name} items={themeChoices(lang)} />
+		</div>
 		{
 			docked && (
 				<nav class="sidebar-content" aria-label={Astro.locals.t('sidebarNav.accessibleLabel')}>

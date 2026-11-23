@@ -15,11 +15,12 @@ interface Props {
 	items: Item[];
 	/** Set on the menu, for the script that acts on its choices. */
 	name: string;
+	class?: string;
 }
-const { label, items, name } = Astro.props;
+const { label, items, name, class: className } = Astro.props;
 ---
 
-<header-menu class="header-menu" data-name={name}>
+<header-menu class:list={['header-menu', className]} data-name={name}>
 	<button type="button" class="menu-trigger" aria-haspopup="menu" aria-expanded="false" aria-label={label} title={label} data-kubai-trigger>
 		<slot name="icon" />
 	</button>
