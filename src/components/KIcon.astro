@@ -1,0 +1,24 @@
+---
+// A Kubai icon, rendered on the server. scripts/kubai.ts animates it in the
+// browser: it moves when the closest [data-kubai-trigger] around it, or else
+// the icon itself, is hovered, focused or tapped. A project's own components
+// name the icons they use in its icons setting, so only those are bundled.
+import { toSvg } from 'kubai-icons';
+import { icons } from 'virtual:nsgo-website/icons';
+
+interface Props {
+	name: string;
+	size?: number;
+	/** Accent color the icon's shades derive from; defaults to the text color. */
+	color?: string;
+	/** Accessible name; without it the icon is hidden from assistive technology. */
+	title?: string;
+	class?: string;
+}
+const { name, size = 24, color, title, class: className } = Astro.props;
+const icon = icons[name];
+if (!icon) throw new Error(`nsgo-website: add "${name}" to the icons setting to use it in KIcon`);
+const svg = toSvg(icon, { size, color, title, className, attrs: { 'data-kubai': name } });
+---
+
+<Fragment set:html={svg} />

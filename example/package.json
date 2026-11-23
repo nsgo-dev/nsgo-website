@@ -1,0 +1,20 @@
+{
+	"name": "nsgo-website-example",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"dev": "astro dev --ignore-lock",
+		"build": "astro build",
+		"preview": "astro preview",
+		"check": "astro check",
+		"share-cards": "nsgo-website-share-cards"
+	},
+	"dependencies": {
+		"astro": "^7.4.13",
+		"nsgo-website": "workspace:*"
+	},
+	"devDependencies": {
+		"@astrojs/check": "^0.9.12",
+		"typescript": "^6"
+	}
+}

@@ -1,0 +1,147 @@
+---
+// The header every page shares, home and docs alike. Starlight renders it in
+// place of its own header.
+import { Icon } from '@astrojs/starlight/components';
+import Search from '@astrojs/starlight/components/Search.astro';
+import { Image } from 'astro:assets';
+import { images } from 'virtual:nsgo-website/assets';
+import KIcon from '../KIcon.astro';
+import HeaderMenu from './HeaderMenu.astro';
+import NavMenu from './NavMenu.astro';
+import { locales } from '../../locales';
+import { langOf, langs, pathIn, site } from '../../site';
+
+const lang = langOf(Astro.locals.starlightRoute.lang);
+const s = site[lang];
+const t = s.t;
+const here = Astro.url.pathname;
+// A link marks the page at or under its path; the home page's parts and the
+// home page itself, under which every page is, mark none.
+const current = (href: string) => !href.includes('#') && href !== s.paths.home && here.startsWith(href);
+// The same page in each language. The 404 page has no address of its own,
+// so its menu goes to the home pages.
+const is404 = Astro.locals.starlightRoute.entry.id === '404';
+const paths = Object.fromEntries(langs.map((l) => [l, is404 ? site[l].paths.home : pathIn(here, l)]));
+const choices = langs.map((code) => ({ code, tag: locales[code].tag }));
+const languages = [{ label: t.language.auto, value: 'auto' }, ...langs.map((l) => ({ label: locales[l].label, value: l }))];
+// Each language's mark in a color of its own.
+const tagColors = ['#3b82f6', '#ef4444', '#f59e0b', '#22a45d', '#8b5cf6', '#0ea5e9', '#ec4899', '#14b8a6'];
+const themes = (['auto', 'light', 'dark'] as const).map((value) => ({ label: t.theme[value], value }));
+
+// Each choice's icon, in a color of its own.
+const colors = { languages: '#8b5cf6', globe: '#14b8a6', sun: '#f59e0b', moon: '#6366f1', monitor: '#0ea5e9' };
+---
+
+<div class="container header-row">
+	<a class="brand" href={s.paths.home}>
+		<Image class="logo" src={images[s.logo]} alt="" width={28} height={28} densities={[1, 2]} />
+		<span>{s.name}</span>
+	</a>
+	<nav class="nav" aria-label={t.nav.label}>
+		{
+			s.nav.map((item) =>
+				item.links ? (
+					<NavMenu label={item.label} links={item.links} />
+				) : item.external ? (
+					<a href={item.href} target="_blank" rel="noopener noreferrer">
+						{item.label}
+						<Icon name="external" size="0.75rem" class="external" />
+					</a>
+				) : (
+					<a href={item.href} aria-current={current(item.href) ? 'page' : undefined}>
+						{item.label}
+					</a>
+				),
+			)
+		}
+	</nav>
+	<div class="actions" data-paths={JSON.stringify(paths)} data-langs={JSON.stringify(choices)} data-lang={lang}>
+		<Search />
+		{
+			langs.length > 1 && (
+				<HeaderMenu name="language" label={t.language.name} items={languages}>
+					<KIcon slot="icon" name="languages" size={18} color={colors.languages} />
+					<KIcon slot="icon-auto" name="globe" size={16} color={colors.globe} />
+					{langs.map((l, i) => (
+						<span slot={`icon-${l}`} class="lang-tag" style={`--tag: ${tagColors[i % tagColors.length]}`}>
+							{locales[l].mark}
+						</span>
+					))}
+				</HeaderMenu>
+			)
+		}
+		<HeaderMenu name="theme" label={t.theme.name} items={themes}>
+			<span slot="icon" class="theme-icon">
+				<span class="when-light"><KIcon name="sun" size={18} color={colors.sun} /></span>
+				<span class="when-dark"><KIcon name="moon" size={18} color={colors.moon} /></span>
+				<span class="when-auto"><KIcon name="monitor" size={18} color={colors.monitor} /></span>
+			</span>
+			<KIcon slot="icon-light" name="sun" size={16} color={colors.sun} />
+			<KIcon slot="icon-dark" name="moon" size={16} color={colors.moon} />
+			<KIcon slot="icon-auto" name="monitor" size={16} color={colors.monitor} />
+		</HeaderMenu>
+		{s.accounts.length > 0 && <NavMenu label="X" links={s.accounts} icon="x.com" class="x-menu hide-sm" />}
+		<a class="icon-button github hide-sm" href={s.repo} target="_blank" rel="noopener noreferrer" aria-label={t.nav.github}>
+			<Icon name="github" size="1.05rem" />
+			<span>GitHub</span>
+		</a>
+		<button class="icon-button menu-button" type="button" popovertarget="starlight__sidebar" aria-label={t.nav.menu}>
+			<Icon name="bars" size="1.15rem" class="open" />
+			<Icon name="close" size="1.15rem" class="close" />
+		</button>
+	</div>
+</div>
+
+<script>
+	import '../../scripts/kubai';
+	import '../../scripts/search-keys';
+	import { pickLanguage, type LanguageChoice } from '../../scripts/language';
+
+	// The theme: light, dark or the system's, kept with the docs' key, where
+	// an empty value means the system's.
+	type Choice = 'light' | 'dark' | 'auto';
+	const system = matchMedia('(prefers-color-scheme: light)');
+	const stored = (): Choice => {
+		const value = localStorage.getItem('starlight-theme');
+		return value === 'light' || value === 'dark' ? value : 'auto';
+	};
+	const apply = (choice: Choice) => {
+		document.documentElement.dataset.theme = choice === 'auto' ? (system.matches ? 'light' : 'dark') : choice;
+		document.documentElement.dataset.themeChoice = choice;
+		for (const menu of document.querySelectorAll<HTMLElement & { select?(v: string): void }>('header-menu[data-name="theme"]')) {
+			menu.select?.(choice);
+		}
+	};
+	apply(stored());
+
+	// The language: automatic, following the browser, or the one chosen.
+	// Head.astro moves to the browser's language while it is automatic.
+	const actions = document.querySelector<HTMLElement>('.actions');
+	const paths: Record<string, string> = JSON.parse(actions?.dataset.paths ?? '{}');
+	const langs: LanguageChoice[] = JSON.parse(actions?.dataset.langs ?? '[]');
+	const pageLanguage = actions?.dataset.lang;
+	for (const menu of document.querySelectorAll<HTMLElement & { select?(v: string): void }>('header-menu[data-name="language"]')) {
+		menu.select?.(localStorage.getItem('site-language') || 'auto');
+		menu.addEventListener('choose', (e) => {
+			const choice = (e as CustomEvent<string>).detail;
+			localStorage.setItem('site-language', choice);
+			document.documentElement.dataset.languageChoice = choice;
+			menu.select?.(choice);
+			const want = choice === 'auto' ? pickLanguage(navigator.languages || [navigator.language], langs) : choice;
+			if (want !== pageLanguage && paths[want]) location.href = paths[want];
+		});
+	}
+
+	const header = document.querySelector('.site-header');
+	const onScroll = () => header?.toggleAttribute('data-scrolled', scrollY > 0);
+	onScroll();
+	addEventListener('scroll', onScroll, { passive: true });
+	system.addEventListener('change', () => stored() === 'auto' && apply('auto'));
+	for (const menu of document.querySelectorAll('header-menu[data-name="theme"]')) {
+		menu.addEventListener('choose', (e) => {
+			const choice = (e as CustomEvent<Choice>).detail;
+			localStorage.setItem('starlight-theme', choice === 'auto' ? '' : choice);
+			apply(choice);
+		});
+	}
+</script>

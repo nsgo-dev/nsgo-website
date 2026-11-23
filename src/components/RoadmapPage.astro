@@ -1,0 +1,161 @@
+---
+// The roadmap: each stage as a block, its title on the left and a ring of
+// its tasks closed on the right; then its areas as columns of cards, each
+// holding its tasks as a tree with
+// their subtasks, pull requests and what they wait for. Its content is the
+// GitHub issues roadmap.ts reads at build time; their words are GitHub's, in
+// English in either language.
+import { Icon } from '@astrojs/starlight/components';
+import '../styles/roadmap.css';
+import type { Lang } from '../config';
+import { loadRoadmap, type Progress } from '../roadmap';
+import { site } from '../site';
+import Page from './Page.astro';
+
+interface Props {
+	lang: Lang;
+}
+const { lang } = Astro.props;
+const s = site[lang];
+if (!s.roadmap) throw new Error('nsgo-website: RoadmapPage needs the roadmap setting');
+const { url: trackingUrl, ref: trackingRef, description } = s.roadmap;
+const r = s.t.roadmap;
+const roadmap = await loadRoadmap(s.roadmap);
+
+const date =
+	roadmap.status === 'ok'
+		? new Date(roadmap.fetchedAt).toLocaleDateString(s.locale.tag, { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC' })
+		: '';
+const ext = { target: '_blank', rel: 'noopener noreferrer' };
+const percent = (p: Progress) => (p.total ? Math.round((p.done / p.total) * 100) : 0);
+---
+
+<Page lang={lang} title={r.title} description={description}>
+	<div class="roadmap container">
+		<h1 id="_top" class="sr-only">{r.title}</h1>
+		{
+			roadmap.status === 'ok' ? (
+				<>
+					{roadmap.stages.map((stage, i) => (
+						<section class="rm-stage" aria-labelledby={`stage-${i + 1}`}>
+							<header class="rm-stage-head">
+								<h2 id={`stage-${i + 1}`}>
+									<span class="rm-eyebrow">{r.stage(i + 1)}</span>
+									<span lang="en">{stage.title}</span>
+									<a class="rm-ref" href={stage.url} {...ext}>
+										{stage.ref}
+									</a>
+								</h2>
+								<p class="rm-ring" style={`--p: ${percent(stage.progress)}`} data-full={percent(stage.progress) === 100 ? '' : undefined}>
+									<span class="sr-only">{r.progress(stage.progress.done, stage.progress.total)}</span>
+									<span aria-hidden="true">{percent(stage.progress)}%</span>
+								</p>
+							</header>
+							<div class="rm-areas">
+								{stage.areas.map((area) => (
+									<section class="rm-area" aria-label={area.name || s.t.other}>
+										<h3>
+											<span lang={area.name ? 'en' : undefined}>{area.name || s.t.other}</span>
+											<span class="rm-area-count">
+												<span class="sr-only">{r.progress(area.progress.done, area.progress.total)}</span>
+												<span aria-hidden="true">
+													{area.progress.done}/{area.progress.total}
+												</span>
+											</span>
+										</h3>
+										<ul class="rm-tree">
+											{area.tasks.map((task) => {
+												const subDone = task.subtasks.filter((s) => s.state === 'closed').length;
+												return (
+													<li class="rm-task" data-status={task.status}>
+														<div class="rm-row">
+															<span class="rm-icon" role="img" aria-label={r.status[task.status]}>
+																{task.status === 'done' && <Icon name="approve-check" size="0.625rem" />}
+															</span>
+															<a class="rm-title" href={task.url} {...ext} lang="en">
+																<span class="rm-ref">{task.ref}</span> {task.name}
+															</a>
+															{(task.subtasks.length > 0 || task.pulls.length > 0 || task.status === 'review' || task.status === 'progress') && (
+																<span class="rm-tags">
+																	{task.subtasks.length > 0 && (
+																		<span class="rm-sub-count">
+																			<span class="sr-only">{r.subtasks(subDone, task.subtasks.length)}</span>
+																			<span aria-hidden="true">
+																				{subDone}/{task.subtasks.length}
+																			</span>
+																		</span>
+																	)}
+																	{task.pulls.map((p) => (
+																		<a class="rm-pull" data-state={p.state} href={p.url} {...ext} title={r.pull[p.state]} aria-label={`#${p.number} ${r.pull[p.state]}`}>
+																			<svg viewBox="0 0 16 16" width="11" height="11" aria-hidden="true">
+																				<circle cx="4" cy="3.5" r="1.75" />
+																				<circle cx="4" cy="12.5" r="1.75" />
+																				<circle cx="12" cy="12.5" r="1.75" />
+																				<path d="M4 5.25v5.5M12 10.75V6.5a2 2 0 0 0-2-2H7.5m1.5-1.75L7.25 4.5 9 6.25" />
+																			</svg>
+																			#{p.number}
+																		</a>
+																	))}
+																	{(task.status === 'review' || task.status === 'progress') && <span class="rm-status">{r.status[task.status]}</span>}
+																</span>
+															)}
+														</div>
+														{task.waitsFor.length > 0 && (
+															<ul class="rm-waits" aria-label={r.waitsFor}>
+																{task.waitsFor.map((w) => (
+																	<li>
+																		<span class="rm-dot" data-state={w.state} role="img" aria-label={`${r.waitsFor}: ${w.state === 'closed' ? r.closed : r.open}`} />
+																		<a href={w.url} {...ext} lang="en" title={w.title}>
+																			<span class="rm-ref">{w.ref}</span> {w.title}
+																		</a>
+																	</li>
+																))}
+															</ul>
+														)}
+														{task.subtasks.length > 0 && (
+															<ul class="rm-subtasks">
+																{task.subtasks.map((s) => (
+																	<li data-state={s.state}>
+																		<span class="rm-sub-icon" role="img" aria-label={s.state === 'closed' ? r.closed : r.open}>
+																			{s.state === 'closed' && <Icon name="approve-check" size="0.5rem" />}
+																		</span>
+																		<a href={s.url} {...ext} lang="en">
+																			<span class="rm-ref">{s.ref}</span> {s.title}
+																		</a>
+																	</li>
+																))}
+															</ul>
+														)}
+													</li>
+												);
+											})}
+										</ul>
+									</section>
+								))}
+							</div>
+						</section>
+					))}
+					<p class="rm-source">
+						{r.asOf}
+						<time datetime={roadmap.fetchedAt}>{date}</time>
+						<span aria-hidden="true">·</span>
+						<a href={trackingUrl} {...ext}>
+							{trackingRef}
+							<Icon name="external" size="0.7rem" class="external" />
+						</a>
+					</p>
+				</>
+			) : (
+				<p class="rm-notice" role="status">
+					{r.unavailable[0]}
+					{roadmap.reason}
+					{r.unavailable[1]}
+					<a href={trackingUrl} {...ext}>
+						{trackingRef}
+					</a>
+					{r.unavailable[2]}
+				</p>
+			)
+		}
+	</div>
+</Page>

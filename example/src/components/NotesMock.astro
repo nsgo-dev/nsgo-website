@@ -1,0 +1,129 @@
+---
+// The hero's picture of the sample app: a list of notes beside the open one,
+// drawn in CSS.
+interface Props {
+	lang: string;
+}
+const words = {
+	en: {
+		label: 'A notes window with a list of notes beside the open one',
+		notes: ['Trip to the coast', 'Reading list', 'Groceries'],
+		title: 'Trip to the coast',
+		lines: ['Leave on Friday morning', 'Book a room near the harbour', 'Pack the camera'],
+	},
+	zh: {
+		label: '一个笔记窗口，笔记列表在打开的笔记旁边',
+		notes: ['海边旅行', '书单', '采购清单'],
+		title: '海边旅行',
+		lines: ['周五上午出发', '订一间靠近港口的房间', '带上相机'],
+	},
+};
+const t = words[Astro.props.lang as keyof typeof words] ?? words.en;
+---
+
+<figure class="mock" role="img" aria-label={t.label}>
+	<div class="mock-window" aria-hidden="true">
+		<div class="mock-bar"><span></span><span></span><span></span></div>
+		<div class="mock-body">
+			<ul class="list">
+				{t.notes.map((note, i) => <li class={i === 0 ? 'on' : undefined}>{note}</li>)}
+			</ul>
+			<div class="note">
+				<p class="title">{t.title}</p>
+				<ul>
+					{t.lines.map((line, i) => <li class={i === 0 ? 'done' : undefined}>{line}</li>)}
+				</ul>
+			</div>
+		</div>
+	</div>
+</figure>
+
+<style>
+	.mock {
+		width: min(100%, 36rem);
+		margin: 0 auto;
+	}
+	.mock-window {
+		overflow: hidden;
+		border: 1px solid var(--border);
+		border-radius: var(--radius-lg);
+		background-color: var(--surface);
+		box-shadow:
+			0 1px 2px rgb(0 0 0 / 0.06),
+			0 30px 60px -30px rgb(0 0 0 / 0.45);
+	}
+	.mock-bar {
+		display: flex;
+		gap: 0.375rem;
+		padding: 0.625rem 0.75rem;
+		border-bottom: 1px solid var(--border);
+	}
+	.mock-bar span {
+		width: 0.625rem;
+		height: 0.625rem;
+		border-radius: 50%;
+		background-color: var(--border-strong);
+	}
+	.mock-body {
+		display: grid;
+		grid-template-columns: 2fr 3fr;
+		aspect-ratio: 16 / 9;
+	}
+	ul {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+	.list {
+		display: grid;
+		align-content: start;
+		gap: 0.25rem;
+		padding: 0.75rem;
+		border-right: 1px solid var(--border);
+		font-size: 0.8125rem;
+	}
+	.list li {
+		padding: 0.375rem 0.625rem;
+		border-radius: 0.5rem;
+		color: var(--muted);
+	}
+	.list li.on {
+		background-color: #4da3ff;
+		color: #fff;
+		font-weight: 600;
+	}
+	.note {
+		display: grid;
+		align-content: start;
+		gap: 0.75rem;
+		padding: 1rem 1.25rem;
+		font-size: 0.875rem;
+	}
+	.title {
+		margin: 0;
+		font-size: 1.0625rem;
+		font-weight: 650;
+	}
+	.note li {
+		position: relative;
+		padding: 0.25rem 0 0.25rem 1.5rem;
+	}
+	.note li::before {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 0.45rem;
+		width: 0.875rem;
+		height: 0.875rem;
+		border: 1.5px solid var(--border-strong);
+		border-radius: 0.25rem;
+	}
+	.note li.done {
+		opacity: 0.55;
+		text-decoration: line-through;
+	}
+	.note li.done::before {
+		border-color: #4da3ff;
+		background-color: #4da3ff;
+	}
+</style>

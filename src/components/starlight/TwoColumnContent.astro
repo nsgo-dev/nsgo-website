@@ -1,0 +1,18 @@
+---
+// The content beside its table of contents, which phones and narrow
+// screens show as a bar above the content instead.
+const { toc } = Astro.locals.starlightRoute;
+---
+
+<div class:list={['two-column', { 'has-toc': toc }]}>
+	{
+		toc && (
+			<aside class="toc print:hidden">
+				<slot name="right-sidebar" />
+			</aside>
+		)
+	}
+	<div class="main-pane">
+		<slot />
+	</div>
+</div>

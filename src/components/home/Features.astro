@@ -1,0 +1,41 @@
+---
+// Highlights in a grid, each icon above its title, three to a row on wide
+// screens unless columns says otherwise.
+import '../../styles/home.css';
+import type { ResolvedItem } from '../../resolve';
+import KIcon from '../KIcon.astro';
+import SectionHead from './SectionHead.astro';
+
+interface Props {
+	id?: string;
+	eyebrow?: string;
+	title: string;
+	text?: string;
+	items: ResolvedItem[];
+	columns?: number;
+}
+const { id, eyebrow, title, text, items, columns } = Astro.props;
+// Each highlight's icon in a color of its own.
+const colors = ['#3b82f6', '#8b5cf6', '#22a45d', '#f59e0b', '#0ea5e9', '#ec4899'];
+---
+
+<section class="section" id={id}>
+	<div class="container">
+		<SectionHead eyebrow={eyebrow} title={title} text={text} />
+		<ul class="features" style={columns ? `--columns: ${columns}` : undefined}>
+			{
+				items.map((f, i) => (
+					<li class="feature" data-kubai-trigger>
+						{f.icon && (
+							<span class="feature-icon">
+								<KIcon name={f.icon} size={28} color={f.color ?? colors[i % colors.length]} />
+							</span>
+						)}
+						<h3>{f.title}</h3>
+						<p>{f.text}</p>
+					</li>
+				))
+			}
+		</ul>
+	</div>
+</section>

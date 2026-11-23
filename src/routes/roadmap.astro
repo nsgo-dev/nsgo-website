@@ -1,0 +1,7 @@
+---
+// Injected once for each language, which the page's path tells.
+import RoadmapPage from '../components/RoadmapPage.astro';
+import { langOfPath } from '../site';
+---
+
+<RoadmapPage lang={langOfPath(Astro.url.pathname)} />

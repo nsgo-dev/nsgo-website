@@ -1,0 +1,81 @@
+/* The site's colors, type and shapes, shared by the home page and the docs.
+   Dark is the default, as in Starlight; data-theme="light" switches. */
+
+:root {
+	--font-sans: ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC',
+		'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
+	--font-mono: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
+
+	--radius-sm: 0.5rem;
+	--radius: 0.75rem;
+	--radius-lg: 1.25rem;
+	--ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+	--bg: #0a0b0d;
+	--surface: #131518;
+	--surface-2: #1b1e22;
+	--border: #262a30;
+	--border-strong: #363b43;
+	--text: #f3f4f6;
+	--muted: #9aa1ad;
+	--faint: #6b7280;
+	--accent: #4da3ff;
+	--accent-strong: #8cc4ff;
+	--accent-soft: rgb(77 163 255 / 0.14);
+	--on-accent: #0a0b0d;
+	--button: #f3f4f6;
+	--on-button: #0a0b0d;
+	--shadow: 0 1px 2px rgb(0 0 0 / 0.4), 0 8px 24px -12px rgb(0 0 0 / 0.6);
+
+	/* Starlight */
+	--sl-font: var(--font-sans);
+	--sl-font-mono: var(--font-mono);
+	--sl-color-accent-low: #0b2a4d;
+	--sl-color-accent: #2a8fff;
+	--sl-color-accent-high: #b3dbff;
+	--sl-color-white: #ffffff;
+	--sl-color-gray-1: #e8eaee;
+	--sl-color-gray-2: #c4c8d0;
+	--sl-color-gray-3: #9aa1ad;
+	--sl-color-gray-4: #5d636e;
+	--sl-color-gray-5: #2b2f36;
+	--sl-color-gray-6: #16181c;
+	--sl-color-black: var(--bg);
+	--sl-color-bg-nav: rgb(10 11 13 / 0.8);
+	--sl-color-bg-sidebar: var(--bg);
+	--sl-color-hairline: var(--border);
+	--sl-color-hairline-light: var(--border);
+	--sl-color-hairline-shade: var(--border);
+}
+
+:root[data-theme='light'] {
+	--bg: #ffffff;
+	--surface: #f6f7f9;
+	--surface-2: #eef0f3;
+	--border: #e6e8ec;
+	--border-strong: #d4d7dd;
+	--text: #0b0d12;
+	--muted: #5b6270;
+	--faint: #8a909b;
+	--accent: #007aff;
+	--accent-strong: #0060d1;
+	--accent-soft: rgb(0 122 255 / 0.09);
+	--on-accent: #ffffff;
+	--button: #0b0d12;
+	--on-button: #ffffff;
+	--shadow: 0 1px 2px rgb(16 24 40 / 0.05), 0 8px 24px -12px rgb(16 24 40 / 0.12);
+
+	--sl-color-accent-low: #dcecff;
+	--sl-color-accent: #0068d9;
+	--sl-color-accent-high: #00336b;
+	--sl-color-white: #0b0d12;
+	--sl-color-gray-1: #1d2027;
+	--sl-color-gray-2: #353a44;
+	--sl-color-gray-3: #5b6270;
+	--sl-color-gray-4: #8a909b;
+	--sl-color-gray-5: #d4d7dd;
+	--sl-color-gray-6: #f1f2f4;
+	--sl-color-gray-7: #f8f9fa;
+	--sl-color-black: #ffffff;
+	--sl-color-bg-nav: rgb(255 255 255 / 0.8);
+}

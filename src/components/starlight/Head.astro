@@ -1,0 +1,37 @@
+---
+// Starlight's head, then what has to run before the page shows: the theme
+// and language the reader chose, for the header's menus, and, when the
+// language is automatic, the move to the page in the browser's language.
+import Default from '@astrojs/starlight/components/Head.astro';
+import { locales } from '../../locales';
+import { pickLanguage } from '../../scripts/language';
+import { langs } from '../../site';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+// The 404 page answers every missing address, in every language; moving
+// from it would only land on it again.
+const is404 = Astro.locals.starlightRoute.entry.id === '404';
+const choices = langs.map((code) => ({ code, tag: locales[code].tag }));
+
+function start(base: string, is404: boolean, langs: { code: string; tag: string }[], pick: typeof pickLanguage) {
+	const root = document.documentElement;
+	root.dataset.themeChoice = localStorage.getItem('starlight-theme') || 'auto';
+
+	const choice = localStorage.getItem('site-language') || 'auto';
+	root.dataset.languageChoice = choice;
+	if (choice !== 'auto' || is404 || langs.length < 2) return;
+	const want = pick(navigator.languages || [navigator.language], langs);
+	const path = location.pathname.slice(base.length).replace(/^\//, '');
+	const segment = path.split('/')[0];
+	const have = langs.find((l, i) => i > 0 && l.code === segment)?.code ?? langs[0].code;
+	if (want === have) return;
+	const rest = have === langs[0].code ? path : path.slice(have.length).replace(/^\//, '');
+	const prefix = want === langs[0].code ? '' : `${want}/`;
+	location.replace(`${base}/${prefix}${rest}${location.search}${location.hash}`);
+}
+
+const script = `(${start.toString()})(${JSON.stringify(base)}, ${is404}, ${JSON.stringify(choices)}, ${pickLanguage.toString()});`;
+---
+
+<Default />
+<script is:inline set:html={script} />

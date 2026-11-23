@@ -1,0 +1,51 @@
+---
+// Words and points on one side; code, or whatever the default slot holds,
+// on the other.
+import '../../styles/home.css';
+import { Code } from '@astrojs/starlight/components';
+import type { ResolvedItem } from '../../resolve';
+import KIcon from '../KIcon.astro';
+import SectionHead from './SectionHead.astro';
+
+interface Props {
+	id?: string;
+	eyebrow?: string;
+	title: string;
+	text?: string;
+	items?: ResolvedItem[];
+	code?: { code: string; lang: string };
+}
+const { id, eyebrow, title, text, items = [], code } = Astro.props;
+const colors = ['#6366f1', '#14b8a6', '#d97706', '#ec4899'];
+---
+
+<section class="section" id={id}>
+	<div class="container usage-row">
+		<div class="usage-copy">
+			<SectionHead eyebrow={eyebrow} title={title} text={text} left />
+			{
+				items.length > 0 && (
+					<ul class="points">
+						{items.map((f, i) => (
+							<li class="point" data-kubai-trigger>
+								{f.icon && (
+									<span class="point-icon">
+										<KIcon name={f.icon} size={22} color={f.color ?? colors[i % colors.length]} />
+									</span>
+								)}
+								<div>
+									<h3>{f.title}</h3>
+									<p>{f.text}</p>
+								</div>
+							</li>
+						))}
+					</ul>
+				)
+			}
+		</div>
+		<div class="usage-code">
+			{code && <Code code={code.code} lang={code.lang} />}
+			<slot />
+		</div>
+	</div>
+</section>

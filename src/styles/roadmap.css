@@ -1,0 +1,389 @@
+/* The roadmap page, after NSGo Game's: each stage a heading with its title on
+   the left and a ring of its progress on the right, then its areas as
+   columns of cards holding their tasks as a tree with their subtasks. */
+
+.roadmap {
+	--done: #22a45d;
+	--blocked: #f59e0b;
+	--blocked-ink: #f59e0b;
+	--review: #22a45d;
+	--progress: var(--accent);
+	--merged: #8b5cf6;
+	--closed-pr: #e5484d;
+	--line: var(--border-strong);
+	padding-block: 2rem 4rem;
+	font-size: 0.875rem;
+	line-height: 1.45;
+}
+:root[data-theme='light'] .roadmap {
+	--blocked-ink: #b45309;
+}
+.roadmap a {
+	color: inherit;
+	text-decoration: none;
+}
+.roadmap a:focus-visible {
+	outline: 2px solid var(--accent);
+	outline-offset: 2px;
+	border-radius: 0.25rem;
+}
+.roadmap .external {
+	color: var(--faint);
+}
+.rm-ref {
+	color: var(--faint);
+	font-family: var(--font-mono);
+	font-size: 0.75rem;
+	font-weight: 500;
+	white-space: nowrap;
+}
+
+/* Stages */
+.rm-stage + .rm-stage {
+	margin-top: 2.25rem;
+}
+.rm-stage-head {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	margin-bottom: 1rem;
+}
+.rm-stage-head h2 {
+	display: flex;
+	flex: 1;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.375rem 0.625rem;
+	min-width: 0;
+	margin: 0;
+	font-size: clamp(1.25rem, 1.1rem + 0.6vw, 1.5rem);
+	font-weight: 700;
+	letter-spacing: -0.02em;
+	line-height: 1.25;
+}
+/* The stage's number, as a tag before its title. */
+.rm-eyebrow {
+	display: inline-flex;
+	align-items: center;
+	height: 1.375rem;
+	padding: 0 0.5rem;
+	border-radius: 0.375rem;
+	background-color: var(--accent-soft);
+	color: var(--accent);
+	font-size: 0.75rem;
+	font-weight: 650;
+	letter-spacing: 0;
+	white-space: nowrap;
+}
+.rm-stage-head h2 .rm-ref {
+	font-size: 0.8125rem;
+	font-weight: 500;
+	letter-spacing: 0;
+}
+.rm-stage-head h2 a.rm-ref:hover {
+	color: var(--accent);
+}
+
+/* The share of tasks closed, as a ring with its percentage inside. */
+.rm-ring {
+	--size: 3.25rem;
+	--color: var(--progress);
+	display: grid;
+	flex: none;
+	place-items: center;
+	width: var(--size);
+	height: var(--size);
+	margin: 0;
+	border-radius: 50%;
+	background:
+		radial-gradient(closest-side, var(--bg) calc(100% - 0.3125rem), transparent calc(100% - 0.3125rem + 0.5px)),
+		conic-gradient(var(--color) calc(var(--p) * 1%), var(--surface-2) 0);
+	color: var(--text);
+	font-family: var(--font-mono);
+	font-size: 0.75rem;
+	font-weight: 650;
+	font-variant-numeric: tabular-nums;
+}
+.rm-ring[data-full] {
+	--color: var(--done);
+	color: var(--done);
+}
+
+/* Areas, as columns of cards. */
+.rm-areas {
+	columns: 3 18rem;
+	column-gap: 0.75rem;
+}
+.rm-area {
+	break-inside: avoid;
+	margin-bottom: 0.75rem;
+	overflow: hidden;
+	border: 1px solid var(--border);
+	border-radius: var(--radius);
+	background-color: var(--bg);
+	transition: border-color 0.15s;
+}
+.rm-area:has(a:hover, a:focus-visible) {
+	border-color: var(--border-strong);
+}
+.rm-area h3 {
+	display: flex;
+	align-items: baseline;
+	gap: 0.5rem;
+	margin: 0;
+	padding: 0.5rem 0.875rem;
+	border-bottom: 1px solid var(--border);
+	background-color: var(--surface);
+	font-size: 0.875rem;
+	font-weight: 650;
+}
+.rm-area-count {
+	margin-left: auto;
+	color: var(--faint);
+	font-family: var(--font-mono);
+	font-size: 0.75rem;
+	font-variant-numeric: tabular-nums;
+}
+
+/* Tasks, as a tree. */
+.rm-tree {
+	margin: 0;
+	padding: 0.375rem 0.875rem 0.5rem;
+	list-style: none;
+}
+.rm-task {
+	--status: var(--border-strong);
+	padding: 0.25rem 0;
+}
+.rm-task[data-status='done'] {
+	--status: var(--done);
+}
+.rm-task[data-status='blocked'] {
+	--status: var(--blocked);
+}
+.rm-task[data-status='review'] {
+	--status: var(--review);
+}
+.rm-task[data-status='progress'] {
+	--status: var(--progress);
+}
+.rm-row {
+	display: flex;
+	align-items: flex-start;
+	gap: 0.5rem;
+}
+.rm-icon {
+	display: grid;
+	flex: none;
+	place-items: center;
+	width: 0.875rem;
+	height: 0.875rem;
+	margin-top: 0.1875rem;
+	border: 1.5px solid var(--status);
+	border-radius: 50%;
+	color: #fff;
+}
+.rm-task[data-status='done'] .rm-icon {
+	background-color: var(--done);
+}
+/* Started work is half filled; blocked work is dashed. */
+.rm-task:is([data-status='progress'], [data-status='review']) .rm-icon {
+	background: linear-gradient(90deg, var(--status) 50%, transparent 50%);
+}
+.rm-task[data-status='blocked'] .rm-icon {
+	border-style: dashed;
+}
+.rm-title {
+	flex: 1;
+	min-width: 0;
+	transition: color 0.15s;
+}
+.rm-title:hover {
+	color: var(--accent);
+}
+.rm-task[data-status='done'] > .rm-row .rm-title {
+	color: var(--muted);
+}
+.rm-task[data-status='done'] > .rm-row .rm-title:hover {
+	color: var(--accent);
+}
+.rm-tags {
+	display: flex;
+	flex: none;
+	flex-wrap: wrap;
+	justify-content: flex-end;
+	align-items: center;
+	gap: 0.25rem;
+	max-width: 50%;
+	margin-top: 0.0625rem;
+}
+.rm-sub-count {
+	color: var(--muted);
+	font-family: var(--font-mono);
+	font-size: 0.6875rem;
+}
+.roadmap .rm-pull {
+	--pr: var(--faint);
+	display: inline-flex;
+	align-items: center;
+	gap: 0.1875rem;
+	color: var(--pr);
+	font-family: var(--font-mono);
+	font-size: 0.75rem;
+	font-weight: 600;
+	white-space: nowrap;
+	transition: opacity 0.15s;
+}
+.rm-pull:hover {
+	opacity: 0.75;
+}
+.rm-pull[data-state='open'] {
+	--pr: var(--review);
+}
+.rm-pull[data-state='merged'] {
+	--pr: var(--merged);
+}
+.rm-pull[data-state='closed'] {
+	--pr: var(--closed-pr);
+}
+.rm-pull svg {
+	fill: none;
+	stroke: currentColor;
+	stroke-width: 1.5;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+}
+.rm-status {
+	display: inline-flex;
+	align-items: center;
+	height: 1.125rem;
+	padding: 0 0.375rem;
+	border-radius: 999px;
+	background-color: color-mix(in srgb, var(--status) 14%, transparent);
+	color: var(--status);
+	font-size: 0.6875rem;
+	font-weight: 600;
+	white-space: nowrap;
+}
+
+/* What an open task waits for, one issue a line, each marked with its state. */
+.rm-waits {
+	margin: 0.125rem 0 0 1.375rem;
+	padding: 0;
+	list-style: none;
+	color: var(--muted);
+	font-size: 0.75rem;
+}
+.rm-waits li {
+	display: flex;
+	align-items: center;
+	gap: 0.375rem;
+	min-width: 0;
+}
+.rm-dot {
+	flex: none;
+	width: 0.4375rem;
+	height: 0.4375rem;
+	border-radius: 50%;
+	background-color: var(--blocked);
+	box-shadow: 0 0 0 2px color-mix(in srgb, var(--blocked) 22%, transparent);
+}
+.rm-dot[data-state='closed'] {
+	background-color: var(--done);
+	box-shadow: 0 0 0 2px color-mix(in srgb, var(--done) 22%, transparent);
+}
+.rm-waits a {
+	min-width: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.rm-waits a:hover {
+	color: var(--accent);
+}
+.rm-waits .rm-ref {
+	font-size: 0.6875rem;
+}
+
+/* Subtasks, branching from their task's icon. */
+.rm-subtasks {
+	margin: 0.125rem 0 0 0.375rem;
+	padding: 0;
+	list-style: none;
+	font-size: 0.8125rem;
+}
+.rm-subtasks li {
+	position: relative;
+	display: flex;
+	align-items: baseline;
+	gap: 0.375rem;
+	padding: 0.125rem 0 0.125rem 1rem;
+}
+/* The trunk down to each branch, and the branch to the subtask. */
+.rm-subtasks li::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 0.625rem;
+	height: 0.8125rem;
+	border-bottom: 1px solid var(--line);
+	border-left: 1px solid var(--line);
+	border-bottom-left-radius: 0.3125rem;
+}
+.rm-subtasks li:not(:last-child)::after {
+	content: '';
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	border-left: 1px solid var(--line);
+}
+.rm-sub-icon {
+	display: grid;
+	flex: none;
+	place-items: center;
+	width: 0.6875rem;
+	height: 0.6875rem;
+	border: 1.5px solid var(--border-strong);
+	border-radius: 0.1875rem;
+	color: #fff;
+	transform: translateY(0.0625rem);
+}
+.rm-subtasks li[data-state='closed'] .rm-sub-icon {
+	border-color: var(--done);
+	background-color: var(--done);
+}
+.rm-subtasks li[data-state='closed'] a {
+	color: var(--muted);
+}
+.rm-subtasks a:hover {
+	color: var(--accent);
+}
+
+.rm-source {
+	display: flex;
+	align-items: center;
+	gap: 0.375rem;
+	margin: 1rem 0 0;
+	color: var(--faint);
+	font-size: 0.75rem;
+}
+.rm-source a {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.1875rem;
+	color: var(--accent);
+	font-family: var(--font-mono);
+}
+.rm-source a:hover {
+	text-decoration: underline;
+}
+.rm-notice {
+	margin-top: 1rem;
+	color: var(--muted);
+}
+.rm-notice a {
+	color: var(--accent);
+}
+

@@ -1,0 +1,9 @@
+---
+// A docs page's own footer: its edit link and its neighbours. The site's
+// footer is in PageFrame.
+import Default from '@astrojs/starlight/components/Footer.astro';
+
+const isHome = Boolean((Astro.locals.starlightRoute.entry.data as { home?: boolean }).home);
+---
+
+{!isHome && <Default />}

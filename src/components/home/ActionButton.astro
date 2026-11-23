@@ -1,0 +1,24 @@
+---
+// A button of the hero or the end card. A link that leaves the site ends in
+// the external mark; one within it, when filled, in an arrow.
+import { Icon } from '@astrojs/starlight/components';
+import type { Lang } from '../../config';
+import type { ResolvedAction } from '../../resolve';
+import { hrefIn } from '../../site';
+
+interface Props {
+	lang: Lang;
+	action: ResolvedAction;
+	/** The first button is filled unless it says otherwise. */
+	index: number;
+}
+const { lang, action, index } = Astro.props;
+const variant = action.variant ?? (index === 0 ? 'primary' : 'secondary');
+const { href, external } = hrefIn(action.href, lang);
+---
+
+<a class:list={['button', variant]} href={href} {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>
+	{action.icon && <Icon name={action.icon} size="1.05rem" />}
+	{action.label}
+	{external ? (variant === 'secondary' ? <Icon name="external" size="0.85rem" class="external" /> : <Icon name="external" size="0.9rem" />) : variant === 'primary' && <Icon name="right-arrow" size="1rem" />}
+</a>

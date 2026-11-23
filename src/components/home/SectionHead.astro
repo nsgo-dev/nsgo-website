@@ -1,0 +1,19 @@
+---
+// A section's eyebrow, title and words. A Chinese or Japanese title breaks
+// only after its full-width commas, so each phrase wraps as a whole.
+interface Props {
+	eyebrow?: string;
+	title: string;
+	text?: string;
+	/** Starts at the left instead of the middle. */
+	left?: boolean;
+}
+const { eyebrow, title, text, left } = Astro.props;
+const phrases = title.split(/(?<=[，、])/);
+---
+
+<header class:list={['section-head', { left }]}>
+	{eyebrow && <p class="eyebrow">{eyebrow}</p>}
+	<h2>{phrases.map((p) => <span class="phrase">{p}</span>)}</h2>
+	{text && <p>{text}</p>}
+</header>

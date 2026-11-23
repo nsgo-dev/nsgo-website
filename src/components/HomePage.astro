@@ -1,0 +1,55 @@
+---
+// The home page from the home setting: the hero with the project's visual,
+// then its sections in order. A project's own home page may render this
+// with other content, or compose the sections itself.
+import { components } from 'virtual:nsgo-website/assets';
+import '../styles/home.css';
+import type { Lang } from '../config';
+import type { ResolvedHome } from '../resolve';
+import { site } from '../site';
+import Page from './Page.astro';
+import Hero from './home/Hero.astro';
+import Features from './home/Features.astro';
+import Cards from './home/Cards.astro';
+import Split from './home/Split.astro';
+import End from './home/End.astro';
+
+interface Props {
+	lang: Lang;
+	/** The content in this language; the home setting's otherwise. */
+	home?: ResolvedHome;
+}
+const { lang } = Astro.props;
+const s = site[lang];
+const home = Astro.props.home ?? s.home;
+if (!home) throw new Error('nsgo-website: HomePage needs the home setting or a home prop');
+const Visual = home.visual ? components[home.visual] : undefined;
+---
+
+<Page lang={lang} title={s.title} description={s.description}>
+	<div class="home">
+		<Hero lang={lang} status={home.status} headline={home.headline} lead={home.lead} actions={home.actions} chips={home.chips}>
+			{Visual && <Visual slot="visual" lang={lang} />}
+		</Hero>
+		{
+			home.sections.map((section) => {
+				switch (section.type) {
+					case 'features':
+						return <Features {...section} />;
+					case 'cards':
+						return <Cards {...section} />;
+					case 'split': {
+						const Component = section.component ? components[section.component] : undefined;
+						return <Split {...section}>{Component && <Component lang={lang} />}</Split>;
+					}
+					case 'end':
+						return <End lang={lang} {...section} />;
+					case 'component': {
+						const Component = components[section.component];
+						return <Component lang={lang} />;
+					}
+				}
+			})
+		}
+	</div>
+</Page>

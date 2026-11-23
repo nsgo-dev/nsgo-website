@@ -1,0 +1,30 @@
+---
+// The link to a docs page's source: filePath is relative to the site's
+// folder, which the path setting names in the repository.
+import { posix } from 'node:path';
+import { Icon } from '@astrojs/starlight/components';
+import { langOf, site } from '../../site';
+
+const { entry, isFallback, lang } = Astro.locals.starlightRoute;
+const s = site[langOf(lang)];
+const href = `${s.repo}/edit/${s.branch}/${posix.normalize(`${s.path}/${entry.filePath}`)}`;
+---
+
+{s.editLink && !isFallback && entry.id !== '404' && (
+	<a href={href} class="sl-flex print:hidden">
+		<Icon name="pencil" size="1.2em" />
+		{Astro.locals.t('page.editLink')}
+	</a>
+)}
+
+<style>
+	a {
+		gap: 0.5rem;
+		align-items: center;
+		text-decoration: none;
+		color: var(--sl-color-gray-3);
+	}
+	a:hover {
+		color: var(--sl-color-white);
+	}
+</style>

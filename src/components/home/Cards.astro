@@ -1,0 +1,42 @@
+---
+// Cards in one strip, each icon beside its title, four to a row on wide
+// screens unless columns says otherwise; as the platforms a project runs on.
+import '../../styles/home.css';
+import type { ResolvedItem } from '../../resolve';
+import KIcon from '../KIcon.astro';
+import SectionHead from './SectionHead.astro';
+
+interface Props {
+	id?: string;
+	eyebrow?: string;
+	title: string;
+	text?: string;
+	items: ResolvedItem[];
+	columns?: number;
+}
+const { id, eyebrow, title, text, items, columns } = Astro.props;
+const colors = ['#3b82f6', '#0ea5e9', '#d97706', '#8b5cf6'];
+---
+
+<section class="section" id={id}>
+	<div class="container">
+		<SectionHead eyebrow={eyebrow} title={title} text={text} />
+		<ul class="platforms" style={columns ? `--columns: ${columns}` : undefined}>
+			{
+				items.map((p, i) => (
+					<li class="platform" data-kubai-trigger>
+						{p.icon && (
+							<span class="platform-icon">
+								<KIcon name={p.icon} size={30} color={p.color ?? colors[i % colors.length]} />
+							</span>
+						)}
+						<div>
+							<h3>{p.title}</h3>
+							<p>{p.text}</p>
+						</div>
+					</li>
+				))
+			}
+		</ul>
+	</div>
+</section>

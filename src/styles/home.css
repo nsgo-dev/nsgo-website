@@ -1,0 +1,473 @@
+/* The home page's sections. The header, footer and page base are in
+   shell.css, which every page shares. */
+
+.home {
+	font-size: 1rem;
+	line-height: 1.6;
+}
+.home a {
+	color: inherit;
+}
+.home img {
+	display: block;
+	max-width: 100%;
+	height: auto;
+}
+/* Shared pieces */
+.button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5rem;
+	height: 2.75rem;
+	padding: 0 1.125rem;
+	border: 1px solid transparent;
+	border-radius: var(--radius);
+	font-size: 0.9375rem;
+	font-weight: 600;
+	text-decoration: none;
+	white-space: nowrap;
+	transition:
+		transform 0.3s var(--ease),
+		background-color 0.15s,
+		border-color 0.15s,
+		box-shadow 0.3s var(--ease);
+}
+.button:active {
+	transform: translateY(1px) scale(0.98);
+}
+.button.primary {
+	background-color: var(--button);
+	color: var(--on-button);
+	box-shadow: var(--shadow);
+}
+.button.primary:hover {
+	transform: translateY(-1px);
+}
+.button > svg:last-child:not(:first-child) {
+	transition: transform 0.3s var(--ease);
+}
+/* A trailing arrow leans the way the link goes. */
+.button:hover > svg:last-child:not(:first-child) {
+	transform: translateX(2px);
+}
+.button.secondary {
+	border-color: var(--border);
+	background-color: var(--bg);
+	color: var(--text);
+	box-shadow: var(--shadow);
+}
+.button.secondary:hover {
+	border-color: var(--border-strong);
+}
+
+.eyebrow {
+	margin: 0 0 0.75rem;
+	color: var(--accent);
+	font-size: 0.8125rem;
+	font-weight: 650;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+}
+
+
+/* Hero */
+.hero {
+	display: flex;
+	align-items: center;
+	min-height: min(calc(100svh - 3.75rem), 56rem);
+	padding-block: 3rem 4rem;
+}
+.hero-row {
+	display: grid;
+	gap: 3rem;
+	align-items: center;
+}
+@media (min-width: 64rem) {
+	.hero-row:not(.single) {
+		grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+		gap: 4.5rem;
+	}
+}
+.hero-copy {
+	min-width: 0;
+	max-width: 34rem;
+}
+/* A hero of words alone, on a page of a project's own: wider and only as tall as its words. */
+.hero:has(.single) {
+	min-height: 0;
+	padding-block: 5rem 0;
+}
+.single .hero-copy {
+	max-width: 48rem;
+}
+.hero .button {
+	height: 3.25rem;
+	padding: 0 1.375rem;
+	font-size: 1rem;
+}
+
+.headline {
+	display: flex;
+	flex-direction: column;
+	margin: 0 0 1.25rem;
+	font-size: clamp(2.5rem, 1.6rem + 3.6vw, 4.25rem);
+	font-weight: 700;
+	letter-spacing: -0.035em;
+	line-height: 1.05;
+	text-wrap: balance;
+}
+:is(:lang(zh), :lang(ja)) .headline {
+	letter-spacing: -0.01em;
+	line-height: 1.15;
+	/* Breaks at spaces and punctuation, never inside a word. */
+	word-break: keep-all;
+}
+.headline .accent {
+	background: linear-gradient(100deg, var(--accent) 10%, #8b5cf6 90%);
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+}
+.lead {
+	max-width: 34rem;
+	margin: 0;
+	color: var(--muted);
+	font-size: clamp(1.0625rem, 1rem + 0.3vw, 1.1875rem);
+	line-height: 1.6;
+	text-wrap: pretty;
+}
+.cta {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.75rem;
+	margin: 2.25rem 0 1.5rem;
+}
+.cta.center {
+	justify-content: center;
+	margin: 0;
+}
+
+.hero-meta {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.hero-meta li {
+	padding: 0.25rem 0.75rem;
+	border: 1px solid var(--border);
+	border-radius: 999px;
+	color: var(--muted);
+	font-size: 0.8125rem;
+}
+
+.hero-stage {
+	min-width: 0;
+}
+.status-pill {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	margin: 0 0 1.5rem;
+	padding: 0.25rem 0.75rem 0.25rem 0.625rem;
+	border: 1px solid var(--border);
+	border-radius: 999px;
+	background-color: var(--surface);
+	color: var(--muted);
+	font-size: 0.8125rem;
+	font-weight: 550;
+}
+.status-pill .dot {
+	width: 0.5rem;
+	height: 0.5rem;
+	border-radius: 50%;
+	background-color: #f59e0b;
+	box-shadow: 0 0 0 3px rgb(245 158 11 / 0.18);
+}
+.button .external {
+	opacity: 0.6;
+}
+
+.rise {
+	animation: rise 0.8s var(--ease) both;
+	animation-delay: calc(var(--i, 0) * 70ms);
+}
+@keyframes rise {
+	from {
+		opacity: 0;
+		transform: translateY(12px);
+	}
+}
+
+/* Sections */
+.section {
+	padding-block: 4rem;
+}
+@media (min-width: 64rem) {
+	.section {
+		padding-block: 7rem;
+	}
+}
+.section-head {
+	max-width: 40rem;
+	margin: 0 auto 3rem;
+	text-align: center;
+}
+.section-head.left {
+	margin: 0;
+	text-align: left;
+}
+.section-head h2 {
+	margin: 0;
+	font-size: clamp(1.75rem, 1.3rem + 1.8vw, 2.5rem);
+	font-weight: 700;
+	letter-spacing: -0.025em;
+	line-height: 1.15;
+	text-wrap: balance;
+}
+.section-head p:not(.eyebrow) {
+	margin: 1rem 0 0;
+	color: var(--muted);
+	font-size: 1.0625rem;
+	text-wrap: pretty;
+}
+
+/* Features */
+.features {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr);
+	gap: 1px;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	border: 1px solid var(--border);
+	border-radius: var(--radius-lg);
+	background-color: var(--border);
+	list-style: none;
+}
+@media (min-width: 36rem) {
+	.features {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+@media (min-width: 64rem) {
+	.features {
+		grid-template-columns: repeat(var(--columns, 3), minmax(0, 1fr));
+	}
+}
+.feature {
+	padding: 1.75rem 1.5rem;
+	background-color: var(--bg);
+	transition: background-color 0.2s;
+}
+.feature:hover {
+	background-color: var(--surface);
+}
+.feature-icon {
+	display: inline-grid;
+	place-items: center;
+	width: 2.25rem;
+	height: 2.25rem;
+	margin-bottom: 1rem;
+	color: var(--accent);
+}
+@media (max-width: 35.99rem) {
+	.feature {
+		display: grid;
+		grid-template-columns: auto minmax(0, 1fr);
+		column-gap: 1rem;
+		padding: 1.25rem;
+	}
+	.feature-icon {
+		grid-row: span 2;
+		margin-bottom: 0;
+	}
+}
+.feature h3 {
+	margin: 0 0 0.375rem;
+	font-size: 1rem;
+	font-weight: 650;
+	letter-spacing: -0.01em;
+}
+.feature p {
+	margin: 0;
+	color: var(--muted);
+	font-size: 0.9375rem;
+	line-height: 1.55;
+}
+
+
+/* Cards: one strip, as the highlights are, as for platforms. */
+.platforms {
+	display: grid;
+	gap: 1px;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	border: 1px solid var(--border);
+	border-radius: var(--radius-lg);
+	background-color: var(--border);
+	list-style: none;
+}
+@media (min-width: 36rem) {
+	.platforms {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+@media (min-width: 64rem) {
+	.platforms {
+		grid-template-columns: repeat(var(--columns, 4), minmax(0, 1fr));
+	}
+}
+.platform {
+	display: grid;
+	align-content: start;
+	gap: 0.75rem;
+	padding: 1.75rem 1.5rem;
+	background-color: var(--bg);
+	transition: background-color 0.2s;
+}
+.platform:hover {
+	background-color: var(--surface);
+}
+.platform-icon {
+	display: grid;
+	place-items: center;
+	width: 2.25rem;
+	height: 2.25rem;
+}
+.platform h3 {
+	margin: 0 0 0.375rem;
+	font-size: 1rem;
+	font-weight: 650;
+}
+.platform p {
+	margin: 0;
+	color: var(--muted);
+	font-size: 0.9375rem;
+	line-height: 1.55;
+}
+
+/* Split: the words beside code or a project's own component. */
+.usage-row {
+	display: grid;
+	gap: 2.5rem;
+	align-items: center;
+}
+@media (min-width: 64rem) {
+	.usage-row {
+		grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+		gap: 4.5rem;
+	}
+}
+.usage-copy .section-head {
+	max-width: 32rem;
+}
+.points {
+	display: grid;
+	gap: 1.25rem;
+	margin: 2rem 0 0;
+	padding: 0;
+	list-style: none;
+}
+.point {
+	display: grid;
+	grid-template-columns: auto minmax(0, 1fr);
+	gap: 0.875rem;
+}
+.point-icon {
+	display: grid;
+	place-items: center;
+	width: 2.5rem;
+	height: 2.5rem;
+	border: 1px solid var(--border);
+	border-radius: var(--radius);
+	background-color: var(--surface);
+}
+.point h3 {
+	margin: 0 0 0.25rem;
+	font-size: 1rem;
+	font-weight: 650;
+}
+.point p {
+	margin: 0;
+	color: var(--muted);
+	font-size: 0.9375rem;
+	line-height: 1.55;
+}
+.usage-code {
+	min-width: 0;
+}
+.usage-code .expressive-code {
+	box-shadow: var(--shadow);
+	border-radius: 1rem;
+}
+.usage-code .expressive-code pre {
+	font-size: 0.875rem;
+}
+@media (max-width: 30rem) {
+	.usage-code .expressive-code pre {
+		font-size: 0.75rem;
+	}
+}
+
+/* End */
+.end {
+	padding-top: 2rem;
+	padding-bottom: 5rem;
+}
+@media (min-width: 64rem) {
+	.end {
+		padding-top: 3rem;
+		padding-bottom: 7rem;
+	}
+}
+.end-card {
+	position: relative;
+	overflow: hidden;
+	padding: clamp(3.5rem, 8vw, 6.5rem) 1.5rem;
+	border: 1px solid var(--border);
+	border-radius: calc(var(--radius-lg) * 1.4);
+	background:
+		radial-gradient(60% 120% at 50% 0%, var(--accent-soft), transparent 70%),
+		var(--end-bg, var(--surface));
+	text-align: center;
+}
+[data-theme='light'] .end-card {
+	--end-bg: #ffffff;
+	box-shadow: var(--shadow);
+}
+.end-card > :not(ascii-field) {
+	position: relative;
+	z-index: 1;
+}
+.end-logo {
+	display: block;
+	width: 4rem;
+	height: 4rem;
+	margin: 0 auto 1.25rem;
+}
+.end-card h2 {
+	margin: 0;
+	font-size: clamp(1.75rem, 1.3rem + 1.8vw, 2.5rem);
+	font-weight: 700;
+	letter-spacing: -0.025em;
+	line-height: 1.15;
+	text-wrap: balance;
+}
+.end-card p {
+	max-width: 32rem;
+	margin: 1rem auto 2rem;
+	color: var(--muted);
+	text-wrap: pretty;
+}
+
+/* A phrase of a heading that wraps as a whole, so Chinese lines break
+   between phrases and not inside words. */
+.phrase {
+	display: inline-block;
+}
+

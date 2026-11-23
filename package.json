@@ -1,0 +1,57 @@
+{
+	"name": "nsgo-website",
+	"version": "0.1.0",
+	"description": "The website of an NSGo project as an Astro integration: home, docs, roadmap and the shared shell, from the project's own settings.",
+	"license": "SEE LICENSE IN LICENSE",
+	"type": "module",
+	"keywords": [
+		"astro-integration",
+		"astro-component",
+		"withastro",
+		"starlight",
+		"nsgo"
+	],
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/nsgo-dev/nsgo-website.git"
+	},
+	"files": [
+		"src",
+		"bin"
+	],
+	"exports": {
+		".": "./src/index.ts",
+		"./config": "./src/config.ts",
+		"./content": "./src/content.ts",
+		"./share": "./src/share.ts",
+		"./site": "./src/site.ts",
+		"./resolve": "./src/resolve.ts",
+		"./virtual": "./src/virtual.d.ts",
+		"./components": "./src/components/index.ts",
+		"./components/*": "./src/components/*",
+		"./styles/*": "./src/styles/*",
+		"./routes/*": "./src/routes/*"
+	},
+	"bin": {
+		"nsgo-website-share-cards": "./bin/share-cards.ts"
+	},
+	"workspaces": [
+		"example"
+	],
+	"scripts": {
+		"dev": "cd example && bun run dev",
+		"build": "cd example && bun run build",
+		"check": "cd example && bunx astro check",
+		"test": "bun test"
+	},
+	"peerDependencies": {
+		"astro": "^7.4.13"
+	},
+	"dependencies": {
+		"@astrojs/starlight": "^0.43.1",
+		"kubai-icons": "^0.12.0"
+	},
+	"devDependencies": {
+		"astro": "^7.4.13"
+	}
+}
