@@ -32,7 +32,7 @@ export default defineSite({
 		dir: './docs',
 		sidebar: [
 			{ label: { en: 'Start', zh: '开始' }, items: ['docs', 'docs/quick-start'] },
-			{ label: { en: 'Guides', zh: '指南' }, items: ['docs/guides/editing'] },
+			{ label: { en: 'Guides', zh: '指南' }, items: ['docs/guides/editing', 'docs/guides/code-blocks'] },
 		],
 	},
 	roadmap: { tracking: 1 },

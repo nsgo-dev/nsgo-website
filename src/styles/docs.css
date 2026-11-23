@@ -270,30 +270,52 @@
 	display: none;
 }
 
-/* Code: the home page's code windows, on the site's surface. */
-.sl-markdown-content .expressive-code {
+/* Code, here and on the home page: on the site's surface, and long blocks
+   scroll inside rather than fill the page. */
+.expressive-code {
 	--ec-brdCol: var(--border);
 	--ec-codeBg: var(--surface);
 	--ec-frm-edBg: var(--surface);
 	--ec-frm-trmBg: var(--surface);
 	--ec-frm-edTabBarBg: var(--surface);
 	--ec-frm-edActTabBg: var(--surface);
+	--ec-frm-edActTabFg: var(--muted);
+	--ec-frm-edActTabIndTopCol: transparent;
+	--ec-frm-edActTabIndBtmCol: transparent;
 	--ec-frm-trmTtbBg: var(--surface);
+	--ec-frm-edTabBarBrdCol: var(--border);
 	--ec-frm-edTabBarBrdBtmCol: var(--border);
 	--ec-frm-trmTtbBrdBtmCol: var(--border);
 	--ec-frm-trmTtbDotsFg: var(--border-strong);
 	--ec-frm-trmTtbDotsOpa: 1;
 	--ec-codeFontFml: var(--font-mono);
 }
-.sl-markdown-content .expressive-code .frame {
+.expressive-code .frame {
 	box-shadow: none;
 }
+.expressive-code pre {
+	max-height: 30rem;
+	overflow-y: auto;
+}
+/* Title: a quiet file name over a hairline, lined up with the code, in
+   place of an editor's tab. */
+.expressive-code .frame.has-title:not(.is-terminal) .title {
+	padding: 0.5rem 1.25rem;
+	border: 0;
+	border-radius: 0;
+	background: none;
+	font-family: var(--font-mono);
+	font-size: 0.75rem;
+	line-height: 1.5;
+}
 /* Copy: a small bare icon in the corner. */
-.sl-markdown-content .expressive-code .copy button {
+.expressive-code .copy button {
 	width: 1.75rem;
 	height: 1.75rem;
 	border-radius: 0.5rem;
 }
-.sl-markdown-content .expressive-code .copy button::after {
-	margin: 0.375rem;
+.expressive-code .copy button::after {
+	margin: 0.5rem;
+	mask-size: contain;
+	-webkit-mask-size: contain;
 }

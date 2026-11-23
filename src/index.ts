@@ -112,13 +112,15 @@ export default function nsgoWebsite(given: SiteOptions): AstroIntegration {
 							markdown: { processedDirs: [docsDir] },
 							routeMiddleware: `${pkg}/share`,
 							// Code as the home page shows it: the same themes in a soft
-							// frame, without a title bar, even for shell commands. Its
-							// colors are set in docs.css, from the site's own.
+							// frame, without a title bar, even for shell commands, and
+							// with the system's own scrollbars. Its surface is set in
+							// docs.css, from the site's own colors.
 							expressiveCode: {
-								themes: ['github-dark-dimmed', 'github-light'],
+								themes: ['one-dark-pro', 'one-light'],
 								defaultProps: { frame: 'code' },
+								useThemedScrollbars: false,
 								styleOverrides: {
-									borderRadius: '1rem',
+									borderRadius: '0.625rem',
 									codeFontSize: '0.8125rem',
 									codeLineHeight: '1.7',
 									codePaddingBlock: '1rem',

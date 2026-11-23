@@ -413,7 +413,7 @@
 }
 .usage-code .expressive-code {
 	box-shadow: var(--shadow);
-	border-radius: 1rem;
+	border-radius: 0.625rem;
 }
 .usage-code .expressive-code pre {
 	font-size: 0.875rem;
