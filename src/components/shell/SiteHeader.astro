@@ -10,6 +10,7 @@ import HeaderMenu from './HeaderMenu.astro';
 import NavMenu from './NavMenu.astro';
 import { locales } from '../../locales';
 import { langOf, langs, pathIn, site } from '../../site';
+import { loadStars } from '../../stars';
 
 const lang = langOf(Astro.locals.starlightRoute.lang);
 const s = site[lang];
@@ -27,6 +28,10 @@ const languages = [{ label: t.language.auto, value: 'auto' }, ...langs.map((l) =
 // Each language's mark in a color of its own.
 const tagColors = ['#3b82f6', '#ef4444', '#f59e0b', '#22a45d', '#8b5cf6', '#0ea5e9', '#ec4899', '#14b8a6'];
 const themes = (['auto', 'light', 'dark'] as const).map((value) => ({ label: t.theme[value], value }));
+
+// The repository's stars in the page's language's short form, such as 1.2K.
+const stars = await loadStars(s.repo);
+const starLabel = stars === undefined ? undefined : new Intl.NumberFormat(locales[lang].tag, { notation: 'compact' }).format(stars);
 
 // Each choice's icon, in a color of its own.
 const colors = { languages: '#8b5cf6', globe: '#14b8a6', sun: '#f59e0b', moon: '#6366f1', monitor: '#0ea5e9' };
@@ -83,7 +88,7 @@ const colors = { languages: '#8b5cf6', globe: '#14b8a6', sun: '#f59e0b', moon: '
 		{s.accounts.length > 0 && <NavMenu label="X" links={s.accounts} icon="x.com" class="x-menu hide-sm" />}
 		<a class="icon-button github hide-sm" href={s.repo} target="_blank" rel="noopener noreferrer" aria-label={t.nav.github}>
 			<Icon name="github" size="1.05rem" />
-			<span>GitHub</span>
+			<span class:list={{ stars: starLabel }}>{starLabel ?? 'GitHub'}</span>
 		</a>
 		<button class="icon-button menu-button" type="button" popovertarget="starlight__sidebar" aria-label={t.nav.menu}>
 			<Icon name="bars" size="1.15rem" class="open" />
