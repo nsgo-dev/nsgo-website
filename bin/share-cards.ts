@@ -27,6 +27,8 @@ const types: Record<string, string> = { '.svg': 'image/svg+xml', '.png': 'image/
 const logoFile = resolve(options.logo);
 const logo = `data:${types[extname(logoFile).toLowerCase()] ?? 'image/png'};base64,${(await readFile(logoFile)).toString('base64')}`;
 const tokens = await readFile(join(import.meta.dir, '../src/styles/tokens.css'), 'utf8');
+// A look other than the default brings its colors and ground to the cards too.
+const look = options.look && options.look !== 'default' ? await readFile(join(import.meta.dir, `../src/styles/${options.look}.css`), 'utf8') : '';
 const escape = (s: string) => s.replace(/[&<>"]/g, (c) => `&${{ '&': 'amp', '<': 'lt', '>': 'gt', '"': 'quot' }[c]};`);
 
 const html = (lang: Lang) => {
@@ -35,17 +37,18 @@ const html = (lang: Lang) => {
 	const headline = s.home ? s.home.headline : [s.title, ''];
 	const chips = (s.home && s.home.chips) || [];
 	const visual = options.share?.visual ?? `<img class="big-logo" src="${logo}" alt="">`;
-	return `<!doctype html><html lang="${s.locale.tag}" data-theme="light"><meta charset="utf-8"><style>
+	return `<!doctype html><html lang="${s.locale.tag}" data-theme="${s.darkOnly ? 'dark' : 'light'}"><meta charset="utf-8"><style>
 ${tokens}
+${look}
 * { box-sizing: border-box; margin: 0; }
 html, body { width: 1200px; height: 630px; overflow: hidden; }
 body { background: var(--bg); color: var(--text); font-family: var(--font-sans);
 	display: grid; grid-template-columns: 1fr 520px; gap: 48px; align-items: center; padding: 64px 64px 64px 72px; -webkit-font-smoothing: antialiased; }
 .text { display: flex; flex-direction: column; height: 100%; min-width: 0; }
-.brand { display: flex; align-items: center; gap: 14px; font-size: 28px; font-weight: 650; letter-spacing: -0.01em; }
-.brand img { width: 52px; height: 52px; }
+.text .brand { display: flex; align-items: center; gap: 14px; font-size: 28px; font-weight: 650; letter-spacing: -0.01em; }
+.text .brand img { width: 52px; height: 52px; }
 h1 { margin-top: auto; font-size: ${cjk ? 56 : 58}px; line-height: 1.1; font-weight: 750; letter-spacing: ${cjk ? '-0.01em' : '-0.03em'}; }
-h1 span { display: block; white-space: nowrap; }
+h1 span { display: block; ${s.home ? 'white-space: nowrap;' : 'text-wrap: balance;'} }
 h1 span + span { background: linear-gradient(100deg, var(--accent) 10%, #8b5cf6 90%); -webkit-background-clip: text; color: transparent; }
 .chips { display: flex; gap: 10px; margin-top: 36px; }
 .chips span { border: 1.5px solid var(--border-strong); border-radius: 999px; padding: 8px 18px; font-size: 22px; color: var(--muted); }
