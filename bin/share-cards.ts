@@ -24,7 +24,9 @@ async function run(cmd: string[]) {
 }
 
 const types: Record<string, string> = { '.svg': 'image/svg+xml', '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.webp': 'image/webp' };
-const logoFile = resolve(options.logo);
+// The demoscene look's cards are dark, as it is at its most itself; the rest light.
+const dark = options.look === 'demoscene';
+const logoFile = resolve((dark && options.logoDark) || options.logo);
 const logo = `data:${types[extname(logoFile).toLowerCase()] ?? 'image/png'};base64,${(await readFile(logoFile)).toString('base64')}`;
 const tokens = await readFile(join(import.meta.dir, '../src/styles/tokens.css'), 'utf8');
 // A look other than the default brings its colors and ground to the cards too.
@@ -37,7 +39,7 @@ const html = (lang: Lang) => {
 	const headline = s.home ? s.home.headline : [s.title, ''];
 	const chips = (s.home && s.home.chips) || [];
 	const visual = options.share?.visual ?? `<img class="big-logo" src="${logo}" alt="">`;
-	return `<!doctype html><html lang="${s.locale.tag}" data-theme="${s.darkOnly ? 'dark' : 'light'}"><meta charset="utf-8"><style>
+	return `<!doctype html><html lang="${s.locale.tag}" data-theme="${dark ? 'dark' : 'light'}"><meta charset="utf-8"><style>
 ${tokens}
 ${look}
 * { box-sizing: border-box; margin: 0; }

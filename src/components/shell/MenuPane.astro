@@ -53,7 +53,7 @@ const ext = (link: ResolvedLink) => (link.external ? { target: '_blank', rel: 'n
 		</nav>
 		<div class="menu-choices">
 			{langs.length > 1 && <ChoiceGroup name="language" label={t.language.name} items={languageChoices(lang)} />}
-			{!site[lang].darkOnly && <ChoiceGroup name="theme" label={t.theme.name} items={themeChoices(lang)} />}
+			<ChoiceGroup name="theme" label={t.theme.name} items={themeChoices(lang)} />
 		</div>
 		{
 			docked && (

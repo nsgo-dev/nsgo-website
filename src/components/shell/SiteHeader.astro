@@ -35,7 +35,8 @@ const starLabel = stars === undefined ? undefined : new Intl.NumberFormat(locale
 
 <div class="container header-row">
 	<a class="brand" href={s.paths.home}>
-		<Image class="logo" src={images[s.logo]} alt="" width={28} height={28} densities={[1, 2]} />
+		<Image class:list={['logo', { 'theme-light': s.logoDark }]} src={images[s.logo]} alt="" width={28} height={28} densities={[1, 2]} />
+		{s.logoDark && <Image class="logo theme-dark" src={images[s.logoDark]} alt="" width={28} height={28} densities={[1, 2]} />}
 		<span>{s.name}</span>
 	</a>
 	<nav class="nav" aria-label={t.nav.label}>
@@ -87,7 +88,6 @@ const starLabel = stars === undefined ? undefined : new Intl.NumberFormat(locale
 				</HeaderMenu>
 			)
 		}
-		{!s.darkOnly && (
 		<HeaderMenu name="theme" label={t.theme.name} items={themes} class="hide-sm">
 			<span slot="icon" class="theme-icon">
 				<span class="when-light"><KIcon name="sun" size={18} color={colors.sun} /></span>
@@ -96,7 +96,6 @@ const starLabel = stars === undefined ? undefined : new Intl.NumberFormat(locale
 			</span>
 			{themes.map((c) => <KIcon slot={`icon-${c.value}`} name={c.icon!} size={16} color={c.color} />)}
 		</HeaderMenu>
-		)}
 		{s.accounts.length > 0 && <NavMenu label="X" links={s.accounts} icon="x.com" class="x-menu hide-sm" />}
 		<a class="icon-button github hide-sm" href={s.repo} target="_blank" rel="noopener noreferrer" aria-label={t.nav.github}>
 			<Icon name="github" size="1.05rem" />
@@ -122,9 +121,8 @@ const starLabel = stars === undefined ? undefined : new Intl.NumberFormat(locale
 		const value = localStorage.getItem('starlight-theme');
 		return value === 'light' || value === 'dark' ? value : 'auto';
 	};
-	const darkOnly = 'darkOnly' in document.documentElement.dataset;
 	const apply = (choice: Choice) => {
-		document.documentElement.dataset.theme = darkOnly ? 'dark' : choice === 'auto' ? (system.matches ? 'light' : 'dark') : choice;
+		document.documentElement.dataset.theme = choice === 'auto' ? (system.matches ? 'light' : 'dark') : choice;
 		document.documentElement.dataset.themeChoice = choice;
 		for (const menu of document.querySelectorAll<HTMLElement & { select?(v: string): void }>(':is(header-menu, choice-group)[data-name="theme"]')) {
 			menu.select?.(choice);

@@ -112,6 +112,14 @@ body {
 	width: 1.75rem;
 	height: 1.75rem;
 }
+/* A logo with a dark-theme version shows the one of the current theme. */
+.brand .logo.theme-dark,
+:root:not([data-theme='light']) .brand .logo.theme-light {
+	display: none;
+}
+:root:not([data-theme='light']) .brand .logo.theme-dark {
+	display: block;
+}
 .nav {
 	display: none;
 	gap: 0.25rem;

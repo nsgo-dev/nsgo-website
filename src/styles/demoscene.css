@@ -1,8 +1,9 @@
-/* The demoscene look: real-time computer art, always dark. Amber on warm
-   black, monospaced type, square corners and few lines, and no glow or
-   gradient; the pictures bring their own dithering. It goes over
-   the package's own styles, so its rules start at :root to outrank theirs
-   whatever order the page loads them in. */
+/* The demoscene look: real-time computer art. Amber on warm black in the
+   dark, NSGo's blue on white in the light; monospaced type, square corners
+   and few lines, and no glow or gradient; the pictures bring their own
+   dithering. It goes over the package's own styles, so its rules start at
+   :root to outrank theirs whatever order the page loads them in, and its
+   light colors at :root:root to outrank Starlight's and tokens.css's. */
 
 :root {
 	color-scheme: dark;
@@ -27,6 +28,11 @@
 	--accent-soft: rgb(255 176 0 / 0.1);
 	--on-accent: #0b0a08;
 	--shadow: none;
+	/* The hard shadow under menus, and the monitor's scanlines. */
+	--drop: rgb(0 0 0 / 0.6);
+	--scanline: rgb(0 0 0 / 0.16);
+	/* A logo in another color takes the accent, as on a monochrome screen. */
+	--tint: grayscale(1) sepia(1) saturate(6) hue-rotate(-12deg) brightness(1.1);
 
 	--sl-font: var(--font-mono);
 	--sl-color-accent-low: #2b2108;
@@ -63,6 +69,58 @@
 	--sl-color-red-high: #ffb3a0;
 }
 
+:root:root[data-theme='light'] {
+	color-scheme: light;
+	--bg: #ffffff;
+	--surface: #f2f4f7;
+	--surface-2: #e6eaf0;
+	--border: #d5dbe3;
+	--border-strong: #4da3ff;
+	--text: #0b0d12;
+	--muted: #4f5866;
+	--faint: #8a919c;
+	--accent: #007aff;
+	--accent-strong: #0060d1;
+	--accent-soft: rgb(0 122 255 / 0.08);
+	--on-accent: #ffffff;
+	--drop: rgb(0 122 255 / 0.18);
+	--scanline: rgb(0 40 100 / 0.035);
+	--tint: grayscale(1) sepia(1) saturate(9) hue-rotate(170deg) brightness(0.95);
+
+	--sl-color-accent-low: #dcecff;
+	--sl-color-accent: #007aff;
+	--sl-color-accent-high: #0060d1;
+	--sl-color-white: #0b0d12;
+	--sl-color-gray-1: #1d2027;
+	--sl-color-gray-2: #353a44;
+	--sl-color-gray-3: #4f5866;
+	--sl-color-gray-4: #8a919c;
+	--sl-color-gray-5: #d5dbe3;
+	--sl-color-gray-6: #f2f4f7;
+	--sl-color-gray-7: #f8f9fb;
+	--sl-color-black: #ffffff;
+	--sl-color-bg-nav: #ffffff;
+	--sl-color-bg-sidebar: #ffffff;
+	--sl-color-hairline: #d5dbe3;
+	--sl-color-hairline-light: #d5dbe3;
+	--sl-color-hairline-shade: #d5dbe3;
+	--sl-color-blue-low: #e5f1ff;
+	--sl-color-blue: #007aff;
+	--sl-color-blue-high: #0060d1;
+	--sl-color-purple-low: #e5f1ff;
+	--sl-color-purple: #007aff;
+	--sl-color-purple-high: #0060d1;
+	--sl-color-green-low: #e6f6ec;
+	--sl-color-green: #1f9d55;
+	--sl-color-green-high: #146c3a;
+	--sl-color-orange-low: #fff1e0;
+	--sl-color-orange: #e07400;
+	--sl-color-orange-high: #8f4a00;
+	--sl-color-red-low: #ffe8e5;
+	--sl-color-red: #e5372a;
+	--sl-color-red-high: #96211a;
+}
+
 :root body {
 	background-color: var(--bg);
 	font-family: var(--font-mono);
@@ -73,14 +131,14 @@
 	position: fixed;
 	inset: 0;
 	z-index: 100;
-	background: repeating-linear-gradient(to bottom, rgb(0 0 0 / 0.16) 0 1px, transparent 1px 3px);
+	background: repeating-linear-gradient(to bottom, var(--scanline) 0 1px, transparent 1px 3px);
 	pointer-events: none;
 }
 :root ::selection {
 	background-color: var(--accent);
 	color: var(--on-accent);
 }
-/* Icons in the look's amber, whatever color the page gave them. */
+/* Icons in the look's accent, whatever color the page gave them. */
 :root .kubai-icon {
 	--ki-c: var(--accent);
 }
@@ -152,13 +210,13 @@
 	border: 1px solid var(--border);
 	border-radius: 0;
 	background-color: var(--bg);
-	box-shadow: 6px 6px 0 rgb(0 0 0 / 0.6);
+	box-shadow: 6px 6px 0 var(--drop);
 }
 :root .site-header :is(.menu-list, .nav-list) > * {
 	border-radius: 0;
 }
 
-/* Buttons: square, the primary filled with the amber, the other outlined;
+/* Buttons: square, the primary filled with the accent, the other outlined;
    picked, each casts a hard shadow, as a sprite does. */
 :root .button {
 	height: 3rem;
@@ -303,8 +361,7 @@
 	color: var(--text);
 }
 :root .end-logo {
-	/* A logo in another color takes the amber, as on a monochrome screen. */
-	filter: grayscale(1) sepia(1) saturate(6) hue-rotate(-12deg) brightness(1.1);
+	filter: var(--tint);
 }
 :root .end-card .eyebrow {
 	color: var(--accent);

@@ -145,7 +145,6 @@ export default function nsgoWebsite(given: SiteOptions): AstroIntegration {
 							],
 							components: {
 								Head: component('Head'),
-								ThemeProvider: component('ThemeProvider'),
 								Header: `${pkg}/components/shell/SiteHeader.astro`,
 								PageFrame: component('PageFrame'),
 								TwoColumnContent: component('TwoColumnContent'),

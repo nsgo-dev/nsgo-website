@@ -244,9 +244,8 @@ export function resolveSite(options: SiteOptions, lang: Lang, base: string) {
 		title: loc(options.title),
 		description: loc(options.description),
 		logo: options.logo,
+		logoDark: options.logoDark,
 		look: options.look ?? 'default',
-		/** Whether the site is always dark, with no theme to choose, as the demoscene look is made for the dark only. */
-		darkOnly: options.look === 'demoscene',
 		repo,
 		branch,
 		path: options.path ?? 'website',
@@ -291,7 +290,7 @@ export function starlightSidebar(items: SidebarItem[], langs: Lang[]): unknown[]
 /** Every file the settings name, by kind: components to render, images to import and Kubai icons to bundle. */
 export function assetsOf(options: SiteOptions): { components: string[]; images: string[]; icons: string[] } {
 	const components = new Set<string>();
-	const images = new Set<string>([options.logo]);
+	const images = new Set<string>([options.logo, ...(options.logoDark ? [options.logoDark] : [])]);
 	const icons = new Set<string>(['languages', 'globe', 'sun', 'moon', 'monitor', ...(options.icons ?? [])]);
 	const links: Link[] = [...(options.accounts ?? []), ...(options.community || [])];
 	for (const n of options.nav ?? []) if (typeof n !== 'string' && 'links' in n) links.push(...n.links);

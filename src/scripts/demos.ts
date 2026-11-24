@@ -359,12 +359,19 @@ const still = matchMedia('(prefers-reduced-motion: reduce)');
 const start = performance.now();
 let looping = false;
 
-function accent(): [number, number, number] {
+/** The site's accent as RGB, read again when the theme changes; the unlit pixels stay clear, so the page's own ground shows. */
+function readAccent(): [number, number, number] {
 	const hex = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim();
 	const m = /^#?([0-9a-f]{6})$/i.exec(hex);
 	const n = m ? parseInt(m[1], 16) : 0xffb000;
 	return [n >> 16, (n >> 8) & 255, n & 255];
 }
+let accent: [number, number, number] | undefined;
+new MutationObserver(() => {
+	accent = undefined;
+	// Still demos are drawn again in the new colors; moving ones take them next frame.
+	if (still.matches || !looping) for (const d of running) if (d.canvas.isConnected) render(d, lastT);
+}).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
 
 let lastT = 2.4;
 
@@ -381,7 +388,7 @@ function render(d: Running, t: number) {
 	f.scroll = scrollY;
 	if (!d.effect.keep) f.light.fill(0);
 	d.effect.draw(f);
-	const [r, g, b] = accent();
+	const [r, g, b] = (accent ??= readAccent());
 	const px = d.image.data;
 	for (let y = 0; y < f.h; y++) {
 		for (let x = 0; x < f.w; x++) {

@@ -249,10 +249,10 @@ export interface Strings {
 }
 
 /**
- * How the whole site looks. default is calm and plain, in light and dark,
- * for apps and libraries. demoscene is real-time computer art, always dark,
- * for game engines and games: amber on black, monospaced type, dithered
- * pictures, square corners and few lines; a project builds its home page from
+ * How the whole site looks, in light and dark. default is calm and plain,
+ * for apps and libraries. demoscene is real-time computer art for game
+ * engines and games: amber on black or NSGo's blue on white, monospaced type,
+ * dithered pictures, square corners and few lines; a project builds its home page from
  * the components in components/demoscene, as example-game does.
  */
 export type Look = 'default' | 'demoscene';
@@ -271,6 +271,8 @@ export interface SiteOptions {
 	description: Text;
 	/** The logo, an image file from the site's root, such as ./src/assets/logo.png. */
 	logo: string;
+	/** The logo on the dark theme, for one drawn in the light theme's colors. */
+	logoDark?: string;
 	/** In public/; defaults to /favicon.svg. */
 	favicon?: string;
 	/** In public/, such as /apple-touch-icon.png. */

@@ -12,4 +12,4 @@ The engine, its API and its numbers do not exist.
 ## What the template has
 
 - A home page of the project's own, in `src/components/Home.astro`, built from the package's demoscene pieces.
-- Docs, search, the header and the footer from the settings, always dark.
+- Docs, search, the header and the footer from the settings, in light and dark.

@@ -15,6 +15,7 @@ export default defineSite({
 		zh: '一个虚构的游戏引擎，用来展示 NSGo 项目网站的 Demoscene 外观。',
 	},
 	logo: './src/assets/logo.png',
+	logoDark: './src/assets/logo-dark.png',
 	favicon: '/favicon.png',
 	appleTouchIcon: '/apple-touch-icon.png',
 	look: 'demoscene',
