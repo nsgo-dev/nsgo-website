@@ -1,6 +1,7 @@
 /* The roadmap page, after NSGo Game's: each stage a heading with its title on
    the left and a ring of its progress on the right, then its areas as
-   columns of cards holding their tasks as a tree with their subtasks. */
+   columns of cards holding their tasks as a tree with their subtasks; a
+   stage of one area spans the row with its tasks as lanes. */
 
 .roadmap {
 	--done: #22a45d;
@@ -387,3 +388,45 @@
 	color: var(--accent);
 }
 
+
+/* A stage of one area spans the row, its tasks as lanes: each task with its
+   subtasks a column, packed like a waterfall, one column on phones. */
+.rm-areas[data-single] {
+	columns: auto;
+}
+.rm-areas[data-single] > .rm-area {
+	margin-bottom: 0;
+}
+.rm-tree[data-lanes] {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr));
+	gap: 0.75rem;
+	align-items: start;
+	padding: 0.75rem;
+}
+/* The script turns the rows into small steps each lane spans its height of. */
+.rm-tree[data-lanes][data-packed] {
+	grid-auto-rows: 4px;
+	row-gap: 0;
+}
+.rm-tree[data-lanes] > .rm-task {
+	padding: 0.625rem 0.75rem 0.5rem;
+	border: 1px solid var(--border);
+	border-top: 2px solid var(--status);
+	border-radius: var(--radius-sm);
+	background-color: var(--surface);
+	transition: border-color 0.15s;
+}
+.rm-tree[data-lanes] > .rm-task:has(a:hover, a:focus-visible) {
+	border-color: var(--border-strong);
+	border-top-color: var(--status);
+}
+.rm-tree[data-lanes] > .rm-task > .rm-row .rm-title {
+	font-weight: 600;
+}
+.rm-tree[data-lanes] > .rm-task[data-status='done'] > .rm-row .rm-title {
+	font-weight: 500;
+}
+.rm-tree[data-lanes] .rm-subtasks {
+	margin-top: 0.375rem;
+}
