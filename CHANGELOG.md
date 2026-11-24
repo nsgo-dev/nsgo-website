@@ -11,4 +11,5 @@
 - Add the `logoDark` setting for a logo on the dark theme.
 - Add the `nsgo-website-share-cards` command to draw share images in the site's look.
 - Fit the site to phones: the header keeps the sponsors button, the menu names the language and theme choices, the page's title above a doc opens its pages beside the table of contents, search fills the screen without a frame and the footer is centered.
+- Lay out a roadmap stage of one area across the row, its tasks as lanes packed like a waterfall (#4 by @oneo-me).
 - Show code blocks in One Dark and One Light on the site's surface, with the system's scrollbars, smaller corners, a quiet title row, a smaller copy icon and long blocks scrolling within a capped height.
