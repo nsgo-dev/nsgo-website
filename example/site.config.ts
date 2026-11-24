@@ -20,8 +20,6 @@ export default defineSite({
 	repo,
 	// The docs here are samples, not the repository's.
 	editLink: false,
-	// The package's links, with the project's own demo page among them.
-	nav: ['features', 'docs', { label: { en: 'Demo', zh: '演示' }, href: 'demo/' }, 'roadmap', 'community', 'feedback', 'sponsors'],
 	accounts: [{ label: 'Sample Notes', note: '@sample_notes', href: 'https://x.com/sample_notes', icon: 'x.com' }],
 	community: [
 		{ label: 'NSGo', note: { en: 'The UI engine Sample Notes is built on', zh: '示例笔记所用的 UI 引擎' }, href: 'https://nsgo.dev', icon: 'nsgo' },
