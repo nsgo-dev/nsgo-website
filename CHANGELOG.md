@@ -7,6 +7,7 @@
 - Add `home` sections, `nav`, `footer`, `strings` and `customCss` settings to shape a project's site.
 - Add `Page`, `HomePage` and the home section components for a project's own pages.
 - Add the `sponsors` setting for a sponsors page of the project's own tiers, linked from the header's navigation and the footer, with the maintainers to sponsor as cards, chosen tiers on the home page and invitations to their open places.
-- Add the `nsgo-website-share-cards` command to draw share images.
+- Add the `look: 'demoscene'` setting, an always-dark real-time computer art look, and the `Effects`, `Effect`, `Ticker`, `Demo` (real-time dithered effects) and `Parallax` components with the `example-game` template for a game engine's own home page.
+- Add the `nsgo-website-share-cards` command to draw share images in the site's look.
 - Fit the site to phones: the header keeps the sponsors button, the menu names the language and theme choices, the page's title above a doc opens its pages beside the table of contents, search fills the screen without a frame and the footer is centered.
 - Show code blocks in One Dark and One Light on the site's surface, with the system's scrollbars, smaller corners, a quiet title row, a smaller copy icon and long blocks scrolling within a capped height.

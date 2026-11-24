@@ -1,0 +1,376 @@
+/* The demoscene look: real-time computer art, always dark. Amber on warm
+   black, monospaced type, square corners and few lines, and no glow or
+   gradient; the pictures bring their own dithering. It goes over
+   the package's own styles, so its rules start at :root to outrank theirs
+   whatever order the page loads them in. */
+
+:root {
+	color-scheme: dark;
+	--font-mono: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', 'PingFang SC',
+		'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans SC', monospace;
+	--radius-sm: 0;
+	--radius: 0;
+	--radius-lg: 0;
+	--ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+	--header-height: 3.75rem;
+
+	--bg: #0b0a08;
+	--surface: #15130e;
+	--surface-2: #1f1b13;
+	--border: #3a3020;
+	--border-strong: #66522a;
+	--text: #f3ead6;
+	--muted: #b9ab8c;
+	--faint: #7d7059;
+	--accent: #ffb000;
+	--accent-strong: #ffc94a;
+	--accent-soft: rgb(255 176 0 / 0.1);
+	--on-accent: #0b0a08;
+	--shadow: none;
+
+	--sl-font: var(--font-mono);
+	--sl-color-accent-low: #2b2108;
+	--sl-color-accent: #ffb000;
+	--sl-color-accent-high: #ffd98a;
+	--sl-color-white: #f3ead6;
+	--sl-color-gray-1: #ece2cc;
+	--sl-color-gray-2: #cfc2a5;
+	--sl-color-gray-3: #b9ab8c;
+	--sl-color-gray-4: #7d7059;
+	--sl-color-gray-5: #3a3020;
+	--sl-color-gray-6: #15130e;
+	--sl-color-black: #0b0a08;
+	--sl-color-bg-nav: #0b0a08;
+	--sl-color-bg-sidebar: #0b0a08;
+	--sl-color-hairline: #3a3020;
+	--sl-color-hairline-light: #3a3020;
+	--sl-color-hairline-shade: #3a3020;
+	/* Starlight's notes and badges, kept to the look's two colors. */
+	--sl-color-blue-low: #241d0c;
+	--sl-color-blue: #ffb000;
+	--sl-color-blue-high: #ffd98a;
+	--sl-color-purple-low: #241d0c;
+	--sl-color-purple: #ffb000;
+	--sl-color-purple-high: #ffd98a;
+	--sl-color-green-low: #1d1c0e;
+	--sl-color-green: #d8c87a;
+	--sl-color-green-high: #efe4b0;
+	--sl-color-orange-low: #2b1a08;
+	--sl-color-orange: #ff8a1f;
+	--sl-color-orange-high: #ffc28a;
+	--sl-color-red-low: #2b0f08;
+	--sl-color-red: #ff5a36;
+	--sl-color-red-high: #ffb3a0;
+}
+
+:root body {
+	background-color: var(--bg);
+	font-family: var(--font-mono);
+}
+/* Faint scanlines over everything, as a monitor draws. */
+:root body::after {
+	content: '';
+	position: fixed;
+	inset: 0;
+	z-index: 100;
+	background: repeating-linear-gradient(to bottom, rgb(0 0 0 / 0.16) 0 1px, transparent 1px 3px);
+	pointer-events: none;
+}
+:root ::selection {
+	background-color: var(--accent);
+	color: var(--on-accent);
+}
+/* Icons in the look's amber, whatever color the page gave them. */
+:root .kubai-icon {
+	--ki-c: var(--accent);
+}
+:root :focus-visible {
+	outline: 1px solid var(--accent);
+	outline-offset: 3px;
+}
+
+/* Header: nothing of its own at the top of the page; once the page
+   scrolls under it, a faint line and a blurred see-through ground. */
+:root .site-header {
+	border-bottom: 1px solid transparent;
+	background-color: transparent;
+}
+:root .site-header[data-scrolled] {
+	border-bottom-color: color-mix(in srgb, var(--border) 50%, transparent);
+	background-color: color-mix(in srgb, var(--bg) 72%, transparent);
+	-webkit-backdrop-filter: blur(12px);
+	backdrop-filter: blur(12px);
+}
+:root .brand {
+	font-size: 0.9375rem;
+	font-weight: 800;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+}
+:root .nav > a,
+:root .site-header .nav .nav-trigger {
+	padding: 0.25rem 0.625rem;
+	border: 1px solid transparent;
+	border-radius: 0;
+	color: var(--muted);
+	font-size: 0.8125rem;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+}
+:root .nav > a:hover,
+:root .site-header .nav .nav-trigger:is(:hover, [aria-expanded='true']) {
+	background: none;
+	color: var(--accent);
+}
+:root .nav > a[aria-current='page'] {
+	background: none;
+	color: var(--accent);
+}
+:root .icon-button,
+:root .site-header :is(.menu-trigger, .icon-trigger) {
+	border: 0;
+	border-radius: 0;
+	background: none;
+	color: var(--text);
+}
+:root .site-header button[data-open-modal] {
+	border: 0;
+	border-radius: 0;
+	background-color: var(--surface);
+	color: var(--muted);
+}
+:root .icon-button:hover,
+:root .site-header :is(button[data-open-modal], .menu-trigger, .icon-trigger):is(:hover, [aria-expanded='true']) {
+	background-color: var(--surface-2);
+	color: var(--accent);
+}
+:root .site-header button[data-open-modal] kbd {
+	border-radius: 0;
+}
+:root .site-header :is(.menu-list, .nav-list),
+:root site-search dialog {
+	border: 1px solid var(--border);
+	border-radius: 0;
+	background-color: var(--bg);
+	box-shadow: 6px 6px 0 rgb(0 0 0 / 0.6);
+}
+:root .site-header :is(.menu-list, .nav-list) > * {
+	border-radius: 0;
+}
+
+/* Buttons: square, the primary filled with the amber, the other outlined;
+   picked, each casts a hard shadow, as a sprite does. */
+:root .button {
+	height: 3rem;
+	padding: 0 1.125rem;
+	border: 1px solid var(--accent);
+	border-radius: 0;
+	font-size: 0.875rem;
+	font-weight: 750;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	box-shadow: none;
+	transition:
+		transform 0.12s steps(2),
+		box-shadow 0.12s steps(2);
+}
+:root .button.primary {
+	background: var(--accent);
+	color: var(--on-accent);
+	box-shadow: none;
+}
+:root .button.secondary {
+	background: none;
+	color: var(--accent);
+	box-shadow: none;
+}
+:root .button:hover,
+:root .button.primary:hover,
+:root .button.secondary:hover {
+	background-color: var(--accent);
+	color: var(--on-accent);
+	transform: translate(-3px, -3px);
+	box-shadow: 3px 3px 0 var(--border-strong);
+}
+:root .button:active {
+	transform: none;
+	box-shadow: none;
+}
+
+/* Words */
+:root .eyebrow {
+	color: var(--accent);
+	font-size: 0.75rem;
+	letter-spacing: 0.16em;
+}
+:root .eyebrow::before {
+	content: '// ';
+	color: var(--faint);
+}
+:root .headline {
+	font-size: clamp(2.5rem, 1.4rem + 4.2vw, 4.75rem);
+	font-weight: 800;
+	letter-spacing: -0.03em;
+	line-height: 1;
+	text-transform: uppercase;
+}
+:root .headline .accent {
+	background: none;
+	color: var(--accent);
+}
+:root .lead {
+	color: var(--muted);
+	font-size: 1rem;
+	line-height: 1.7;
+}
+/* The lead ends in a blinking cursor, as a prompt waits. */
+:root .hero .lead::after {
+	content: '';
+	display: inline-block;
+	width: 0.6em;
+	height: 1.1em;
+	margin-left: 0.4em;
+	vertical-align: -0.2em;
+	background-color: var(--accent);
+	animation: cursor 1.1s steps(1) infinite;
+}
+@keyframes cursor {
+	50% {
+		opacity: 0;
+	}
+}
+@media (prefers-reduced-motion: reduce) {
+	:root .hero .lead::after {
+		animation: none;
+	}
+}
+:root .status-pill,
+:root .hero-meta li {
+	padding: 0;
+	border: 0;
+	border-radius: 0;
+	background: none;
+	color: var(--muted);
+	font-size: 0.75rem;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+}
+/* The tags as one line of words, parted by slashes. */
+:root .hero-meta {
+	gap: 0;
+}
+:root .hero-meta li + li::before {
+	content: '/';
+	margin-inline: 0.75rem;
+	color: var(--faint);
+}
+:root .status-pill .dot {
+	border-radius: 0;
+	background-color: var(--accent);
+	box-shadow: none;
+	animation: cursor 1.1s steps(1) infinite;
+}
+:root .section-head h2,
+:root .end-card h2 {
+	font-weight: 800;
+	letter-spacing: -0.02em;
+	text-transform: uppercase;
+}
+/* The package's own sections, unframed, their items apart. */
+:root :is(.features, .platforms) {
+	gap: 0.5rem;
+	border: 0;
+	border-radius: 0;
+	background: none;
+}
+:root :is(.feature, .platform) {
+	background: none;
+}
+:root :is(.feature, .platform):hover {
+	background-color: var(--accent-soft);
+}
+:root .point-icon {
+	border-radius: 0;
+	background: none;
+}
+:root .end-card {
+	border: 0;
+	border-radius: 0;
+	background: none;
+	color: var(--accent);
+}
+:root .end-card > :not(ascii-field) {
+	color: var(--text);
+}
+:root .end-logo {
+	/* A logo in another color takes the amber, as on a monochrome screen. */
+	filter: grayscale(1) sepia(1) saturate(6) hue-rotate(-12deg) brightness(1.1);
+}
+:root .end-card .eyebrow {
+	color: var(--accent);
+}
+
+/* Code: monochrome, as a terminal shows it. */
+:root .expressive-code {
+	--ec-brdRad: 0;
+	--ec-brdCol: transparent;
+	--ec-frm-edTabBarBrdCol: transparent;
+	--ec-frm-edTabBarBrdBtmCol: transparent;
+	--ec-frm-trmTtbBrdBtmCol: transparent;
+	--ec-frm-edTabBarBg: var(--surface-2);
+	--ec-codeBg: var(--surface);
+	--ec-frm-edBg: var(--surface);
+	--ec-frm-edActTabBg: var(--surface);
+	--ec-frm-trmBg: var(--surface);
+	--ec-frm-trmTtbBg: var(--surface);
+}
+:root .expressive-code pre,
+:root .expressive-code pre span {
+	color: var(--text) !important;
+	font-style: normal !important;
+}
+:root .expressive-code pre :is(span[style*='--0:#C678DD'], span[style*='--0:#A626A4']) {
+	color: var(--accent) !important;
+}
+:root .usage-code .expressive-code {
+	border-radius: 0;
+}
+
+/* Docs: prose stays in the reader's sans for long reading; the frame
+   around it is the look's. */
+:root .sl-markdown-content :is(p, li, td, blockquote) {
+	font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
+}
+:root .content-panel h1#_top,
+:root .sl-markdown-content :is(h2, h3) {
+	text-transform: uppercase;
+	letter-spacing: -0.01em;
+}
+:root .sidebar-content a,
+:root .sidebar-content a[aria-current='page'] {
+	border-radius: 0;
+}
+:root .sidebar-content a[aria-current='page'],
+:root .sidebar-content a[aria-current='page']:hover {
+	background: none;
+	color: var(--accent);
+}
+:root .sidebar-content a[aria-current='page']::before {
+	content: '> ';
+}
+:root .sl-markdown-content .starlight-aside {
+	border-width: 0 0 0 2px;
+	border-radius: 0;
+}
+:root .sl-markdown-content :not(pre) > code {
+	border-radius: 0;
+	color: var(--accent-strong);
+}
+:root .pagination-links a {
+	border: 0;
+	border-radius: 0;
+	background-color: var(--surface);
+}
+:root .pagination-links a:hover {
+	color: var(--accent);
+}

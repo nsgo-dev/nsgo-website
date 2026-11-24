@@ -12,9 +12,10 @@ An Astro integration that turns a project's settings into its whole site. It set
 | `src/locales.ts` | Every language a site may turn on, with the frame's own words in it |
 | `src/site.ts` | Both languages resolved under the site's base, for the pages |
 | `src/content.ts`, `src/share.ts`, `src/roadmap.ts` | The docs collection, share-card meta tags, the roadmap from GitHub |
-| `src/components/` | Pages, home sections, the shell and Starlight overrides |
+| `src/components/` | Pages, home sections, the demoscene look's pieces, the shell and Starlight overrides |
 | `bin/share-cards.ts` | Draws the share images with headless Chrome |
 | `example/` | A complete site that builds and type-checks the package |
+| `example-game/` | A game engine's site in the demoscene look, its home page its own |
 
 ## Boundaries
 

@@ -134,9 +134,18 @@ export default function nsgoWebsite(given: SiteOptions): AstroIntegration {
 									},
 								},
 							},
-							customCss: [`${pkg}/styles/tokens.css`, `${pkg}/styles/shell.css`, `${pkg}/styles/docs.css`, ...(options.customCss ?? [])],
+							// A look other than the default goes over the package's own
+							// styles and under the project's.
+							customCss: [
+								`${pkg}/styles/tokens.css`,
+								`${pkg}/styles/shell.css`,
+								`${pkg}/styles/docs.css`,
+								...(options.look && options.look !== 'default' ? [`${pkg}/styles/${options.look}.css`] : []),
+								...(options.customCss ?? []),
+							],
 							components: {
 								Head: component('Head'),
+								ThemeProvider: component('ThemeProvider'),
 								Header: `${pkg}/components/shell/SiteHeader.astro`,
 								PageFrame: component('PageFrame'),
 								TwoColumnContent: component('TwoColumnContent'),

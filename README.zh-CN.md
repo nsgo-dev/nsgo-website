@@ -64,6 +64,8 @@ export const collections = { docs: docsCollection() };
 
 `languages` 选择站点的语言，不设时是英文和中文。可选 en、zh、zh-tw、ja、ko、es、fr、de、pt、ru、it、vi、id 和 tr，包里已备好这些语言的页头、页脚和路线图文字。第一种语言放在根路径，其他语言放在各自代码下。任何文字、列表或分区都可以是所有语言共用的一个值，也可以按语言分别写，如 `{ en, zh }`；没写到的语言用第一种语言的值。文档是按语言代码分文件夹的 Markdown，默认在 `../docs/public` 下。每项设置的说明见 [`src/config.ts`](src/config.ts)。
 
+`look: 'demoscene'` 把整个站点做成实时计算机艺术（Demoscene）的样子，始终是深色，适合游戏引擎和游戏：黑底琥珀色、等宽字体、方角、线框很少，不用发光和渐变。首页由项目自己编写，用 `nsgo-website/components` 里的 `Effects`、`Effect`、`Ticker`、`Demo` 和 `Parallax` 拼成：`Demo` 用站点的强调色实时绘制经典特效（可拖动的环面结、等离子、隧道、地形、星空等），并做抖动处理。[`example-game/`](example-game) 是可以照抄的模板。
+
 `sponsors` 会加上赞助页，入口在页头导航的最后一项（`nav` 可调整位置）和页脚最右端。档位由项目自己定义，每档写标题和显示方式：`featured` 卡片，大号或小号 Logo，`service` 是 Logo 加一句它用什么代替出钱（如 CI），以及 `avatar` 头像或 `name` 名称。`maintainers` 在页面顶部用卡片展示可赞助的人，和 GitHub Sponsors 一样。`home` 让这一档也上首页，`places` 为空位邀请赞助；名额满了仍保留已有赞助商、全部显示，只在构建时警告。
 
 页脚链接项目的许可证，没用 `footer.license` 指定别的时显示 MIT。替项目搭站点的 Agent 必须在这里写项目自己仓库里的许可证，不能用项目没有采用的许可证。
@@ -76,16 +78,17 @@ export const collections = { docs: docsCollection() };
 
 `nsgo-website-share-cards` 按设置画出分享链接用的 `public/share/<代码>.png`，需要 Chrome。
 
-[`example/`](example) 是一个完整站点，也是本仓库自己的站点，介绍一个虚构应用，配上示例文档。
+[`example/`](example) 是一个完整站点，也是本仓库自己的站点，介绍一个虚构应用，配上示例文档；[`example-game/`](example-game) 是一个虚构游戏引擎的站点，用 Demoscene 外观。
 
 ## 开发
 
 ```sh
 bun install
 bun test        # 设置的默认值
-bun run check   # 包和示例的类型
-bun run build   # 把示例构建到 example/dist
+bun run check   # 包和两个示例的类型
+bun run build   # 把两个示例分别构建到各自的 dist
 bun run dev     # 运行示例
+bun run dev:game  # 运行游戏引擎模板
 ```
 
 项目的 `dev` 脚本要写成 `astro dev --ignore-lock`，否则被 AI 代理启动时，Astro 会把服务器转到后台。路线图用 `GITHUB_TOKEN` 或 GitHub CLI 的登录读取 GitHub；两者都没有时，构建会跳过它；追踪 Issue 不存在时，路线图和它的链接都会隐藏。另见 [ARCHITECTURE.md](ARCHITECTURE.md) 和 [AGENTS.md](AGENTS.md)。更新记录见 [CHANGELOG.md](CHANGELOG.md)。

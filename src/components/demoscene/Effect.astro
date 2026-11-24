@@ -1,0 +1,30 @@
+---
+// One effect of Effects: its number, the project's own picture or a demo
+// drawn live, a title and a few words. With an address the whole effect is
+// a link; the pointer over it steers its demo.
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import type { DemoName } from '../../scripts/demos';
+import Demo from './Demo.astro';
+
+interface Props {
+	icon?: ImageMetadata;
+	/** A demo in place of the picture. */
+	demo?: DemoName;
+	title: string;
+	text?: string;
+	href?: string;
+}
+const { icon, demo, title, text, href } = Astro.props;
+const Tag = href ? 'a' : 'div';
+const external = href !== undefined && /^[a-z][a-z0-9+.-]*:/i.test(href);
+---
+
+<li>
+	<Tag class:list={['effect', { 'has-demo': demo }]} href={href} data-demo-steer {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>
+		{demo ? <Demo effect={demo} width={120} height={90} class="effect-demo" /> : icon && <Image class="effect-icon" src={icon} alt="" width={88} height={88} densities={[1, 2]} />}
+		<h3>{title}</h3>
+		{text && <p>{text}</p>}
+		<slot />
+	</Tag>
+</li>

@@ -64,6 +64,8 @@ export const collections = { docs: docsCollection() };
 
 `languages` picks the site's languages, English and Chinese unless set: any of en, zh, zh-tw, ja, ko, es, fr, de, pt, ru, it, vi, id and tr, whose header, footer and roadmap words the package has. The first is served at the root and each other under its code. Any text, list or section may be one value for every language or one per language, as `{ en, zh }`; a language left out takes the first's. The docs are Markdown in one folder per language code, under `../docs/public` by default. [`src/config.ts`](src/config.ts) documents every setting.
 
+`look: 'demoscene'` dresses the whole site as real-time computer art, always dark, for game engines and games: amber on black, monospaced type, square corners, few lines and no glow or gradient. Its home page is the project's own, built from `Effects`, `Effect`, `Ticker`, `Demo` and `Parallax` in `nsgo-website/components`: `Demo` draws classic effects (a knot the reader can drag, plasma, a tunnel, terrain, stars and more) in real time, dithered in the site's accent. [`example-game/`](example-game) is a template to copy.
+
 `sponsors` adds a sponsors page, linked last in the header's navigation (`nav` may place it elsewhere) and at the footer's end, of the project's own tiers, each with its title and a layout: `featured` cards, large or small logos, `service` for a logo with what a company gives instead of money (such as CI), `avatar` or `name`. `maintainers` puts the people readers sponsor atop the page as cards, as GitHub Sponsors does. `home` puts a tier on the home page too, and `places` invites sponsors to its open places; a full tier keeps its sponsors, shows them all and only warns at build.
 
 The footer links the project's license, MIT unless `footer.license` names another. An agent setting up a site must give there the license in the project's own repository, never one the project does not use.
@@ -76,16 +78,17 @@ To change more than the settings allow:
 
 `nsgo-website-share-cards` draws `public/share/<code>.png`, the images of shared links, from the settings; it needs Chrome.
 
-[`example/`](example) is a complete site, this repository's own, describing a made-up app with sample docs.
+[`example/`](example) is a complete site, this repository's own, describing a made-up app with sample docs; [`example-game/`](example-game) is a made-up game engine's in the demoscene look.
 
 ## Development
 
 ```sh
 bun install
 bun test        # the settings' defaults
-bun run check   # types of the package and the example
-bun run build   # builds the example into example/dist
+bun run check   # types of the package and both examples
+bun run build   # builds both examples into their dist
 bun run dev     # serves the example
+bun run dev:game  # serves the game engine template
 ```
 
 A project's `dev` script runs `astro dev --ignore-lock`, as Astro otherwise moves its server to the background when an AI agent starts it. The roadmap reads GitHub with `GITHUB_TOKEN` or the GitHub CLI's sign-in; a build without either leaves it out, and a tracking issue that does not exist hides it with its links. See [ARCHITECTURE.md](ARCHITECTURE.md) and [AGENTS.md](AGENTS.md). Changes are in [CHANGELOG.md](CHANGELOG.md).

@@ -244,6 +244,9 @@ export function resolveSite(options: SiteOptions, lang: Lang, base: string) {
 		title: loc(options.title),
 		description: loc(options.description),
 		logo: options.logo,
+		look: options.look ?? 'default',
+		/** Whether the site is always dark, with no theme to choose, as the demoscene look is made for the dark only. */
+		darkOnly: options.look === 'demoscene',
 		repo,
 		branch,
 		path: options.path ?? 'website',

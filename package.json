@@ -36,12 +36,14 @@
 		"nsgo-website-share-cards": "./bin/share-cards.ts"
 	},
 	"workspaces": [
-		"example"
+		"example",
+		"example-game"
 	],
 	"scripts": {
 		"dev": "cd example && bun run dev",
-		"build": "cd example && bun run build",
-		"check": "cd example && bunx astro check",
+		"dev:game": "cd example-game && bun run dev",
+		"build": "cd example && bun run build && cd ../example-game && bun run build",
+		"check": "cd example && bunx astro check && cd ../example-game && bunx astro check",
 		"test": "bun test"
 	},
 	"peerDependencies": {

@@ -248,6 +248,15 @@ export interface Strings {
 	other?: string;
 }
 
+/**
+ * How the whole site looks. default is calm and plain, in light and dark,
+ * for apps and libraries. demoscene is real-time computer art, always dark,
+ * for game engines and games: amber on black, monospaced type, dithered
+ * pictures, square corners and few lines; a project builds its home page from
+ * the components in components/demoscene, as example-game does.
+ */
+export type Look = 'default' | 'demoscene';
+
 export interface SiteOptions {
 	/**
 	 * The languages the site is in, by code, of those in locales.ts: en, zh,
@@ -266,6 +275,8 @@ export interface SiteOptions {
 	favicon?: string;
 	/** In public/, such as /apple-touch-icon.png. */
 	appleTouchIcon?: string;
+	/** Defaults to default. */
+	look?: Look;
 	/** The project's GitHub repository, as https://github.com/owner/name. */
 	repo: string;
 	/** Defaults to main. */

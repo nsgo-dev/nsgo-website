@@ -15,3 +15,8 @@ export { default as SectionHead } from './home/SectionHead.astro';
 export { default as ActionButton } from './home/ActionButton.astro';
 export { default as KIcon } from './KIcon.astro';
 export { default as AsciiField } from './AsciiField.astro';
+export { default as Effects } from './demoscene/Effects.astro';
+export { default as Effect } from './demoscene/Effect.astro';
+export { default as Ticker } from './demoscene/Ticker.astro';
+export { default as Demo } from './demoscene/Demo.astro';
+export { default as Parallax } from './demoscene/Parallax.astro';

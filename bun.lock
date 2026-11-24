@@ -26,6 +26,17 @@
         "typescript": "^6",
       },
     },
+    "example-game": {
+      "name": "nsgo-website-example-game",
+      "dependencies": {
+        "astro": "^7.4.13",
+        "nsgo-website": "workspace:*",
+      },
+      "devDependencies": {
+        "@astrojs/check": "^0.9.12",
+        "typescript": "^6",
+      },
+    },
   },
   "packages": {
     "@astrojs/astro2tsx": ["@astrojs/astro2tsx@0.1.4", "", { "dependencies": { "@emnapi/core": "1.11.3", "@emnapi/runtime": "1.11.3", "@napi-rs/wasm-runtime": "1.2.4" } }, "sha512-5dJqY4i1AlXxcsSFHkaegnrgdVs9J4U93y/YF0xmvmSOcNYVQnf4db3IhvqHZ5v8biLPlPlFmlYsqHj0c4/ZSA=="],
@@ -635,6 +646,8 @@
     "nsgo-website": ["nsgo-website@root:", { "bin": { "nsgo-website-share-cards": "./bin/share-cards.ts" } }],
 
     "nsgo-website-example": ["nsgo-website-example@workspace:example"],
+
+    "nsgo-website-example-game": ["nsgo-website-example-game@workspace:example-game"],
 
     "nth-check": ["nth-check@2.1.1", "", { "dependencies": { "boolbase": "^1.0.0" } }, "sha512-lqjrjmaOoAnWfMmBPL+XNnynZh2+swxiX3WUE0s4yEHI6m+AwrK2UZOimIRl3X/4QctVqS8AiZjFqyOGrMXb/w=="],
 
