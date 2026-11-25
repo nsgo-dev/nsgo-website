@@ -13,15 +13,15 @@
 </p>
 
 <p align="center">
-  The website of an NSGo project as one Astro integration: a home page, bilingual docs, a roadmap from GitHub issues and the shared header and footer, all from the project's own settings.
+  The website of an NSGo project on TanStack Start, Solid and ui-sdk: a home page, bilingual docs with search, a roadmap from GitHub issues and the shared header and footer, all from the project's own settings, rendered to static pages that move between each other without reloading.
 </p>
 
 ## Install
 
-The package ships its TypeScript and Astro sources and needs Astro 7 and Bun. Add it to the project's site folder from GitHub:
+The package ships its TypeScript and Solid sources and needs Vite 8 and Bun. Add it to the project's site folder from GitHub:
 
 ```sh
-bun add astro github:nsgo-dev/nsgo-website
+bun add vite github:nsgo-dev/nsgo-website
 ```
 
 ## Usage
@@ -47,20 +47,21 @@ export default defineSite({
 });
 ```
 
-`astro.config.mjs` hands them to the integration, and `src/content.config.ts` declares the docs:
+`vite.config.ts` hands them to the plugins with the address the site is served from, and `tsconfig.json` brings Solid's JSX and the routes' types:
 
-```js
-import { defineConfig } from 'astro/config';
+```ts
+import { defineConfig } from 'vite';
 import nsgoWebsite from 'nsgo-website';
 import site from './site.config.ts';
 
-export default defineConfig({ site: 'https://oneo-me.github.io', base: '/nsgo-pet', integrations: [nsgoWebsite(site)] });
+export default defineConfig({ base: '/nsgo-pet/', plugins: [nsgoWebsite(site, { site: 'https://oneo-me.github.io' })] });
 ```
 
-```ts
-import { docsCollection } from 'nsgo-website/content';
-export const collections = { docs: docsCollection() };
+```json
+{ "extends": "nsgo-website/tsconfig", "include": ["**/*"], "files": ["node_modules/.nsgo-website/routeTree.gen.ts"], "exclude": ["dist", "node_modules"] }
 ```
+
+`vite build` writes the site to `dist`, ready for GitHub Pages: every page as HTML, a `404.html` and the search index.
 
 `languages` picks the site's languages, English and Chinese unless set: any of en, zh, zh-tw, ja, ko, es, fr, de, pt, ru, it, vi, id and tr, whose header, footer and roadmap words the package has. The first is served at the root and each other under its code. Any text, list or section may be one value for every language or one per language, as `{ en, zh }`; a language left out takes the first's. The docs are Markdown in one folder per language code, under `../docs/public` by default. [`src/config.ts`](src/config.ts) documents every setting.
 
@@ -72,9 +73,11 @@ The footer links the project's license, MIT unless `footer.license` names anothe
 
 To change more than the settings allow:
 
-- **Home page**: give `home.visual` or a `component` section an `.astro` file of the project's, or set `home: false` and write `src/pages/index.astro` and `src/pages/<code>/index.astro` from `HomePage` or the section components.
-- **Own pages**: wrap any content in `Page` from `nsgo-website/components` under `src/pages/` and `src/pages/<code>/`, and list it in `nav` beside the package's own links.
-- **Colors and words**: `customCss` overrides the variables of [`tokens.css`](src/styles/tokens.css), `strings` the header's and footer's words, and `starlight` any Starlight setting.
+- **Home page**: give `home.visual` or a `component` section a Solid component of the project's (`.tsx`), or set `home: false` and write `src/routes/index.tsx` and `src/routes/<code>/index.tsx` from `HomePage` or the section components.
+- **Code on the home page**: a `Split` shows the project's own code from `import html from './file.go?highlight'`, highlighted at build.
+- **Own pages**: add TanStack Router routes under `src/routes/` and `src/routes/<code>/`, wrap their content in `Page` from `nsgo-website/components`, give them `pageHead` for their titles and share cards, and list them in `nav` beside the package's own links.
+- **Colors and words**: `customCss` overrides the variables of [`tokens.css`](src/styles/tokens.css), and `strings` the header's and footer's words.
+- **Styles**: a project's own components under `src/` may use Tailwind's classes in the site's theme, such as `bg-surface` or `text-muted`, or CSS files of their own.
 
 `nsgo-website-share-cards` draws `public/share/<code>.png`, the images of shared links, from the settings; it needs Chrome.
 
@@ -84,14 +87,14 @@ To change more than the settings allow:
 
 ```sh
 bun install
-bun test        # the settings' defaults
-bun run check   # types of the package and both examples
-bun run build   # builds both examples into their dist
-bun run dev     # serves the example
+bun test          # the settings' defaults and the docs' sidebar
+bun run build     # builds both examples into their dist
+bun run check     # types of the package and both examples, after a build
+bun run dev       # serves the example
 bun run dev:game  # serves the game engine template
 ```
 
-A project's `dev` script runs `astro dev --ignore-lock`, as Astro otherwise moves its server to the background when an AI agent starts it. The roadmap reads GitHub with `GITHUB_TOKEN` or the GitHub CLI's sign-in; a build without either leaves it out, and a tracking issue that does not exist hides it with its links. See [ARCHITECTURE.md](ARCHITECTURE.md) and [AGENTS.md](AGENTS.md). Changes are in [CHANGELOG.md](CHANGELOG.md).
+The roadmap reads GitHub with `GITHUB_TOKEN` or the GitHub CLI's sign-in; a build without either leaves it out, and a tracking issue that does not exist hides it with its links. Search works on the built site, not on the dev server. See [ARCHITECTURE.md](ARCHITECTURE.md) and [AGENTS.md](AGENTS.md). Changes are in [CHANGELOG.md](CHANGELOG.md).
 
 ## License
 

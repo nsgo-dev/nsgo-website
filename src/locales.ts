@@ -14,6 +14,11 @@ export interface UI {
 	license: string;
 	/** The area of roadmap tasks whose titles name none. */
 	other: string;
+	/** note, tip, caution and danger title the asides; copy and copied are the code blocks' button. */
+	docs: Record<'toc' | 'overview' | 'previous' | 'next' | 'edit' | 'pages' | 'skip' | 'note' | 'tip' | 'caution' | 'danger' | 'copy' | 'copied', string>;
+	/** unavailable: in place of results where the index is not built, as on the dev server. */
+	search: Record<'label' | 'placeholder' | 'empty' | 'loading' | 'unavailable' | 'close', string>;
+	notFound: Record<'title' | 'text' | 'home', string>;
 	roadmap: {
 		title: string;
 		description: (name: string) => string;
@@ -48,7 +53,7 @@ export interface UI {
 export interface Locale {
 	/** Its name in itself, as the language menu lists it. */
 	label: string;
-	/** Its BCP-47 tag, for lang attributes, Starlight and dates. */
+	/** Its BCP-47 tag, for lang attributes and dates. */
 	tag: string;
 	/** Its Open Graph locale. */
 	og: string;
@@ -66,6 +71,9 @@ const en: UI = {
 	start: 'Get started',
 	license: 'MIT',
 	other: 'Other',
+	docs: { toc: 'On this page', overview: 'Overview', previous: 'Previous', next: 'Next', edit: 'Edit page', pages: 'Docs', skip: 'Skip to content', note: 'Note', tip: 'Tip', caution: 'Caution', danger: 'Danger', copy: 'Copy', copied: 'Copied' },
+	search: { label: 'Search', placeholder: 'Search the docs', empty: 'No results for', loading: 'Searching…', unavailable: 'Search works on the built site.', close: 'Close' },
+	notFound: { title: 'Page not found', text: 'This page does not exist, or it has moved.', home: 'Back to the home page' },
 	roadmap: {
 		title: 'Roadmap',
 		description: (name) => `The stages of ${name}, their tasks by area and their subtasks, with each one’s progress, pull requests and what it waits for, from its GitHub issues.`,
@@ -98,6 +106,9 @@ const zh: UI = {
 	start: '入门指南',
 	license: 'MIT',
 	other: '其他',
+	docs: { toc: '本页内容', overview: '概述', previous: '上一页', next: '下一页', edit: '编辑此页', pages: '文档', skip: '跳到正文', note: '注意', tip: '提示', caution: '警告', danger: '危险', copy: '复制', copied: '已复制' },
+	search: { label: '搜索', placeholder: '搜索文档', empty: '没有结果：', loading: '正在搜索…', unavailable: '构建后的站点才能搜索。', close: '关闭' },
+	notFound: { title: '页面不存在', text: '这个页面不存在，或者已经移走了。', home: '回到首页' },
 	roadmap: {
 		title: '路线图',
 		description: (name) => `${name} 的各个阶段、按领域分组的任务和子任务，以及每一项的进度、拉取请求和在等待什么，来自它的 GitHub issue。`,
@@ -130,6 +141,9 @@ const zhTW: UI = {
 	start: '入門指南',
 	license: 'MIT',
 	other: '其他',
+	docs: { toc: '本頁內容', overview: '概述', previous: '上一頁', next: '下一頁', edit: '編輯此頁', pages: '文件', skip: '跳到正文', note: '注意', tip: '提示', caution: '警告', danger: '危險', copy: '複製', copied: '已複製' },
+	search: { label: '搜尋', placeholder: '搜尋文件', empty: '沒有結果：', loading: '正在搜尋…', unavailable: '建置後的網站才能搜尋。', close: '關閉' },
+	notFound: { title: '找不到頁面', text: '這個頁面不存在，或者已經移走了。', home: '回到首頁' },
 	roadmap: {
 		title: '路線圖',
 		description: (name) => `${name} 的各個階段、依領域分組的任務與子任務，以及每一項的進度、拉取請求和在等待什麼，來自它的 GitHub issue。`,
@@ -162,6 +176,9 @@ const ja: UI = {
 	start: 'はじめる',
 	license: 'MIT',
 	other: 'その他',
+	docs: { toc: 'このページの内容', overview: '概要', previous: '前へ', next: '次へ', edit: 'ページを編集', pages: 'ドキュメント', skip: '本文へスキップ', note: '注記', tip: 'ヒント', caution: '注意', danger: '危険', copy: 'コピー', copied: 'コピーしました' },
+	search: { label: '検索', placeholder: 'ドキュメントを検索', empty: '結果がありません：', loading: '検索中…', unavailable: '検索はビルドしたサイトで使えます。', close: '閉じる' },
+	notFound: { title: 'ページが見つかりません', text: 'このページは存在しないか、移動しました。', home: 'ホームに戻る' },
 	roadmap: {
 		title: 'ロードマップ',
 		description: (name) => `${name} の各段階、領域ごとのタスクとサブタスク、それぞれの進捗、プルリクエスト、待っているものを GitHub の issue から示します。`,
@@ -194,6 +211,9 @@ const ko: UI = {
 	start: '시작하기',
 	license: 'MIT',
 	other: '기타',
+	docs: { toc: '이 페이지의 내용', overview: '개요', previous: '이전', next: '다음', edit: '페이지 편집', pages: '문서', skip: '본문으로 건너뛰기', note: '참고', tip: '팁', caution: '주의', danger: '위험', copy: '복사', copied: '복사됨' },
+	search: { label: '검색', placeholder: '문서 검색', empty: '결과 없음:', loading: '검색 중…', unavailable: '검색은 빌드된 사이트에서 동작합니다.', close: '닫기' },
+	notFound: { title: '페이지를 찾을 수 없음', text: '이 페이지는 없거나 다른 곳으로 옮겨졌습니다.', home: '홈으로 돌아가기' },
 	roadmap: {
 		title: '로드맵',
 		description: (name) => `${name}의 단계, 영역별 작업과 하위 작업, 각각의 진행 상황, 풀 리퀘스트와 기다리는 항목을 GitHub 이슈에서 보여 줍니다.`,
@@ -226,6 +246,9 @@ const es: UI = {
 	start: 'Empezar',
 	license: 'MIT',
 	other: 'Otros',
+	docs: { toc: 'En esta página', overview: 'Resumen', previous: 'Anterior', next: 'Siguiente', edit: 'Editar página', pages: 'Documentación', skip: 'Saltar al contenido', note: 'Nota', tip: 'Consejo', caution: 'Precaución', danger: 'Peligro', copy: 'Copiar', copied: 'Copiado' },
+	search: { label: 'Buscar', placeholder: 'Buscar en la documentación', empty: 'Sin resultados para', loading: 'Buscando…', unavailable: 'La búsqueda funciona en el sitio compilado.', close: 'Cerrar' },
+	notFound: { title: 'Página no encontrada', text: 'Esta página no existe o se ha movido.', home: 'Volver al inicio' },
 	roadmap: {
 		title: 'Hoja de ruta',
 		description: (name) => `Las etapas de ${name}, sus tareas por área y sus subtareas, con el progreso, las pull requests y lo que espera cada una, desde sus issues de GitHub.`,
@@ -258,6 +281,9 @@ const fr: UI = {
 	start: 'Commencer',
 	license: 'MIT',
 	other: 'Autres',
+	docs: { toc: 'Sur cette page', overview: 'Vue d’ensemble', previous: 'Précédent', next: 'Suivant', edit: 'Modifier la page', pages: 'Documentation', skip: 'Aller au contenu', note: 'Remarque', tip: 'Astuce', caution: 'Attention', danger: 'Danger', copy: 'Copier', copied: 'Copié' },
+	search: { label: 'Rechercher', placeholder: 'Rechercher dans la documentation', empty: 'Aucun résultat pour', loading: 'Recherche…', unavailable: 'La recherche fonctionne sur le site construit.', close: 'Fermer' },
+	notFound: { title: 'Page introuvable', text: 'Cette page n’existe pas ou a été déplacée.', home: 'Retour à l’accueil' },
 	roadmap: {
 		title: 'Feuille de route',
 		description: (name) => `Les étapes de ${name}, leurs tâches par domaine et leurs sous-tâches, avec l’avancement, les pull requests et ce qu’attend chacune, d’après ses issues GitHub.`,
@@ -290,6 +316,9 @@ const de: UI = {
 	start: 'Loslegen',
 	license: 'MIT',
 	other: 'Sonstiges',
+	docs: { toc: 'Auf dieser Seite', overview: 'Überblick', previous: 'Zurück', next: 'Weiter', edit: 'Seite bearbeiten', pages: 'Dokumentation', skip: 'Zum Inhalt springen', note: 'Hinweis', tip: 'Tipp', caution: 'Vorsicht', danger: 'Gefahr', copy: 'Kopieren', copied: 'Kopiert' },
+	search: { label: 'Suchen', placeholder: 'Dokumentation durchsuchen', empty: 'Keine Ergebnisse für', loading: 'Suche läuft…', unavailable: 'Die Suche funktioniert auf der gebauten Website.', close: 'Schließen' },
+	notFound: { title: 'Seite nicht gefunden', text: 'Diese Seite gibt es nicht, oder sie wurde verschoben.', home: 'Zur Startseite' },
 	roadmap: {
 		title: 'Roadmap',
 		description: (name) => `Die Phasen von ${name}, ihre Aufgaben nach Bereich und ihre Unteraufgaben, mit Fortschritt, Pull Requests und worauf jede wartet, aus den GitHub-Issues.`,
@@ -322,6 +351,9 @@ const pt: UI = {
 	start: 'Começar',
 	license: 'MIT',
 	other: 'Outros',
+	docs: { toc: 'Nesta página', overview: 'Visão geral', previous: 'Anterior', next: 'Próximo', edit: 'Editar página', pages: 'Documentação', skip: 'Pular para o conteúdo', note: 'Nota', tip: 'Dica', caution: 'Cuidado', danger: 'Perigo', copy: 'Copiar', copied: 'Copiado' },
+	search: { label: 'Pesquisar', placeholder: 'Pesquisar na documentação', empty: 'Nenhum resultado para', loading: 'Pesquisando…', unavailable: 'A pesquisa funciona no site gerado.', close: 'Fechar' },
+	notFound: { title: 'Página não encontrada', text: 'Esta página não existe ou foi movida.', home: 'Voltar ao início' },
 	roadmap: {
 		title: 'Roteiro',
 		description: (name) => `As etapas de ${name}, suas tarefas por área e subtarefas, com o progresso, os pull requests e o que cada uma aguarda, a partir das issues do GitHub.`,
@@ -354,6 +386,9 @@ const ru: UI = {
 	start: 'Начать',
 	license: 'MIT',
 	other: 'Другое',
+	docs: { toc: 'На этой странице', overview: 'Обзор', previous: 'Назад', next: 'Далее', edit: 'Редактировать страницу', pages: 'Документация', skip: 'Перейти к содержимому', note: 'Примечание', tip: 'Совет', caution: 'Осторожно', danger: 'Опасно', copy: 'Копировать', copied: 'Скопировано' },
+	search: { label: 'Поиск', placeholder: 'Поиск по документации', empty: 'Нет результатов для', loading: 'Поиск…', unavailable: 'Поиск работает на собранном сайте.', close: 'Закрыть' },
+	notFound: { title: 'Страница не найдена', text: 'Этой страницы нет, или она перемещена.', home: 'На главную' },
 	roadmap: {
 		title: 'Дорожная карта',
 		description: (name) => `Этапы ${name}, их задачи по областям и подзадачи, с прогрессом, пул-реквестами и тем, чего ждёт каждая, по issue на GitHub.`,
@@ -386,6 +421,9 @@ const it: UI = {
 	start: 'Inizia',
 	license: 'MIT',
 	other: 'Altro',
+	docs: { toc: 'In questa pagina', overview: 'Panoramica', previous: 'Precedente', next: 'Successivo', edit: 'Modifica pagina', pages: 'Documentazione', skip: 'Vai al contenuto', note: 'Nota', tip: 'Suggerimento', caution: 'Attenzione', danger: 'Pericolo', copy: 'Copia', copied: 'Copiato' },
+	search: { label: 'Cerca', placeholder: 'Cerca nella documentazione', empty: 'Nessun risultato per', loading: 'Ricerca…', unavailable: 'La ricerca funziona sul sito compilato.', close: 'Chiudi' },
+	notFound: { title: 'Pagina non trovata', text: 'Questa pagina non esiste o è stata spostata.', home: 'Torna alla home' },
 	roadmap: {
 		title: 'Roadmap',
 		description: (name) => `Le fasi di ${name}, le loro attività per area e le sottoattività, con avanzamento, pull request e ciò che ciascuna attende, dalle issue di GitHub.`,
@@ -418,6 +456,9 @@ const vi: UI = {
 	start: 'Bắt đầu',
 	license: 'MIT',
 	other: 'Khác',
+	docs: { toc: 'Trên trang này', overview: 'Tổng quan', previous: 'Trước', next: 'Tiếp', edit: 'Sửa trang', pages: 'Tài liệu', skip: 'Chuyển đến nội dung', note: 'Ghi chú', tip: 'Mẹo', caution: 'Thận trọng', danger: 'Nguy hiểm', copy: 'Sao chép', copied: 'Đã sao chép' },
+	search: { label: 'Tìm kiếm', placeholder: 'Tìm trong tài liệu', empty: 'Không có kết quả cho', loading: 'Đang tìm…', unavailable: 'Tìm kiếm hoạt động trên trang đã build.', close: 'Đóng' },
+	notFound: { title: 'Không tìm thấy trang', text: 'Trang này không tồn tại hoặc đã được chuyển đi.', home: 'Về trang chủ' },
 	roadmap: {
 		title: 'Lộ trình',
 		description: (name) => `Các giai đoạn của ${name}, nhiệm vụ theo lĩnh vực và nhiệm vụ con, cùng tiến độ, pull request và điều mỗi nhiệm vụ đang chờ, từ các issue trên GitHub.`,
@@ -450,6 +491,9 @@ const id: UI = {
 	start: 'Mulai',
 	license: 'MIT',
 	other: 'Lainnya',
+	docs: { toc: 'Di halaman ini', overview: 'Ikhtisar', previous: 'Sebelumnya', next: 'Berikutnya', edit: 'Edit halaman', pages: 'Dokumentasi', skip: 'Langsung ke konten', note: 'Catatan', tip: 'Tips', caution: 'Perhatian', danger: 'Bahaya', copy: 'Salin', copied: 'Tersalin' },
+	search: { label: 'Cari', placeholder: 'Cari di dokumentasi', empty: 'Tidak ada hasil untuk', loading: 'Mencari…', unavailable: 'Pencarian berfungsi di situs hasil build.', close: 'Tutup' },
+	notFound: { title: 'Halaman tidak ditemukan', text: 'Halaman ini tidak ada atau sudah dipindahkan.', home: 'Kembali ke beranda' },
 	roadmap: {
 		title: 'Peta jalan',
 		description: (name) => `Tahapan ${name}, tugas per area dan subtugasnya, dengan kemajuan, pull request, dan apa yang ditunggu masing-masing, dari issue GitHub-nya.`,
@@ -482,6 +526,9 @@ const tr: UI = {
 	start: 'Başlayın',
 	license: 'MIT',
 	other: 'Diğer',
+	docs: { toc: 'Bu sayfada', overview: 'Genel bakış', previous: 'Önceki', next: 'Sonraki', edit: 'Sayfayı düzenle', pages: 'Belgeler', skip: 'İçeriğe geç', note: 'Not', tip: 'İpucu', caution: 'Dikkat', danger: 'Tehlike', copy: 'Kopyala', copied: 'Kopyalandı' },
+	search: { label: 'Ara', placeholder: 'Belgelerde ara', empty: 'Sonuç yok:', loading: 'Aranıyor…', unavailable: 'Arama, derlenmiş sitede çalışır.', close: 'Kapat' },
+	notFound: { title: 'Sayfa bulunamadı', text: 'Bu sayfa yok ya da taşındı.', home: 'Ana sayfaya dön' },
 	roadmap: {
 		title: 'Yol haritası',
 		description: (name) => `${name} projesinin aşamaları, alanlara göre görevleri ve alt görevleri; her birinin ilerlemesi, pull request’leri ve beklediği şeylerle, GitHub issue’larından.`,

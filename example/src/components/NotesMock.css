@@ -1,0 +1,88 @@
+/* The hero's picture of the sample app. */
+.mock {
+	width: min(100%, 36rem);
+	margin: 0 auto;
+}
+.mock-window {
+	overflow: hidden;
+	border: 1px solid var(--border);
+	border-radius: var(--radius-lg);
+	background-color: var(--surface);
+	box-shadow:
+		0 1px 2px rgb(0 0 0 / 0.06),
+		0 30px 60px -30px rgb(0 0 0 / 0.45);
+}
+.mock-bar {
+	display: flex;
+	gap: 0.375rem;
+	padding: 0.625rem 0.75rem;
+	border-bottom: 1px solid var(--border);
+}
+.mock-bar span {
+	width: 0.625rem;
+	height: 0.625rem;
+	border-radius: 50%;
+	background-color: var(--border-strong);
+}
+.mock-body {
+	display: grid;
+	grid-template-columns: 2fr 3fr;
+	aspect-ratio: 16 / 9;
+}
+.mock ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.mock .list {
+	display: grid;
+	align-content: start;
+	gap: 0.25rem;
+	padding: 0.75rem;
+	border-right: 1px solid var(--border);
+	font-size: 0.8125rem;
+}
+.mock .list li {
+	padding: 0.375rem 0.625rem;
+	border-radius: 0.5rem;
+	color: var(--muted);
+}
+.mock .list li.on {
+	background-color: #4da3ff;
+	color: #fff;
+	font-weight: 600;
+}
+.mock .note {
+	display: grid;
+	align-content: start;
+	gap: 0.75rem;
+	padding: 1rem 1.25rem;
+	font-size: 0.875rem;
+}
+.mock .title {
+	margin: 0;
+	font-size: 1.0625rem;
+	font-weight: 650;
+}
+.mock .note li {
+	position: relative;
+	padding: 0.25rem 0 0.25rem 1.5rem;
+}
+.mock .note li::before {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 0.45rem;
+	width: 0.875rem;
+	height: 0.875rem;
+	border: 1.5px solid var(--border-strong);
+	border-radius: 0.25rem;
+}
+.mock .note li.done {
+	opacity: 0.55;
+	text-decoration: line-through;
+}
+.mock .note li.done::before {
+	border-color: #4da3ff;
+	background-color: #4da3ff;
+}

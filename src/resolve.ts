@@ -1,7 +1,7 @@
 // The settings for one language, with every default filled in: what the
-// pages render. Pure, so the integration, the pages and the share-cards
-// command share it.
-import type { Action, BuiltinNav, HomeContent, Item, Lang, Link, Localized, Maintainer, NavItem, Section, SidebarItem, SiteOptions, Sponsor, SponsorTier, Strings } from './config';
+// pages render. Pure, so the build, the pages and the share-cards command
+// share it.
+import type { Action, BuiltinNav, HomeContent, Item, Lang, Link, Localized, Maintainer, NavItem, Section, SiteOptions, Sponsor, SponsorTier, Strings } from './config';
 import { isLang, locales, nsgoCommunity, type UI } from './locales';
 
 /** The site's languages, its first served at the root; English and Chinese unless set. */
@@ -267,24 +267,6 @@ export function resolveSite(options: SiteOptions, lang: Lang, base: string) {
 			sponsors: `${root}/${pagePath('sponsors/', lang, first)}`,
 		},
 	};
-}
-
-/** A Starlight sidebar, its labels in the first language with the others' as translations. */
-export function starlightSidebar(items: SidebarItem[], langs: Lang[]): unknown[] {
-	const first = langs[0];
-	return items.map((item) => {
-		if (typeof item === 'string') return item;
-		const label = localize(item.label, first);
-		const out: Record<string, unknown> = { ...item, label };
-		const translations: Record<string, string> = {};
-		for (const l of langs.slice(1)) {
-			const text = localize(item.label, l, first);
-			if (text !== label) translations[locales[l].tag] = text;
-		}
-		if (Object.keys(translations).length) out.translations = translations;
-		if ('items' in item) out.items = starlightSidebar(item.items, langs);
-		return out;
-	});
 }
 
 /** Every file the settings name, by kind: components to render, images to import and Kubai icons to bundle. */

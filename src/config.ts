@@ -3,11 +3,10 @@
 // any larger part, such as a whole section or the whole home page, when the
 // languages differ in more than their words. A language a value leaves out
 // takes the site's first language's value.
-import type { StarlightUserConfig } from '@astrojs/starlight/types';
-import type { StarlightIcon } from '@astrojs/starlight/types';
+import type { IconName } from './icons';
 import type { Lang } from './locales';
 
-export type { Lang };
+export type { IconName, Lang };
 
 /** A value for every language, or one per language by its code. */
 export type Localized<T> = T | { [L in Lang]?: T };
@@ -24,8 +23,8 @@ export interface Link {
 	href: Text;
 	/** A line under the label in menus. */
 	note?: Text;
-	/** A Starlight icon, or 'nsgo' for NSGo's logo. */
-	icon?: StarlightIcon | 'nsgo';
+	/** One of the site's icons in icons.ts, or 'nsgo' for NSGo's logo. */
+	icon?: IconName | 'nsgo';
 	/** An image file, from the project's root, shown round in place of the icon. */
 	avatar?: string;
 }
@@ -42,8 +41,8 @@ export interface Action {
 	href: Text;
 	/** primary is filled, secondary outlined; the first is primary unless set. */
 	variant?: 'primary' | 'secondary';
-	/** A Starlight icon before the label. */
-	icon?: StarlightIcon;
+	/** One of the site's icons in icons.ts, before the label. */
+	icon?: IconName;
 }
 
 /** One highlight of a section: a Kubai icon, a title and a sentence or two. */
@@ -84,7 +83,7 @@ export interface SplitSection extends SectionHead {
 	type: 'split';
 	items?: Localized<Item[]>;
 	code?: { code: string; lang: string };
-	/** An .astro component, from the project's root, given { lang }. */
+	/** A Solid component's file (.tsx), from the project's root, given { lang }. */
 	component?: string;
 }
 
@@ -96,7 +95,7 @@ export interface EndSection extends SectionHead {
 	actions?: Action[];
 }
 
-/** A project's own .astro component, from the project's root, given { lang }. */
+/** A project's own Solid component's file (.tsx), from the project's root, given { lang }. */
 export interface ComponentSection {
 	type: 'component';
 	component: string;
@@ -114,12 +113,12 @@ export interface HomeContent {
 	actions?: Action[];
 	/** Short tags under the buttons, as the platforms. */
 	chips?: Localized<string[]>;
-	/** The .astro component beside the words, from the project's root, given { lang }. */
+	/** The Solid component's file (.tsx) beside the words, from the project's root, given { lang }. */
 	visual?: string;
 	sections?: Localized<Section[]>;
 }
 
-/** A Starlight sidebar group or entry, its labels in each language. */
+/** A docs sidebar group or entry, its labels in each language: a page by its slug, a link, a group, or a group of a folder's pages. */
 export type SidebarItem =
 	| string
 	| { label: Text; slug: string }
@@ -301,7 +300,7 @@ export interface SiteOptions {
 	/** X accounts, in a menu of the header. */
 	accounts?: Link[];
 	docs?: DocsOptions;
-	/** The home page from these settings, or false for a project's own src/pages/index.astro and <code>/index.astro. */
+	/** The home page from these settings, or false for a project's own src/routes/index.tsx and <code>/index.tsx. */
 	home: Localized<HomeContent> | false;
 	/** The roadmap page from the tracking issue's sub-issues; none without, or when GitHub cannot find the issue. */
 	roadmap?: RoadmapOptions | false;
@@ -312,13 +311,11 @@ export interface SiteOptions {
 	strings?: Localized<Strings>;
 	/** Kubai icons the project's own components animate with KIcon, beyond those named here. */
 	icons?: string[];
-	/** The project's own CSS after the package's, as to change the colors in tokens.css. */
+	/** The project's own CSS files, from its root, after the package's, as to change the colors in tokens.css. */
 	customCss?: string[];
-	/** Starlight settings over the package's own. */
-	starlight?: Partial<StarlightUserConfig>;
 }
 
-/** The settings, typed; for a site.config.ts that astro.config.mjs and the share-cards command import. */
+/** The settings, typed; for a site.config.ts that vite.config.ts and the share-cards command import. */
 export function defineSite(options: SiteOptions): SiteOptions {
 	return options;
 }

@@ -1,14 +1,14 @@
 {
 	"name": "nsgo-website",
 	"version": "0.1.0",
-	"description": "The website of an NSGo project as an Astro integration: home, docs, roadmap and the shared shell, from the project's own settings.",
+	"description": "The website of an NSGo project on TanStack Start, Solid and ui-sdk: home, docs, roadmap and the shared shell, from the project's own settings.",
 	"license": "SEE LICENSE IN LICENSE",
 	"type": "module",
 	"keywords": [
-		"astro-integration",
-		"astro-component",
-		"withastro",
-		"starlight",
+		"vite-plugin",
+		"tanstack-start",
+		"solid",
+		"ui-sdk",
 		"nsgo"
 	],
 	"repository": {
@@ -17,20 +17,19 @@
 	},
 	"files": [
 		"src",
-		"bin"
+		"bin",
+		"tsconfig.base.json"
 	],
 	"exports": {
 		".": "./src/index.ts",
 		"./config": "./src/config.ts",
-		"./content": "./src/content.ts",
-		"./share": "./src/share.ts",
 		"./site": "./src/site.ts",
 		"./resolve": "./src/resolve.ts",
 		"./virtual": "./src/virtual.d.ts",
 		"./components": "./src/components/index.ts",
 		"./components/*": "./src/components/*",
 		"./styles/*": "./src/styles/*",
-		"./routes/*": "./src/routes/*"
+		"./tsconfig": "./tsconfig.base.json"
 	},
 	"bin": {
 		"nsgo-website-share-cards": "./bin/share-cards.ts"
@@ -43,17 +42,44 @@
 		"dev": "cd example && bun run dev",
 		"dev:game": "cd example-game && bun run dev",
 		"build": "cd example && bun run build && cd ../example-game && bun run build",
-		"check": "cd example && bunx astro check && cd ../example-game && bunx astro check",
+		"check": "cd example && bun run check && cd ../example-game && bun run check",
 		"test": "bun test"
 	},
-	"peerDependencies": {
-		"astro": "^7.4.13"
-	},
 	"dependencies": {
-		"@astrojs/starlight": "^0.43.1",
-		"kubai-icons": "^0.12.0"
+		"@babel/core": "^8",
+		"@solidjs/babel-plugin": "^2",
+		"@solidjs/vite-plugin": "^3.0.1",
+		"@solidjs/web": "^2.0.4",
+		"@tailwindcss/vite": "^4.3.5",
+		"@tanstack/solid-router": "2.0.0-rc.12",
+		"@tanstack/solid-start": "2.0.0-rc.12",
+		"@tanstack/virtual-file-routes": "^1.162.0",
+		"@ui-sdk/core": "0.1.0-beta.17",
+		"@ui-sdk/solid": "0.1.0-beta.17",
+		"hast-util-to-string": "^3.0.1",
+		"kubai-icons": "^0.12.0",
+		"pagefind": "^1.6.0",
+		"rehype-slug": "^6.0.0",
+		"rehype-stringify": "^10.0.1",
+		"remark-directive": "^4.0.0",
+		"remark-gfm": "^4.0.1",
+		"remark-parse": "^11.0.0",
+		"remark-rehype": "^11.1.2",
+		"shiki": "^4.6.0",
+		"solid-js": "^2.0.4",
+		"tailwindcss": "^4.3.5",
+		"unified": "^11.0.5",
+		"unist-util-visit": "^5.2.0",
+		"yaml": "^2.9.1"
 	},
 	"devDependencies": {
-		"astro": "^7.4.13"
+		"@types/bun": "^1.4.5",
+		"@types/hast": "^3.0.5",
+		"@types/mdast": "^4.0.4",
+		"typescript": "^6",
+		"vite": "^8.3.8"
+	},
+	"peerDependencies": {
+		"vite": "^8.3.8"
 	}
 }

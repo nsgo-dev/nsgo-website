@@ -1,6 +1,6 @@
 # NSGo Website
 
-An Astro integration that builds an NSGo project's website from its settings. Read ARCHITECTURE.md before coding.
+Vite plugins, on TanStack Start, Solid and ui-sdk, that build an NSGo project's website from its settings. Read ARCHITECTURE.md before coding.
 
 ## Principles
 

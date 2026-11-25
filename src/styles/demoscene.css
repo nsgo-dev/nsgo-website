@@ -3,7 +3,7 @@
    and few lines, and no glow or gradient; the pictures bring their own
    dithering. It goes over the package's own styles, so its rules start at
    :root to outrank theirs whatever order the page loads them in, and its
-   light colors at :root:root to outrank Starlight's and tokens.css's. */
+   light colors at :root:root to outrank tokens.css's. */
 
 :root {
 	color-scheme: dark;
@@ -33,40 +33,6 @@
 	--scanline: rgb(0 0 0 / 0.16);
 	/* A logo in another color takes the accent, as on a monochrome screen. */
 	--tint: grayscale(1) sepia(1) saturate(6) hue-rotate(-12deg) brightness(1.1);
-
-	--sl-font: var(--font-mono);
-	--sl-color-accent-low: #2b2108;
-	--sl-color-accent: #ffb000;
-	--sl-color-accent-high: #ffd98a;
-	--sl-color-white: #f3ead6;
-	--sl-color-gray-1: #ece2cc;
-	--sl-color-gray-2: #cfc2a5;
-	--sl-color-gray-3: #b9ab8c;
-	--sl-color-gray-4: #7d7059;
-	--sl-color-gray-5: #3a3020;
-	--sl-color-gray-6: #15130e;
-	--sl-color-black: #0b0a08;
-	--sl-color-bg-nav: #0b0a08;
-	--sl-color-bg-sidebar: #0b0a08;
-	--sl-color-hairline: #3a3020;
-	--sl-color-hairline-light: #3a3020;
-	--sl-color-hairline-shade: #3a3020;
-	/* Starlight's notes and badges, kept to the look's two colors. */
-	--sl-color-blue-low: #241d0c;
-	--sl-color-blue: #ffb000;
-	--sl-color-blue-high: #ffd98a;
-	--sl-color-purple-low: #241d0c;
-	--sl-color-purple: #ffb000;
-	--sl-color-purple-high: #ffd98a;
-	--sl-color-green-low: #1d1c0e;
-	--sl-color-green: #d8c87a;
-	--sl-color-green-high: #efe4b0;
-	--sl-color-orange-low: #2b1a08;
-	--sl-color-orange: #ff8a1f;
-	--sl-color-orange-high: #ffc28a;
-	--sl-color-red-low: #2b0f08;
-	--sl-color-red: #ff5a36;
-	--sl-color-red-high: #ffb3a0;
 }
 
 :root:root[data-theme='light'] {
@@ -87,38 +53,6 @@
 	--scanline: rgb(0 40 100 / 0.035);
 	--tint: grayscale(1) sepia(1) saturate(9) hue-rotate(170deg) brightness(0.95);
 
-	--sl-color-accent-low: #dcecff;
-	--sl-color-accent: #007aff;
-	--sl-color-accent-high: #0060d1;
-	--sl-color-white: #0b0d12;
-	--sl-color-gray-1: #1d2027;
-	--sl-color-gray-2: #353a44;
-	--sl-color-gray-3: #4f5866;
-	--sl-color-gray-4: #8a919c;
-	--sl-color-gray-5: #d5dbe3;
-	--sl-color-gray-6: #f2f4f7;
-	--sl-color-gray-7: #f8f9fb;
-	--sl-color-black: #ffffff;
-	--sl-color-bg-nav: #ffffff;
-	--sl-color-bg-sidebar: #ffffff;
-	--sl-color-hairline: #d5dbe3;
-	--sl-color-hairline-light: #d5dbe3;
-	--sl-color-hairline-shade: #d5dbe3;
-	--sl-color-blue-low: #e5f1ff;
-	--sl-color-blue: #007aff;
-	--sl-color-blue-high: #0060d1;
-	--sl-color-purple-low: #e5f1ff;
-	--sl-color-purple: #007aff;
-	--sl-color-purple-high: #0060d1;
-	--sl-color-green-low: #e6f6ec;
-	--sl-color-green: #1f9d55;
-	--sl-color-green-high: #146c3a;
-	--sl-color-orange-low: #fff1e0;
-	--sl-color-orange: #e07400;
-	--sl-color-orange-high: #8f4a00;
-	--sl-color-red-low: #ffe8e5;
-	--sl-color-red: #e5372a;
-	--sl-color-red-high: #96211a;
 }
 
 :root body {
@@ -176,7 +110,7 @@
 	text-transform: uppercase;
 }
 :root .nav > a:hover,
-:root .site-header .nav .nav-trigger:is(:hover, [aria-expanded='true']) {
+:root .site-header .nav .nav-trigger:is(:hover, [data-open]) {
 	background: none;
 	color: var(--accent);
 }
@@ -185,34 +119,36 @@
 	color: var(--accent);
 }
 :root .icon-button,
-:root .site-header :is(.menu-trigger, .icon-trigger) {
+:root .site-header .menu-trigger {
 	border: 0;
 	border-radius: 0;
 	background: none;
 	color: var(--text);
 }
-:root .site-header button[data-open-modal] {
+:root .site-header .search-trigger {
 	border: 0;
 	border-radius: 0;
 	background-color: var(--surface);
 	color: var(--muted);
 }
 :root .icon-button:hover,
-:root .site-header :is(button[data-open-modal], .menu-trigger, .icon-trigger):is(:hover, [aria-expanded='true']) {
+:root .site-header :is(.search-trigger, .menu-trigger):is(:hover, [data-open]) {
 	background-color: var(--surface-2);
 	color: var(--accent);
 }
-:root .site-header button[data-open-modal] kbd {
+:root .search-keys {
 	border-radius: 0;
 }
-:root .site-header :is(.menu-list, .nav-list),
-:root site-search dialog {
+:root .popup-list,
+:root .search-dialog,
+:root .menu-pane {
 	border: 1px solid var(--border);
 	border-radius: 0;
 	background-color: var(--bg);
 	box-shadow: 6px 6px 0 var(--drop);
 }
-:root .site-header :is(.menu-list, .nav-list) > * {
+:root .popup-list > *,
+:root .search-results [data-slot='command-item'] {
 	border-radius: 0;
 }
 
@@ -229,7 +165,7 @@
 	text-transform: uppercase;
 	box-shadow: none;
 	transition:
-		transform 0.12s steps(2),
+		translate 0.12s steps(2),
 		box-shadow 0.12s steps(2);
 }
 :root .button.primary {
@@ -247,11 +183,12 @@
 :root .button.secondary:hover {
 	background-color: var(--accent);
 	color: var(--on-accent);
-	transform: translate(-3px, -3px);
+	translate: -3px -3px;
 	box-shadow: 3px 3px 0 var(--border-strong);
 }
 :root .button:active {
-	transform: none;
+	translate: none;
+	scale: none;
 	box-shadow: none;
 }
 
@@ -357,7 +294,7 @@
 	background: none;
 	color: var(--accent);
 }
-:root .end-card > :not(ascii-field) {
+:root .end-card > :not(.ascii-field) {
 	color: var(--text);
 }
 :root .end-logo {
@@ -368,66 +305,62 @@
 }
 
 /* Code: monochrome, as a terminal shows it. */
-:root .expressive-code {
-	--ec-brdRad: 0;
-	--ec-brdCol: transparent;
-	--ec-frm-edTabBarBrdCol: transparent;
-	--ec-frm-edTabBarBrdBtmCol: transparent;
-	--ec-frm-trmTtbBrdBtmCol: transparent;
-	--ec-frm-edTabBarBg: var(--surface-2);
-	--ec-codeBg: var(--surface);
-	--ec-frm-edBg: var(--surface);
-	--ec-frm-edActTabBg: var(--surface);
-	--ec-frm-trmBg: var(--surface);
-	--ec-frm-trmTtbBg: var(--surface);
+:root .code {
+	border-color: transparent;
+	border-radius: 0;
 }
-:root .expressive-code pre,
-:root .expressive-code pre span {
+:root .code figcaption {
+	border-bottom-color: transparent;
+	background-color: var(--surface-2);
+}
+:root .code pre,
+:root .code pre span {
 	color: var(--text) !important;
 	font-style: normal !important;
 }
-:root .expressive-code pre :is(span[style*='--0:#C678DD'], span[style*='--0:#A626A4']) {
+:root .code pre :is(span[style*='--shiki-dark:#C678DD'], span[style*='--shiki-light:#A626A4']) {
 	color: var(--accent) !important;
 }
-:root .usage-code .expressive-code {
+:root .usage-code .code {
 	border-radius: 0;
 }
 
 /* Docs: prose stays in the reader's sans for long reading; the frame
    around it is the look's. */
-:root .sl-markdown-content :is(p, li, td, blockquote) {
+:root .markdown :is(p, li, td, blockquote) {
 	font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
 }
-:root .content-panel h1#_top,
-:root .sl-markdown-content :is(h2, h3) {
+:root .docs-content > h1,
+:root .markdown :is(h2, h3) {
 	text-transform: uppercase;
 	letter-spacing: -0.01em;
 }
-:root .sidebar-content a,
-:root .sidebar-content a[aria-current='page'] {
+:root .sidebar-list a,
+:root .sidebar-list a[aria-current='page'] {
 	border-radius: 0;
 }
-:root .sidebar-content a[aria-current='page'],
-:root .sidebar-content a[aria-current='page']:hover {
+:root .sidebar-list a[aria-current='page'],
+:root .sidebar-list a[aria-current='page']:hover {
 	background: none;
 	color: var(--accent);
 }
-:root .sidebar-content a[aria-current='page']::before {
+:root .sidebar-list a[aria-current='page']::before {
 	content: '> ';
 }
-:root .sl-markdown-content .starlight-aside {
+:root .aside {
+	--aside: var(--accent);
 	border-width: 0 0 0 2px;
 	border-radius: 0;
 }
-:root .sl-markdown-content :not(pre) > code {
+:root .markdown :not(pre) > code {
 	border-radius: 0;
 	color: var(--accent-strong);
 }
-:root .pagination-links a {
+:root .pagination a {
 	border: 0;
 	border-radius: 0;
 	background-color: var(--surface);
 }
-:root .pagination-links a:hover {
+:root .pagination a:hover {
 	color: var(--accent);
 }

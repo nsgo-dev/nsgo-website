@@ -39,7 +39,7 @@ bun run build
 比页面宽的行在代码块里横向滚动，用的是系统自带的滚动条。
 
 ```sh
-bunx astro build --site https://nsgo-dev.github.io --base /nsgo-website --outDir ./dist --verbose
+BASE=/nsgo-website/ SITE=https://nsgo-dev.github.io bunx vite build --mode production --logLevel info --outDir ./dist
 ```
 
 ## 长代码块

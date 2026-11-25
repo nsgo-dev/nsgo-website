@@ -1,5 +1,5 @@
 // Which of the site's languages a reader's browser asks for. Self-contained,
-// as Head.astro inlines its source to run before the page shows.
+// as app/boot.ts inlines its source to run before the page shows.
 
 export interface LanguageChoice {
 	/** The language's code, as in paths. */

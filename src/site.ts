@@ -1,11 +1,10 @@
 /// <reference path="./virtual.d.ts" />
 // The settings each language's pages render, and the site's paths.
-import options from 'virtual:nsgo-website/options';
+import options, { site as origin } from 'virtual:nsgo-website/options';
 import type { Lang } from './config';
 import { languagesOf, resolveHref, resolveSite, type Resolved } from './resolve';
-import { locales } from './locales';
 
-export { options };
+export { options, origin };
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
@@ -26,11 +25,6 @@ export function hrefIn(href: string, lang: Lang) {
 	return resolveHref(href, lang, first, base);
 }
 
-/** The site's language of a Starlight route's BCP-47 tag. */
-export function langOf(tag: string): Lang {
-	return langs.find((l) => locales[l].tag.toLowerCase() === tag.toLowerCase()) ?? first;
-}
-
 /** The language a path of the site is in, by its first segment. */
 export function langOfPath(pathname: string): Lang {
 	const segment = pathname.slice(base.length).replace(/^\//, '').split('/')[0];
@@ -43,4 +37,14 @@ export function pathIn(pathname: string, lang: Lang): string {
 	let path = pathname.slice(base.length).replace(/^\//, '');
 	if (from !== first) path = path.slice(from.length).replace(/^\//, '');
 	return `${base}/${lang === first ? '' : `${lang}/`}${path}`;
+}
+
+/** A path of the site without its base, as the router has it. */
+export function routePath(pathname: string): string {
+	return pathname.startsWith(base) ? pathname.slice(base.length) || '/' : pathname;
+}
+
+/** The page's full address, for share cards and search engines. */
+export function absolute(path: string): string {
+	return `${origin}${path}`;
 }

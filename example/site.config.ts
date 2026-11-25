@@ -1,5 +1,5 @@
 // This repository's own site, as an example of every part of the settings;
-// the app its pages describe and its docs are made up. astro.config.mjs and
+// the app its pages describe and its docs are made up. vite.config.ts and
 // the share-cards command both read this file.
 import { defineSite } from 'nsgo-website/config';
 
@@ -143,7 +143,7 @@ export default defineSite({
 			zh: '示例笔记把纯文本笔记保存在设备上，边输入边查找，并通过你选的文件夹同步。它是虚构的，只为填充这个示例。',
 		},
 		chips: ['macOS', 'Windows', 'Linux', 'iOS'],
-		visual: './src/components/NotesMock.astro',
+		visual: './src/components/NotesMock.tsx',
 		sections: {
 			en: [
 				{

@@ -1,7 +1,8 @@
 import { describe, expect, test } from 'bun:test';
 import type { SiteOptions } from '../src/config';
 import { locales } from '../src/locales';
-import { assetsOf, languagesOf, localize, repoOf, resolveHref, resolveSite, starlightSidebar } from '../src/resolve';
+import { pagesOf, resolveSidebar, type DocsIndex } from '../src/docs';
+import { assetsOf, languagesOf, localize, repoOf, resolveHref, resolveSite } from '../src/resolve';
 import { pickLanguage } from '../src/scripts/language';
 
 const options: SiteOptions = {
@@ -15,7 +16,7 @@ const options: SiteOptions = {
 		lead: { en: 'Lead', zh: '引言' },
 		sections: [
 			{ type: 'features', id: 'features', title: { en: 'Features', zh: '功能' }, items: [{ icon: 'film', title: 'A', text: 'B' }] },
-			{ type: 'component', component: './Own.astro' },
+			{ type: 'component', component: './Own.tsx' },
 			{ type: 'end', logo: './end.svg', title: 'End', actions: [{ label: 'Go', href: 'docs/' }] },
 		],
 	},
@@ -81,10 +82,38 @@ describe('resolveSite', () => {
 	});
 });
 
-test('starlightSidebar gives the other languages’ labels as translations', () => {
-	expect(starlightSidebar([{ label: { en: 'Start', zh: '开始', ja: '始める' }, items: ['docs', { label: 'Same', link: 'x/' }] }], ['en', 'zh', 'ja', 'fr'])).toEqual([
-		{ label: 'Start', translations: { 'zh-CN': '开始', ja: '始める' }, items: ['docs', { label: 'Same', link: 'x/' }] },
-	]);
+describe('sidebar', () => {
+	const index: DocsIndex = {
+		en: {
+			docs: { slug: 'docs', title: 'Introduction' },
+			'docs/quick-start': { slug: 'docs/quick-start', title: 'Quick start' },
+			'docs/guides/b': { slug: 'docs/guides/b', title: 'B', order: 1 },
+			'docs/guides/a': { slug: 'docs/guides/a', title: 'A', label: 'First' },
+		},
+		zh: { docs: { slug: 'docs', title: '介绍' } },
+	};
+	test('names pages by their own language’s titles, else the first’s, under that language’s path', () => {
+		const items = [{ label: { en: 'Start', zh: '开始' }, items: ['docs', 'docs/quick-start'] }];
+		expect(resolveSidebar(items, index, 'zh', 'en', '/base')).toEqual([
+			{
+				type: 'group',
+				label: '开始',
+				collapsed: false,
+				entries: [
+					{ type: 'link', label: '介绍', slug: 'docs', href: '/base/zh/docs/', external: false },
+					{ type: 'link', label: 'Quick start', slug: 'docs/quick-start', href: '/base/zh/docs/quick-start/', external: false },
+				],
+			},
+		]);
+	});
+	test('autogenerates a folder by order, then slug, and lists every page without items', () => {
+		const group = resolveSidebar([{ label: 'Guides', autogenerate: { directory: 'guides' } }], index, 'en', 'en', '');
+		expect(pagesOf(group).map((p) => p.label)).toEqual(['B', 'First']);
+		expect(pagesOf(resolveSidebar(undefined, index, 'en', 'en', '')).map((p) => p.slug)).toEqual(['docs', 'docs/quick-start', 'docs/guides/b', 'docs/guides/a']);
+	});
+	test('refuses a page that does not exist', () => {
+		expect(() => resolveSidebar(['docs/missing'], index, 'en', 'en', '')).toThrow();
+	});
 });
 
 describe('languages', () => {
@@ -109,7 +138,7 @@ describe('languages', () => {
 
 test('assetsOf lists the files and icons the settings name', () => {
 	const a = assetsOf(options);
-	expect(a.components).toEqual(['./Own.astro']);
+	expect(a.components).toEqual(['./Own.tsx']);
 	expect(a.images).toEqual(['./logo.png', './end.svg']);
 	expect(a.icons).toContain('film');
 	expect(a.icons).toContain('sun');

@@ -1,8 +1,0 @@
----
-// The home page lays out its own sections; other pages are Markdown.
-import Default from '@astrojs/starlight/components/MarkdownContent.astro';
-
-const isHome = Boolean((Astro.locals.starlightRoute.entry.data as { home?: boolean }).home);
----
-
-{isHome ? <slot /> : <Default><slot /></Default>}

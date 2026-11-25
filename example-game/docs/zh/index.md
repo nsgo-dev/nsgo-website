@@ -11,5 +11,5 @@ description: 游戏引擎模板的示例文档页。
 
 ## 模板里有什么
 
-- 项目自己的首页，在 `src/components/Home.astro`，用包里的Demoscene 组件拼成。
+- 项目自己的首页，在 `src/components/Home.tsx`，用包里的Demoscene 组件拼成。
 - 文档、搜索、页头和页脚来自设置，有浅色和深色。

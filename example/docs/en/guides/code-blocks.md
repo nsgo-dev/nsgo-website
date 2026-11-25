@@ -39,7 +39,7 @@ bun run build
 A line wider than the page scrolls sideways inside its block, with the system's own scrollbar.
 
 ```sh
-bunx astro build --site https://nsgo-dev.github.io --base /nsgo-website --outDir ./dist --verbose
+BASE=/nsgo-website/ SITE=https://nsgo-dev.github.io bunx vite build --mode production --logLevel info --outDir ./dist
 ```
 
 ## Long blocks

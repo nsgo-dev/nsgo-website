@@ -484,25 +484,32 @@ export function startDemos() {
 	}
 }
 
-/** Content that drifts at its own speed as the page scrolls: data-parallax is how much, as a share of the scroll. */
-export function startParallax() {
-	const items = [...document.querySelectorAll<HTMLElement>('[data-parallax]')];
-	if (!items.length || still.matches) return;
-	let queued = false;
+const drifting = new Set<HTMLElement>();
+let placing = false;
+
+/** Content that drifts at its own speed as the page scrolls: data-parallax is how much, as a share of the scroll. The function it returns stops it. */
+export function startParallax(el: HTMLElement): () => void {
+	if (still.matches) return () => {};
+	drifting.add(el);
 	const place = () => {
 		queued = false;
 		const mid = innerHeight / 2;
-		for (const el of items) {
-			const box = el.parentElement!.getBoundingClientRect();
-			const offset = (box.top + box.height / 2 - mid) * Number(el.dataset.parallax);
+		for (const item of drifting) {
+			const box = item.parentElement!.getBoundingClientRect();
+			const offset = (box.top + box.height / 2 - mid) * Number(item.dataset.parallax);
 			// Whole pixels, so text in it stays sharp.
-			el.style.transform = `translateY(${Math.round(offset)}px)`;
+			item.style.transform = `translateY(${Math.round(offset)}px)`;
 		}
 	};
-	addEventListener('scroll', () => {
-		if (!queued) requestAnimationFrame(place);
-		queued = true;
-	}, { passive: true });
-	addEventListener('resize', place);
+	let queued = false;
+	if (!placing) {
+		placing = true;
+		addEventListener('scroll', () => {
+			if (!queued) requestAnimationFrame(place);
+			queued = true;
+		}, { passive: true });
+		addEventListener('resize', place);
+	}
 	place();
+	return () => drifting.delete(el);
 }

@@ -1,7 +1,0 @@
----
-// Injected once for each language, which the page's path tells.
-import HomePage from '../components/HomePage.astro';
-import { langOfPath } from '../site';
----
-
-<HomePage lang={langOfPath(Astro.url.pathname)} />

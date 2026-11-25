@@ -1,5 +1,6 @@
 {
-	"extends": "astro/tsconfigs/strict",
-	"include": [".astro/types.d.ts", "**/*", "../src/**/*"],
-	"exclude": ["dist"]
+	"extends": "nsgo-website/tsconfig",
+	"include": ["**/*", "../src/**/*"],
+	"files": ["node_modules/.nsgo-website/routeTree.gen.ts"],
+	"exclude": ["dist", "node_modules"]
 }

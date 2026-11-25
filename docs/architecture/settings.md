@@ -8,7 +8,7 @@ Any value may be one per language, as `{ en, zh }`, at any depth: a word, a list
 
 ## Data, not code
 
-The settings must survive `JSON.stringify`, because the integration hands them to the pages as a virtual module. Anything that is code (a component, an image, an icon) is named by a path or name, and the integration generates the imports. This is also why the package's own words with templates, such as the roadmap's counts, live in `locales.ts` and only their plain strings can be overridden.
+The settings must survive `JSON.stringify`, because the build hands them to the pages as a virtual module. Anything that is code (a component, an image, an icon) is named by a path or name, and the build generates the imports. This is also why the package's own words with templates, such as the roadmap's counts, live in `locales.ts` and only their plain strings can be overridden.
 
 ## Defaults
 

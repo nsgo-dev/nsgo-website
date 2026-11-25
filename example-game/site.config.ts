@@ -1,6 +1,6 @@
 // A template for a game engine's site in the demoscene look; the engine its
 // pages describe is made up. The settings hold only the frame: the home
-// page is the project's own, in src/components/Home.astro, so it may say
+// page is the project's own, in src/components/Home.tsx, so it may say
 // and show whatever the engine needs.
 import { defineSite } from 'nsgo-website/config';
 

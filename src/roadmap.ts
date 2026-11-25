@@ -193,7 +193,7 @@ async function fetchRoadmap(r: ResolvedRoadmap): Promise<Roadmap> {
 
 const cache = new Map<string, Promise<Roadmap>>();
 
-/** The roadmap, read once for the integration and both languages' pages. */
+/** The roadmap, read once per build for every language's pages. */
 export function loadRoadmap(r: ResolvedRoadmap): Promise<Roadmap> {
 	const key = `${r.owner}/${r.name}#${r.tracking}`;
 	const cached = cache.get(key);
