@@ -1,0 +1,6 @@
+component name="Docs/Contents item" width=fill preview=152 backdrop="bg-[#ffffff]"
+box name=item class="group border-l-2 border-transparent py-[3px] pl-3.5 selected:border-[#007aff]"
+  text "Overview" name=label class="text-xs text-[#5b6270] group-selected:text-[#007aff]"
+end
+variant current state=selected
+variant nested item.class="pl-[26px]"

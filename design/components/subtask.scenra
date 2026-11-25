@@ -1,0 +1,9 @@
+component name="Roadmap/Subtask" width=fill preview=330 backdrop="bg-[#ffffff]"
+box class="flex-row items-center gap-1.5 py-0.5"
+  box name=mark class="size-[11px] items-center justify-center rounded-[3px] border-[1.5px] border-[#d4d7dd]"
+    icon check name=check class="hidden size-2 text-white"
+  end
+  text "#21" name=ref class="font-mono text-xs text-[#8a909b]"
+  text "Index headings" name=title class="flex-1 truncate text-[13px] text-[#0b0d12]"
+end
+variant closed mark.class="border-[#22a45d] bg-[#22a45d]" check.class="flex" title.class="text-[#5b6270]"

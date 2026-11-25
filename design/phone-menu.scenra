@@ -1,0 +1,89 @@
+design name="Phone/Menu" device=phone class="bg-[#ffffff]"
+box class="flex-1"
+  use phone-home class="flex-1"
+  box class="absolute bottom-0 left-0 right-0 top-0 flex-row bg-black/40"
+    box class="flex-1" tap="close"
+    end
+    box class="w-[343px] border-l border-[#e6e8ec] bg-[#ffffff] shadow-2xl shadow-[#101828]/10" note="A drawer from the end; moving to another page closes it."
+      box class="h-[52px] flex-row items-center justify-between border-b border-[#e6e8ec] pl-5 pr-3"
+        text "Menu" class="text-[15px] font-semibold text-[#0b0d12]"
+        box class="size-[34px] items-center justify-center rounded-[10px]" tap="close"
+          icon x class="size-[18px] text-[#5b6270]"
+        end
+      end
+      box class="gap-4 p-4"
+        box class="gap-0.5 border-b border-[#e6e8ec] pb-4" note="The header's links and GitHub, then each of its menus as a group."
+          text "Features" class="rounded-lg px-2.5 py-2 text-[15px] font-medium text-[#0b0d12]"
+          box class="rounded-lg px-2.5 py-2" tap="open docs"
+            text "Docs" class="text-[15px] font-medium text-[#0b0d12]"
+          end
+          box class="rounded-lg px-2.5 py-2" tap="open roadmap"
+            text "Roadmap" class="text-[15px] font-medium text-[#0b0d12]"
+          end
+          box class="rounded-lg px-2.5 py-2" tap="open sponsors"
+            text "Sponsors" class="text-[15px] font-medium text-[#0b0d12]"
+          end
+          box class="flex-row items-center gap-1.5 rounded-lg px-2.5 py-2"
+            text "GitHub" class="text-[15px] font-medium text-[#0b0d12]"
+            icon external-link class="size-3 text-[#8a909b]"
+          end
+          text "X" class="mb-1 mt-3 px-2.5 text-xs font-semibold text-[#8a909b]"
+          box class="flex-row items-center gap-1.5 rounded-lg px-2.5 py-2"
+            text "Sample Notes" class="text-[15px] font-medium text-[#0b0d12]"
+            text "@sample_notes" class="text-[13px] text-[#5b6270]"
+            icon external-link class="size-3 text-[#8a909b]"
+          end
+          text "Community" class="mb-1 mt-3 px-2.5 text-xs font-semibold text-[#8a909b]"
+          box class="flex-row items-center gap-1.5 rounded-lg px-2.5 py-2"
+            text "NSGo" class="text-[15px] font-medium text-[#0b0d12]"
+            icon external-link class="size-3 text-[#8a909b]"
+          end
+          box class="flex-row items-center gap-1.5 rounded-lg px-2.5 py-2"
+            text "NSGo Telegram" class="text-[15px] font-medium text-[#0b0d12]"
+            icon external-link class="size-3 text-[#8a909b]"
+          end
+          box class="flex-row items-center gap-1.5 rounded-lg px-2.5 py-2"
+            text "Awesome NSGo" class="text-[15px] font-medium text-[#0b0d12]"
+            icon external-link class="size-3 text-[#8a909b]"
+          end
+        end
+        box class="gap-4" note="Below 40rem only, where the header has no room for these menus."
+          box class="gap-2"
+            text "Language" class="px-2.5 text-xs font-semibold text-[#8a909b]"
+            box class="flex-row gap-1 rounded-xl bg-[#f6f7f9] p-1"
+              box class="h-9 flex-1 flex-row items-center justify-center gap-1.5 rounded-lg"
+                icon globe class="size-4 text-[#14b8a6]"
+                text "Auto" class="text-sm font-medium text-[#5b6270]"
+              end
+              box class="h-9 flex-1 flex-row items-center justify-center gap-1.5 rounded-lg bg-[#eef0f3] shadow-sm"
+                text "EN" class="text-xs font-bold text-[#3b82f6]"
+                text "English" class="text-sm font-medium text-[#0b0d12]"
+              end
+              box class="h-9 flex-1 flex-row items-center justify-center gap-1.5 rounded-lg"
+                text "简" class="text-xs font-bold text-[#ef4444]"
+                text "简体中文" class="text-sm font-medium text-[#5b6270]"
+              end
+            end
+          end
+          box class="gap-2"
+            text "Theme" class="px-2.5 text-xs font-semibold text-[#8a909b]"
+            box class="flex-row gap-1 rounded-xl bg-[#f6f7f9] p-1"
+              box class="h-9 flex-1 flex-row items-center justify-center gap-1.5 rounded-lg bg-[#eef0f3] shadow-sm"
+                icon monitor class="size-4 text-[#0ea5e9]"
+                text "Auto" class="text-sm font-medium text-[#0b0d12]"
+              end
+              box class="h-9 flex-1 flex-row items-center justify-center gap-1.5 rounded-lg"
+                icon sun class="size-4 text-[#f59e0b]"
+                text "Light" class="text-sm font-medium text-[#5b6270]"
+              end
+              box class="h-9 flex-1 flex-row items-center justify-center gap-1.5 rounded-lg"
+                icon moon class="size-4 text-[#6366f1]"
+                text "Dark" class="text-sm font-medium text-[#5b6270]"
+              end
+            end
+          end
+        end
+      end
+    end
+  end
+end

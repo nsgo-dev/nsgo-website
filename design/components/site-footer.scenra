@@ -1,0 +1,20 @@
+component name="Shell/Site footer" width=fill preview=1200 backdrop="bg-[#ffffff]"
+box class="flex-row items-center justify-between px-8 py-6" note="The copyright and the license on the left; the settings' footer links, Docs, Roadmap and GitHub unless set, then Sponsors."
+  box name=left class="flex-row gap-2"
+    text "© 2026 NSGO" name=copyright class="text-[13px] text-[#8a909b]"
+    text "All rights reserved" name=license class="text-[13px] text-[#8a909b]"
+  end
+  box name=links class="flex-row items-center gap-5"
+    text "Docs" name=link class="text-[13px] text-[#5b6270]"
+    text "Roadmap" name=link class="text-[13px] text-[#5b6270]"
+    box class="flex-row items-center gap-1"
+      text "GitHub" name=link class="text-[13px] text-[#5b6270]"
+      icon external-link name=ext class="size-[11px] text-[#8a909b]"
+    end
+    box class="flex-row items-center gap-1.5"
+      icon heart class="size-3.5 fill-[#ec4899] text-[#ec4899]"
+      text "Sponsors" name=link class="text-[13px] text-[#5b6270]"
+    end
+  end
+end
+variant phone class="flex-col justify-center gap-3 px-5" links.class="flex-wrap justify-center"

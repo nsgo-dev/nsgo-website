@@ -1,0 +1,9 @@
+component name="Home/Section head" width=fill preview=1136 backdrop="bg-[#ffffff]"
+box name=head class="items-center"
+  box name=inner class="max-w-[640px] items-center gap-3"
+    text "The app" name=eyebrow class="text-[13px] font-semibold uppercase tracking-wider text-[#007aff]"
+    text "Everything a note needs" name=title class="text-center text-[40px] font-bold leading-tight tracking-tight text-[#0b0d12]"
+    text "" name=text class="hidden text-center text-[17px] text-[#5b6270]"
+  end
+end
+variant left head.class="items-start" inner.class="max-w-[512px] items-start" title.class="text-left" text.class="text-left"

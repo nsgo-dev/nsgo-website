@@ -1,0 +1,69 @@
+design name="Phone/Home" device=phone height=1720 class="bg-[#ffffff]"
+box class="flex-1"
+  use site-header variant=phone brand.tap="open phone-home" menu.tap="open phone-menu" search.tap="open search" note="Below 50rem the nav moves into the menu drawer; below 40rem language, theme, X and GitHub do too."
+  box class="gap-12 px-5 pb-16 pt-12"
+    box class="items-start"
+      box class="mb-6 flex-row items-center gap-2 rounded-full border border-[#e6e8ec] bg-[#f6f7f9] py-1 pl-2.5 pr-3"
+        box class="size-2 rounded-full bg-[#f59e0b] ring-[3px] ring-[#f59e0b]/20"
+        end
+        text "Sample project · not a real app" class="text-[13px] font-medium text-[#5b6270]"
+      end
+      text "Notes that stay" class="text-[40px] font-bold leading-[1.05] tracking-tighter text-[#0b0d12]"
+      svg "<svg viewBox='0 0 330 48'><defs><linearGradient id='h' x1='0' x2='1'><stop offset='0.1' stop-color='#007aff'/><stop offset='0.9' stop-color='#8b5cf6'/></linearGradient></defs><text x='0' y='36' font-family='-apple-system, Helvetica, Arial, sans-serif' font-size='40' font-weight='700' letter-spacing='-1.4' fill='url(#h)'>out of your way.</text></svg>" class="mb-5 h-12 w-[330px]"
+      text "Sample Notes keeps plain-text notes on your device, finds them as you type and syncs them through a folder you choose." class="text-[17px] leading-relaxed text-[#5b6270]"
+      box class="mb-6 mt-9 flex-row flex-wrap gap-3"
+        use button variant=large button.tap="open docs"
+        use button variant="github large"
+      end
+      box class="flex-row flex-wrap gap-2"
+        text "macOS" class="rounded-full border border-[#e6e8ec] px-3 py-1 text-[13px] text-[#5b6270]"
+        text "Windows" class="rounded-full border border-[#e6e8ec] px-3 py-1 text-[13px] text-[#5b6270]"
+        text "Linux" class="rounded-full border border-[#e6e8ec] px-3 py-1 text-[13px] text-[#5b6270]"
+        text "iOS" class="rounded-full border border-[#e6e8ec] px-3 py-1 text-[13px] text-[#5b6270]"
+      end
+    end
+    box class="overflow-hidden rounded-[20px] border border-[#e6e8ec] bg-[#f6f7f9] shadow-2xl shadow-[#101828]/20" note="The project's visual, under the words on narrow screens."
+      box class="flex-row gap-1.5 border-b border-[#e6e8ec] px-3 py-2.5"
+        box class="size-2.5 rounded-full bg-[#d4d7dd]"
+        end
+        box class="size-2.5 rounded-full bg-[#d4d7dd]"
+        end
+        box class="size-2.5 rounded-full bg-[#d4d7dd]"
+        end
+      end
+      box class="h-[196px] flex-row"
+        box class="w-2/5 gap-1 border-r border-[#e6e8ec] p-2"
+          text "Trip to the coast" class="truncate rounded-lg bg-[#4da3ff] px-2 py-1.5 text-xs font-semibold text-white"
+          text "Reading list" class="px-2 py-1.5 text-xs text-[#5b6270]"
+          text "Groceries" class="px-2 py-1.5 text-xs text-[#5b6270]"
+        end
+        box class="flex-1 gap-2.5 px-3 py-3"
+          text "Trip to the coast" class="text-[15px] font-semibold text-[#0b0d12]"
+          box class="flex-row items-center gap-2 opacity-55"
+            box class="size-3 rounded border-[1.5px] border-[#4da3ff] bg-[#4da3ff]"
+            end
+            text "Leave on Friday" class="text-xs text-[#0b0d12] line-through"
+          end
+          box class="flex-row items-center gap-2"
+            box class="size-3 rounded border-[1.5px] border-[#d4d7dd]"
+            end
+            text "Book a room" class="text-xs text-[#0b0d12]"
+          end
+          box class="flex-row items-center gap-2"
+            box class="size-3 rounded border-[1.5px] border-[#d4d7dd]"
+            end
+            text "Pack the camera" class="text-xs text-[#0b0d12]"
+          end
+        end
+      end
+    end
+  end
+  box class="gap-12 px-5 py-16" note="One feature to a row, its icon beside the words."
+    use section-head title.class="text-[28px]"
+    box class="gap-px overflow-hidden rounded-[20px] border border-[#e6e8ec] bg-[#e6e8ec]"
+      use feature-cell variant=row class="flex-row p-5" icon.class="mb-0"
+      use feature-cell variant=row class="flex-row p-5" icon=search icon.class="text-[#8b5cf6]" title="Instant search" text="Notes are found by title and text as you type."
+      use feature-cell variant=row class="flex-row p-5" icon=list-checks icon.class="text-[#22a45d]" title="Checklists" text="Tick items off without leaving the keyboard."
+    end
+  end
+end

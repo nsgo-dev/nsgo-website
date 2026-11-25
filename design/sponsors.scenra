@@ -1,0 +1,168 @@
+design name="Pages/Sponsors" device=desktop height=2440 class="bg-[#ffffff]"
+box class="flex-1"
+  use site-header brand.tap="open home" features.tap="open home" docs.tap="open docs" roadmap.tap="open roadmap" sponsors.tap="open sponsors" search.tap="open search"
+  box class="items-center px-8 pb-4 pt-20"
+    box class="mb-6 size-16 items-center justify-center rounded-full bg-[#ec4899]/12"
+      icon heart class="size-8 fill-[#ec4899] text-[#ec4899]"
+    end
+    text "Sponsors" class="mb-4 text-[56px] font-bold leading-[1.1] tracking-tighter text-[#0b0d12]"
+    text "The companies and people whose sponsorship keeps NSGO going." class="max-w-[544px] text-center text-[19px] leading-relaxed text-[#5b6270]"
+    box class="mt-10 w-[704px] flex-row gap-4" note="The maintainers readers sponsor through GitHub Sponsors; without any, a Become a sponsor button instead."
+      box class="flex-1 gap-4 rounded-[20px] border border-[#e6e8ec] bg-[#f6f7f9] p-5"
+        box class="flex-row items-center gap-4"
+          image "ONEO's avatar" src="assets/sponsors/oneo-me.jpg" class="size-14 rounded-full border border-[#e6e8ec]"
+          box class="flex-1"
+            text "ONEO" class="truncate text-lg font-bold text-[#0b0d12]"
+            text "oneo-me" class="truncate text-[15px] text-[#5b6270]"
+          end
+        end
+        text "Founder, building NSGo since its first line of code" class="text-[15px] leading-normal text-[#5b6270]"
+        use button variant=secondary class="w-full" label="Sponsor" trail.class="hidden" lead.class="hidden"
+      end
+      box class="flex-1 gap-4 rounded-[20px] border border-[#e6e8ec] bg-[#f6f7f9] p-5"
+        box class="flex-row items-center gap-4"
+          image "小莫's avatar" src="assets/sponsors/houko.png" class="size-14 rounded-full border border-[#e6e8ec]"
+          box class="flex-1"
+            text "小莫" class="truncate text-lg font-bold text-[#0b0d12]"
+            text "houko" class="truncate text-[15px] text-[#5b6270]"
+          end
+        end
+        text "Core driver, taking NSGo into its fastest growth" class="text-[15px] leading-normal text-[#5b6270]"
+        use button variant=secondary class="w-full" label="Sponsor" trail.class="hidden" lead.class="hidden"
+      end
+    end
+  end
+  box class="px-8 py-12" note="Each of the settings' tiers in order, under its own title, laid out as it says."
+    box class="mb-9 items-center"
+      text "Gold sponsors" class="text-[40px] font-bold tracking-tight text-[#0b0d12]"
+    end
+    box class="flex-row gap-5"
+      box class="h-48 flex-1 items-center justify-center gap-2 rounded-[20px] border border-[#e6e8ec] bg-[#f6f7f9] px-6 py-7"
+        svg "<svg viewBox='0 0 192 48'><path d='M8 38a16 16 0 0 1 32 0' fill='none' stroke='#2563eb' stroke-width='7' stroke-linecap='round'/><circle cx='24' cy='16' r='5' fill='#2563eb'/><text x='54' y='32.5' font-family='-apple-system, Segoe UI, Helvetica, Arial, sans-serif' font-size='25' font-weight='700' letter-spacing='-0.5' fill='#0b0d12'>Northwind</text></svg>" class="mb-2 h-12 w-48"
+        text "Cloud folders for teams" class="text-center text-[15px] text-[#5b6270]"
+      end
+      box class="h-48 flex-1 items-center justify-center gap-2 rounded-[20px] border border-[#e6e8ec] bg-[#f6f7f9] px-6 py-7"
+        svg "<svg viewBox='0 0 208 48'><circle cx='24' cy='24' r='9' fill='#f59e0b'/><circle cx='24' cy='24' r='16' fill='none' stroke='#f59e0b' stroke-width='3' stroke-dasharray='4 4.4'/><text x='54' y='32.5' font-family='-apple-system, Segoe UI, Helvetica, Arial, sans-serif' font-size='25' font-weight='700' letter-spacing='-0.5' fill='#d97706'>Lumen Labs</text></svg>" class="mb-2 h-12 w-48"
+        text "Fonts for small screens" class="text-center text-[15px] text-[#5b6270]"
+      end
+      box class="h-48 flex-1 items-center justify-center gap-1.5 rounded-[20px] border border-dashed border-[#d4d7dd] px-6 py-7"
+        icon heart class="size-7 fill-[#ec4899] text-[#ec4899]"
+        text "Become a sponsor" class="mt-2 text-[15px] font-semibold text-[#5b6270]"
+        text "8 places left" class="text-[13px] text-[#8a909b]"
+      end
+    end
+  end
+  box class="px-8 pb-12"
+    box class="mb-9 items-center"
+      text "Silver sponsors" class="text-[40px] font-bold tracking-tight text-[#0b0d12]"
+    end
+    box class="flex-row gap-3"
+      box class="h-26 flex-1 items-center justify-center rounded-xl border border-[#e6e8ec] p-4"
+        svg "<svg viewBox='0 0 132 48'><circle cx='24' cy='24' r='14' fill='none' stroke='#8b5cf6' stroke-width='7'/><text x='54' y='32.5' font-family='-apple-system, Segoe UI, Helvetica, Arial, sans-serif' font-size='25' font-weight='700' letter-spacing='-0.5' fill='#8b5cf6'>Orbit</text></svg>" class="h-10 w-40"
+      end
+      box class="h-26 flex-1 items-center justify-center rounded-xl border border-[#e6e8ec] p-4"
+        svg "<svg viewBox='0 0 162 48'><path d='M24 8 41 38H7z' fill='#ef4444'/><text x='54' y='32.5' font-family='-apple-system, Segoe UI, Helvetica, Arial, sans-serif' font-size='25' font-weight='700' letter-spacing='-0.5' fill='#ef4444'>Kestrel</text></svg>" class="h-10 w-40"
+      end
+      box class="h-26 flex-1 items-center justify-center rounded-xl border border-[#e6e8ec] p-4"
+        svg "<svg viewBox='0 0 162 48'><path d='M10 38C10 18 24 9 40 9c0 17-10 29-30 29z' fill='#16a34a'/><text x='54' y='32.5' font-family='-apple-system, Segoe UI, Helvetica, Arial, sans-serif' font-size='25' font-weight='700' letter-spacing='-0.5' fill='#16a34a'>Fernway</text></svg>" class="h-10 w-40"
+      end
+      box class="h-26 flex-1 items-center justify-center rounded-xl border border-[#e6e8ec] p-4"
+        svg "<svg viewBox='0 0 147 48'><rect x='9' y='9' width='30' height='30' rx='9' fill='#0891b2'/><rect x='18' y='18' width='12' height='12' rx='3' fill='#fff'/><text x='54' y='32.5' font-family='-apple-system, Segoe UI, Helvetica, Arial, sans-serif' font-size='25' font-weight='700' letter-spacing='-0.5' fill='#0891b2'>Quarry</text></svg>" class="h-10 w-40"
+      end
+    end
+  end
+  box class="px-8 pb-12"
+    box class="mb-9 items-center"
+      text "Bronze sponsors" class="text-[40px] font-bold tracking-tight text-[#0b0d12]"
+    end
+    box class="flex-row gap-3"
+      box class="h-17 flex-1 items-center justify-center rounded-xl border border-[#e6e8ec] p-3"
+        svg "<svg viewBox='0 0 192 48'><path d='M6 30c6-8 12-8 18 0s12 8 18 0' fill='none' stroke='#0ea5e9' stroke-width='6' stroke-linecap='round'/><path d='M6 18c6-8 12-8 18 0s12 8 18 0' fill='none' stroke='#0ea5e9' stroke-width='6' stroke-linecap='round' opacity='.5'/><text x='54' y='32.5' font-family='-apple-system, Segoe UI, Helvetica, Arial, sans-serif' font-size='25' font-weight='700' letter-spacing='-0.5' fill='#0ea5e9'>Tidewater</text></svg>" class="h-6 w-24"
+      end
+      box class="h-17 flex-1 items-center justify-center rounded-xl border border-[#e6e8ec] p-3"
+        svg "<svg viewBox='0 0 208 48'><circle cx='17' cy='24' r='10' fill='#ec4899'/><circle cx='31' cy='24' r='10' fill='#ec4899' opacity='.55'/><text x='54' y='32.5' font-family='-apple-system, Segoe UI, Helvetica, Arial, sans-serif' font-size='25' font-weight='700' letter-spacing='-0.5' fill='#ec4899'>Brightloop</text></svg>" class="h-6 w-24"
+      end
+      box class="h-17 flex-1 items-center justify-center rounded-xl border border-[#e6e8ec] p-3"
+        svg "<svg viewBox='0 0 147 48'><path d='M24 6 42 24 24 42 6 24z' fill='#3b82f6'/><text x='54' y='32.5' font-family='-apple-system, Segoe UI, Helvetica, Arial, sans-serif' font-size='25' font-weight='700' letter-spacing='-0.5' fill='#3b82f6'>Cobalt</text></svg>" class="h-6 w-24"
+      end
+      box class="h-17 flex-1 items-center justify-center rounded-xl border border-[#e6e8ec] p-3"
+        svg "<svg viewBox='0 0 208 48'><path d='M10 38C10 18 24 9 40 9c0 17-10 29-30 29z' fill='#ea580c'/><text x='54' y='32.5' font-family='-apple-system, Segoe UI, Helvetica, Arial, sans-serif' font-size='25' font-weight='700' letter-spacing='-0.5' fill='#ea580c'>Mapleforge</text></svg>" class="h-6 w-24"
+      end
+      box class="h-17 flex-1 items-center justify-center rounded-xl border border-[#e6e8ec] p-3"
+        svg "<svg viewBox='0 0 162 48'><circle cx='24' cy='24' r='9' fill='#ca8a04'/><circle cx='24' cy='24' r='16' fill='none' stroke='#ca8a04' stroke-width='3' stroke-dasharray='4 4.4'/><text x='54' y='32.5' font-family='-apple-system, Segoe UI, Helvetica, Arial, sans-serif' font-size='25' font-weight='700' letter-spacing='-0.5' fill='#ca8a04'>Sundial</text></svg>" class="h-6 w-24"
+      end
+      box class="h-17 flex-1 items-center justify-center rounded-xl border border-[#e6e8ec] p-3"
+        svg "<svg viewBox='0 0 147 48'><rect x='8' y='22' width='8' height='18' rx='2' fill='#7c3aed'/><rect x='20' y='14' width='8' height='26' rx='2' fill='#7c3aed'/><rect x='32' y='8' width='8' height='32' rx='2' fill='#7c3aed'/><text x='54' y='32.5' font-family='-apple-system, Segoe UI, Helvetica, Arial, sans-serif' font-size='25' font-weight='700' letter-spacing='-0.5' fill='#7c3aed'>Pillar</text></svg>" class="h-6 w-24"
+      end
+    end
+  end
+  box class="px-8 pb-12"
+    box class="mb-9 items-center"
+      text "In-kind sponsors" class="text-[40px] font-bold tracking-tight text-[#0b0d12]"
+    end
+    box class="flex-row justify-center gap-3" note="What a company gives instead of money, such as CI."
+      box class="w-[352px] items-center justify-center gap-3 rounded-xl border border-[#e6e8ec] px-5 py-6"
+        svg "<svg viewBox='0 0 177 48'><rect x='8' y='22' width='8' height='18' rx='2' fill='#0d9488'/><rect x='20' y='14' width='8' height='26' rx='2' fill='#0d9488'/><rect x='32' y='8' width='8' height='32' rx='2' fill='#0d9488'/><text x='54' y='32.5' font-family='-apple-system, Segoe UI, Helvetica, Arial, sans-serif' font-size='25' font-weight='700' letter-spacing='-0.5' fill='#0d9488'>Relay CI</text></svg>" class="h-8 w-32"
+        text "Build machines for CI" class="text-sm text-[#5b6270]"
+      end
+      box class="w-[352px] items-center justify-center gap-3 rounded-xl border border-[#e6e8ec] px-5 py-6"
+        svg "<svg viewBox='0 0 147 48'><path d='M6 30c6-8 12-8 18 0s12 8 18 0' fill='none' stroke='#4f46e5' stroke-width='6' stroke-linecap='round'/><path d='M6 18c6-8 12-8 18 0s12 8 18 0' fill='none' stroke='#4f46e5' stroke-width='6' stroke-linecap='round' opacity='.5'/><text x='54' y='32.5' font-family='-apple-system, Segoe UI, Helvetica, Arial, sans-serif' font-size='25' font-weight='700' letter-spacing='-0.5' fill='#4f46e5'>Harbor</text></svg>" class="h-8 w-32"
+        text "Hosting for downloads" class="text-sm text-[#5b6270]"
+      end
+    end
+  end
+  box class="px-8 pb-12"
+    box class="mb-9 items-center"
+      text "Backers" class="text-[40px] font-bold tracking-tight text-[#0b0d12]"
+    end
+    box class="flex-row flex-wrap justify-center gap-x-2 gap-y-5"
+      box class="w-22 items-center gap-2"
+        svg "<svg viewBox='0 0 112 112'><defs><linearGradient id='g1' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='#2563eb'/><stop offset='1' stop-color='#2563eb'/></linearGradient></defs><rect width='112' height='112' fill='url(#g1)'/><text x='56' y='66' text-anchor='middle' font-family='-apple-system, Segoe UI, Helvetica, Arial, sans-serif' font-size='34' font-weight='700' fill='#fff'>AC</text></svg>" class="size-14 overflow-hidden rounded-full border border-[#e6e8ec]"
+        text "Alex Chen" class="truncate text-[13px] text-[#0b0d12]"
+      end
+      box class="w-22 items-center gap-2"
+        svg "<svg viewBox='0 0 112 112'><defs><linearGradient id='g2' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='#f472b6'/><stop offset='1' stop-color='#db2777'/></linearGradient></defs><rect width='112' height='112' fill='url(#g2)'/><text x='56' y='66' text-anchor='middle' font-family='-apple-system, Segoe UI, Helvetica, Arial, sans-serif' font-size='34' font-weight='700' fill='#fff'>MP</text></svg>" class="size-14 overflow-hidden rounded-full border border-[#e6e8ec]"
+        text "Mira Patel" class="truncate text-[13px] text-[#0b0d12]"
+      end
+      box class="w-22 items-center gap-2"
+        svg "<svg viewBox='0 0 112 112'><defs><linearGradient id='g3' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='#34d399'/><stop offset='1' stop-color='#059669'/></linearGradient></defs><rect width='112' height='112' fill='url(#g3)'/><text x='56' y='66' text-anchor='middle' font-family='-apple-system, Segoe UI, Helvetica, Arial, sans-serif' font-size='34' font-weight='700' fill='#fff'>JB</text></svg>" class="size-14 overflow-hidden rounded-full border border-[#e6e8ec]"
+        text "Jonas Berg" class="truncate text-[13px] text-[#0b0d12]"
+      end
+      box class="w-22 items-center gap-2"
+        svg "<svg viewBox='0 0 112 112'><defs><linearGradient id='g4' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='#fbbf24'/><stop offset='1' stop-color='#d97706'/></linearGradient></defs><rect width='112' height='112' fill='url(#g4)'/><text x='56' y='66' text-anchor='middle' font-family='-apple-system, Segoe UI, Helvetica, Arial, sans-serif' font-size='34' font-weight='700' fill='#fff'>SR</text></svg>" class="size-14 overflow-hidden rounded-full border border-[#e6e8ec]"
+        text "Sofia Rossi" class="truncate text-[13px] text-[#0b0d12]"
+      end
+      box class="w-22 items-center gap-2"
+        svg "<svg viewBox='0 0 112 112'><defs><linearGradient id='g5' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='#a78bfa'/><stop offset='1' stop-color='#7c3aed'/></linearGradient></defs><rect width='112' height='112' fill='url(#g5)'/><text x='56' y='66' text-anchor='middle' font-family='-apple-system, Segoe UI, Helvetica, Arial, sans-serif' font-size='34' font-weight='700' fill='#fff'>KS</text></svg>" class="size-14 overflow-hidden rounded-full border border-[#e6e8ec]"
+        text "Kenji Sato" class="truncate text-[13px] text-[#0b0d12]"
+      end
+      box class="w-22 items-center gap-2"
+        svg "<svg viewBox='0 0 112 112'><defs><linearGradient id='g6' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='#22d3ee'/><stop offset='1' stop-color='#0891b2'/></linearGradient></defs><rect width='112' height='112' fill='url(#g6)'/><text x='56' y='66' text-anchor='middle' font-family='-apple-system, Segoe UI, Helvetica, Arial, sans-serif' font-size='34' font-weight='700' fill='#fff'>LN</text></svg>" class="size-14 overflow-hidden rounded-full border border-[#e6e8ec]"
+        text "Lena Novak" class="truncate text-[13px] text-[#0b0d12]"
+      end
+      box class="w-22 items-center gap-2"
+        svg "<svg viewBox='0 0 112 112'><defs><linearGradient id='g7' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='#fb923c'/><stop offset='1' stop-color='#ea580c'/></linearGradient></defs><rect width='112' height='112' fill='url(#g7)'/><text x='56' y='66' text-anchor='middle' font-family='-apple-system, Segoe UI, Helvetica, Arial, sans-serif' font-size='34' font-weight='700' fill='#fff'>DR</text></svg>" class="size-14 overflow-hidden rounded-full border border-[#e6e8ec]"
+        text "Diego Ruiz" class="truncate text-[13px] text-[#0b0d12]"
+      end
+      box class="w-22 items-center gap-2"
+        svg "<svg viewBox='0 0 112 112'><defs><linearGradient id='g8' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='#f87171'/><stop offset='1' stop-color='#dc2626'/></linearGradient></defs><rect width='112' height='112' fill='url(#g8)'/><text x='56' y='66' text-anchor='middle' font-family='-apple-system, Segoe UI, Helvetica, Arial, sans-serif' font-size='34' font-weight='700' fill='#fff'>AK</text></svg>" class="size-14 overflow-hidden rounded-full border border-[#e6e8ec]"
+        text "Ava Kim" class="truncate text-[13px] text-[#0b0d12]"
+      end
+    end
+  end
+  box class="px-8 pb-16"
+    box class="mb-9 items-center"
+      text "Supporters" class="text-[40px] font-bold tracking-tight text-[#0b0d12]"
+    end
+    box class="flex-row flex-wrap justify-center gap-2"
+      text "Priya Nair" class="rounded-full border border-[#e6e8ec] px-3 py-1 text-sm text-[#5b6270]"
+      text "Tom Walsh" class="rounded-full border border-[#e6e8ec] px-3 py-1 text-sm text-[#5b6270]"
+      text "Yuki Mori" class="rounded-full border border-[#e6e8ec] px-3 py-1 text-sm text-[#5b6270]"
+      text "Omar Haddad" class="rounded-full border border-[#e6e8ec] px-3 py-1 text-sm text-[#5b6270]"
+      text "Clara Weiss" class="rounded-full border border-[#e6e8ec] px-3 py-1 text-sm text-[#5b6270]"
+      text "Lucas Martin" class="rounded-full border border-[#e6e8ec] px-3 py-1 text-sm text-[#5b6270]"
+      text "Hana Park" class="rounded-full border border-[#e6e8ec] px-3 py-1 text-sm text-[#5b6270]"
+    end
+  end
+  use site-footer
+end

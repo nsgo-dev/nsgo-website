@@ -1,0 +1,13 @@
+design name="Pages/Not found" device=desktop class="bg-[#ffffff]"
+box class="flex-1"
+  use site-header brand.tap="open home" features.tap="open home" docs.tap="open docs" roadmap.tap="open roadmap" sponsors.tap="open sponsors" search.tap="open search"
+  box class="flex-1 items-center justify-center gap-3 px-8 py-16" note="404.html, in the language of the address it is shown at."
+    text "404" class="font-mono text-sm font-semibold tracking-[0.2em] text-[#007aff]"
+    text "Page not found" class="text-[40px] font-bold tracking-tight text-[#0b0d12]"
+    text "This page does not exist, or it has moved." class="max-w-[512px] text-center text-[19px] text-[#5b6270]"
+    box class="mt-3 flex-row"
+      use button label="Back to the home page" trail.class="hidden" button.tap="open home"
+    end
+  end
+  use site-footer
+end

@@ -1,0 +1,33 @@
+design name="Dialogs/Search" device=desktop height=900 class="bg-[#ffffff]"
+box class="flex-1"
+  use docs class="flex-1"
+  box class="absolute bottom-0 left-0 right-0 top-0 items-center bg-[#101828]/12 pt-24" note="Over any page; on phones the dialog fills the screen."
+    box class="w-[640px] overflow-hidden rounded-2xl border border-[#e6e8ec] bg-[#ffffff] shadow-2xl shadow-[#101828]/25" note="Pagefind's index of the docs, loaded when the pointer first rests on the search button; up to 8 pages, each with up to 3 of its sections."
+      box class="h-14 flex-row items-center gap-2.5 border-b border-[#e6e8ec] pl-[18px] pr-2"
+        icon search class="size-4 text-[#8a909b]"
+        text "sync" class="flex-1 text-base text-[#0b0d12]"
+        box class="h-9 items-center justify-center rounded-lg px-3" tap="close"
+          text "Close" class="text-sm text-[#5b6270]"
+        end
+      end
+      box class="gap-0.5 p-1.5"
+        box class="gap-0.5 rounded-[10px] bg-[#eef0f3] px-3 py-2" tap="close"
+          text "Introduction" class="text-sm font-semibold text-[#0b0d12]"
+          text "Sample Notes keeps your notes in a folder you choose and syncs them through it…" class="line-clamp-2 text-[13px] text-[#5b6270]"
+        end
+        box class="ml-4 gap-0.5 border-l border-[#e6e8ec] py-2 pl-3.5 pr-3"
+          text "Folder sync" class="text-sm font-medium text-[#0b0d12]"
+          text "Point it at any synced folder to see the same notes on every device." class="line-clamp-2 text-[13px] text-[#5b6270]"
+        end
+        box class="gap-0.5 rounded-[10px] px-3 py-2"
+          text "Editing" class="text-sm font-semibold text-[#0b0d12]"
+          text "Notes save as you type and sync once the folder's service picks them up." class="line-clamp-2 text-[13px] text-[#5b6270]"
+        end
+        box class="gap-0.5 rounded-[10px] px-3 py-2"
+          text "Quick start" class="text-sm font-semibold text-[#0b0d12]"
+          text "Add the package to a project, then sync its notes folder." class="line-clamp-2 text-[13px] text-[#5b6270]"
+        end
+      end
+    end
+  end
+end
