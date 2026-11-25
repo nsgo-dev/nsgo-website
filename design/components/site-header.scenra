@@ -1,0 +1,50 @@
+component name="Shell/Site header" width=fill preview=1200 backdrop="bg-[#ffffff]"
+box class="h-[52px] flex-row items-center gap-6 px-8" note="Sticky at the top of every page; once the page scrolls it gains a bottom border and a blurred, translucent ground."
+  box name=brand class="flex-row items-center gap-2"
+    image "The project's logo" name=logo src="assets/logo.png" class="size-7"
+    text "NSGO" name=site-name class="text-base font-semibold tracking-tight text-[#0b0d12]"
+  end
+  box name=nav class="flex-row items-center gap-1" note="The settings' nav: Features shows only when the home page has a features section, Roadmap and Sponsors only when set."
+    box name=features class="group rounded-[10px] px-2.5 py-[5px] selected:bg-[#f6f7f9]"
+      text "Features" name=nav-label class="text-sm text-[#5b6270] group-selected:text-[#0b0d12]"
+    end
+    box name=docs class="group rounded-[10px] px-2.5 py-[5px] selected:bg-[#f6f7f9]"
+      text "Docs" name=nav-label class="text-sm text-[#5b6270] group-selected:text-[#0b0d12]"
+    end
+    box name=roadmap class="group rounded-[10px] px-2.5 py-[5px] selected:bg-[#f6f7f9]"
+      text "Roadmap" name=nav-label class="text-sm text-[#5b6270] group-selected:text-[#0b0d12]"
+    end
+    box name=community class="flex-row items-center gap-1 rounded-[10px] px-2.5 py-[5px]" note="A menu of the settings' community links, each with its note."
+      text "Community" name=nav-label class="text-sm text-[#5b6270]"
+      icon chevron-down name=caret class="size-3.5 text-[#8a909b]"
+    end
+    box name=sponsors class="group flex-row items-center gap-1.5 rounded-[10px] px-2.5 py-[5px] selected:bg-[#f6f7f9]"
+      icon heart class="size-[15px] fill-[#ec4899] text-[#ec4899]"
+      text "Sponsors" name=nav-label class="text-sm text-[#5b6270] group-selected:text-[#0b0d12]"
+    end
+  end
+  box class="ml-auto flex-row items-center gap-1"
+    box name=search class="mr-1 h-[34px] w-48 flex-row items-center gap-2 rounded-[10px] bg-[#f6f7f9] px-2.5" note="Opens the search dialog; also ⌘K or Ctrl K."
+      icon search name=search-icon class="size-4 text-[#0b0d12]"
+      text "Search" name=search-label class="flex-1 text-[13px] text-[#5b6270]"
+      text "⌘K" name=search-keys class="text-xs font-medium text-[#5b6270]"
+    end
+    box name=language class="size-[34px] items-center justify-center rounded-[10px] bg-[#f6f7f9]" note="A menu of Auto and the site's languages; shown only with more than one."
+      icon languages class="size-[18px] text-[#8b5cf6]"
+    end
+    box name=theme class="size-[34px] items-center justify-center rounded-[10px] bg-[#f6f7f9]" note="A menu of Auto, Light and Dark; its icon is the choice's: monitor, sun or moon."
+      icon monitor class="size-[18px] text-[#0ea5e9]"
+    end
+    box name=x class="size-[34px] items-center justify-center rounded-[10px] bg-[#f6f7f9]" note="A menu of the settings' accounts."
+      svg "<svg viewBox='0 0 24 24'><path fill='#0b0d12' d='M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z'/></svg>" name=x-logo class="size-4"
+    end
+    box name=github class="ml-1 h-[34px] flex-row items-center gap-1.5 rounded-[10px] bg-[#f6f7f9] px-3" note="The repository, with its stars read at build; GitHub when they could not be read."
+      svg "<svg viewBox='0 0 16 16'><path fill='#0b0d12' d='M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z'/></svg>" name=gh-logo class="size-[17px]"
+      text "1.2K" name=stars class="text-[13px] font-medium text-[#0b0d12]"
+    end
+    box name=menu class="hidden h-[34px] items-center justify-center rounded-[10px] bg-[#f6f7f9] px-2" note="Opens the menu drawer on narrow screens."
+      icon menu name=menu-icon class="size-[18px] text-[#0b0d12]"
+    end
+  end
+end
+variant phone class="gap-3 px-5" nav.class="hidden" search.class="mr-0 w-[34px] justify-center px-0" search-label.class="hidden" search-keys.class="hidden" language.class="hidden" theme.class="hidden" x.class="hidden" github.class="hidden" menu.class="flex"

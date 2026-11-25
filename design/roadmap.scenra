@@ -1,0 +1,123 @@
+design name="Pages/Roadmap" device=desktop height=1160 class="bg-[#ffffff]"
+box class="flex-1"
+  use site-header brand.tap="open home" features.tap="open home" docs.tap="open docs" roadmap.tap="open roadmap" sponsors.tap="open sponsors" search.tap="open search"
+  box class="flex-1 px-8 pb-16 pt-8" note="Read at build from the tracking issue's sub-issues: each stage, its tasks by area label and their subtasks. Titles stay GitHub's, in English in every language."
+    box class="mb-4 flex-row items-center gap-4"
+      box class="flex-1 flex-row items-center gap-2.5"
+        text "Stage 1" class="rounded-md bg-[#007aff]/15 px-2 py-0.5 text-xs font-semibold text-[#007aff]"
+        text "First release" class="text-2xl font-bold tracking-tight text-[#0b0d12]"
+        text "#2" class="font-mono text-[13px] text-[#8a909b]"
+      end
+      svg "<svg viewBox='0 0 52 52'><circle cx='26' cy='26' r='23.5' fill='none' stroke='#eef0f3' stroke-width='5'/><circle cx='26' cy='26' r='23.5' fill='none' stroke='#007aff' stroke-width='5' stroke-dasharray='91.55 200' transform='rotate(-90 26 26)'/><text x='26' y='30.5' text-anchor='middle' font-family='ui-monospace, Menlo, monospace' font-size='12' font-weight='600' fill='#0b0d12'>62%</text></svg>" class="size-13"
+    end
+    box class="flex-row items-start gap-3" note="Areas in up to three columns, each a card."
+      box class="flex-1"
+      box class="mb-3 overflow-hidden rounded-xl border border-[#e6e8ec] bg-[#ffffff]"
+        box class="flex-row items-baseline gap-2 border-b border-[#e6e8ec] bg-[#f6f7f9] px-3.5 py-2"
+          text "Editor" class="text-sm font-semibold text-[#0b0d12]"
+          text "3/4" class="ml-auto font-mono text-xs text-[#8a909b]"
+        end
+        box class="px-3.5 pb-2 pt-1.5"
+          use roadmap-task variant=done ref="#10" title="Write notes in plain Markdown"
+          use roadmap-task variant=done ref="#11" title="Checklists from task items"
+          use roadmap-task variant=review ref="#12" title="Undo across sessions" pull="#40"
+          use roadmap-task variant=done ref="#13" title="Paste images into notes"
+        end
+      end
+      box class="mb-3 overflow-hidden rounded-xl border border-[#e6e8ec] bg-[#ffffff]"
+        box class="flex-row items-baseline gap-2 border-b border-[#e6e8ec] bg-[#f6f7f9] px-3.5 py-2"
+          text "Sync" class="text-sm font-semibold text-[#0b0d12]"
+          text "2/4" class="ml-auto font-mono text-xs text-[#8a909b]"
+        end
+        box class="px-3.5 pb-2 pt-1.5"
+          use roadmap-task variant=done ref="#20" title="Pick a folder to sync through"
+          use roadmap-task variant=done ref="#21" title="Watch the folder for changes"
+          use roadmap-task variant=blocked ref="#22" title="Resolve edits made on two devices" note="Waits for, listed under it: open in amber, closed in green."
+            fill
+              box class="flex-row items-center gap-1.5"
+                box class="size-[7px] rounded-full bg-[#f59e0b] ring-2 ring-[#f59e0b]/20"
+                end
+                text "#38" class="font-mono text-[11px] text-[#8a909b]"
+                text "Keep a note's history on disk" class="flex-1 truncate text-xs text-[#5b6270]"
+              end
+            end
+          end
+          use roadmap-task ref="#23" title="Show sync status in the toolbar"
+        end
+      end
+      end
+      box class="flex-1"
+      box class="mb-3 overflow-hidden rounded-xl border border-[#e6e8ec] bg-[#ffffff]"
+        box class="flex-row items-baseline gap-2 border-b border-[#e6e8ec] bg-[#f6f7f9] px-3.5 py-2"
+          text "Search" class="text-sm font-semibold text-[#0b0d12]"
+          text "2/3" class="ml-auto font-mono text-xs text-[#8a909b]"
+        end
+        box class="px-3.5 pb-2 pt-1.5"
+          use roadmap-task variant=done ref="#30" title="Find notes by title"
+          use roadmap-task variant=progress ref="#31" title="Search the text as you type" pull="#44" pull.class="flex text-[#8a909b]"
+            fill
+              use subtask variant=closed ref="#32" title="Index note bodies"
+              use subtask variant=closed ref="#33" title="Highlight matches"
+              use subtask ref="#34" title="Rank recent notes first"
+            end
+          end
+          use roadmap-task variant=done ref="#35" title="Keyboard shortcut to search"
+        end
+      end
+      end
+      box class="flex-1"
+      box class="mb-3 overflow-hidden rounded-xl border border-[#e6e8ec] bg-[#ffffff]"
+        box class="flex-row items-baseline gap-2 border-b border-[#e6e8ec] bg-[#f6f7f9] px-3.5 py-2"
+          text "Platforms" class="text-sm font-semibold text-[#0b0d12]"
+          text "3/4" class="ml-auto font-mono text-xs text-[#8a909b]"
+        end
+        box class="px-3.5 pb-2 pt-1.5"
+          use roadmap-task variant=done ref="#50" title="macOS build"
+          use roadmap-task variant=done ref="#51" title="Windows build"
+          use roadmap-task variant=done ref="#52" title="Linux build"
+          use roadmap-task variant=progress ref="#53" title="iOS build"
+        end
+      end
+      end
+    end
+    box class="mb-4 mt-9 flex-row items-center gap-4"
+      box class="flex-1 flex-row items-center gap-2.5"
+        text "Stage 2" class="rounded-md bg-[#007aff]/15 px-2 py-0.5 text-xs font-semibold text-[#007aff]"
+        text "Sharing" class="text-2xl font-bold tracking-tight text-[#0b0d12]"
+        text "#3" class="font-mono text-[13px] text-[#8a909b]"
+      end
+      svg "<svg viewBox='0 0 52 52'><circle cx='26' cy='26' r='23.5' fill='none' stroke='#eef0f3' stroke-width='5'/><circle cx='26' cy='26' r='23.5' fill='none' stroke='#007aff' stroke-width='5' stroke-dasharray='29.53 200' transform='rotate(-90 26 26)'/><text x='26' y='30.5' text-anchor='middle' font-family='ui-monospace, Menlo, monospace' font-size='12' font-weight='600' fill='#0b0d12'>20%</text></svg>" class="size-13"
+    end
+    box class="overflow-hidden rounded-xl border border-[#e6e8ec] bg-[#ffffff]" note="A stage of one area spans the row, its tasks as lanes packed like a waterfall."
+      box class="flex-row items-baseline gap-2 border-b border-[#e6e8ec] bg-[#f6f7f9] px-3.5 py-2"
+        text "Sharing" class="text-sm font-semibold text-[#0b0d12]"
+        text "1/5" class="ml-auto font-mono text-xs text-[#8a909b]"
+      end
+      box class="flex-row items-start gap-3 p-3"
+        box class="flex-1 gap-3"
+          use roadmap-task variant=done ref="#60" title="Export a note as PDF" class="rounded-lg border border-t-2 border-[#e6e8ec] border-t-[#22a45d] bg-[#f6f7f9] px-3 pb-2 pt-2.5"
+          use roadmap-task ref="#63" title="Share a folder by link" class="rounded-lg border border-t-2 border-[#e6e8ec] border-t-[#d4d7dd] bg-[#f6f7f9] px-3 pb-2 pt-2.5"
+        end
+        box class="flex-1"
+          use roadmap-task variant=progress ref="#61" title="Publish a note to the web" title.class="font-semibold" class="rounded-lg border border-t-2 border-[#e6e8ec] border-t-[#007aff] bg-[#f6f7f9] px-3 pb-2 pt-2.5"
+            fill
+              use subtask variant=closed ref="#64" title="Render notes to HTML"
+              use subtask ref="#65" title="Choose a public address"
+              use subtask ref="#66" title="Unpublish a note"
+            end
+          end
+        end
+        box class="flex-1"
+          use roadmap-task ref="#62" title="Comments on shared notes" title.class="font-semibold" class="rounded-lg border border-t-2 border-[#e6e8ec] border-t-[#d4d7dd] bg-[#f6f7f9] px-3 pb-2 pt-2.5"
+        end
+      end
+    end
+    box class="mt-4 flex-row items-center gap-1.5"
+      text "As of Nov 25, 2026" class="text-xs text-[#8a909b]"
+      text "·" class="text-xs text-[#8a909b]"
+      text "nsgo-dev/nsgo-website#1" class="font-mono text-xs text-[#007aff]"
+      icon external-link class="size-[11px] text-[#8a909b]"
+    end
+  end
+  use site-footer
+end

@@ -1,0 +1,5 @@
+component name="Docs/Sidebar link" width=fill preview=192 backdrop="bg-[#ffffff]"
+box name=link class="group rounded-lg px-2.5 py-[5px] selected:bg-[#eef0f3]"
+  text "Quick start" name=label class="text-sm text-[#5b6270] group-selected:text-[#0b0d12]"
+end
+variant selected state=selected

@@ -1,0 +1,24 @@
+component name="Roadmap/Task" width=fill preview=360 backdrop="bg-[#ffffff]"
+box class="gap-0.5 py-1"
+  box class="flex-row items-start gap-2"
+    box name=status-icon class="mt-[3px] size-3.5 items-center justify-center rounded-full border-[1.5px] border-[#d4d7dd]"
+      icon check name=check class="hidden size-2.5 text-white"
+    end
+    box class="flex-1 flex-row flex-wrap gap-1"
+      text "#14" name=ref class="font-mono text-xs text-[#8a909b]"
+      text "Search the docs as you type" name=title class="text-sm text-[#0b0d12]"
+    end
+    box name=tags class="flex-row items-center gap-1"
+      text "#31" name=pull class="hidden font-mono text-xs font-semibold text-[#22a45d]"
+      box name=badge class="hidden h-[18px] items-center justify-center rounded-full bg-[#007aff]/10 px-1.5"
+        text "In progress" name=badge-label class="text-[11px] font-semibold text-[#007aff]"
+      end
+    end
+  end
+  slot class="ml-[22px] gap-0.5"
+  end
+end
+variant done status-icon.class="border-[#22a45d] bg-[#22a45d]" check.class="flex" title.class="text-[#5b6270]"
+variant progress status-icon.class="border-[#007aff] bg-linear-to-r from-[#007aff] from-50% to-transparent to-50%" badge.class="flex"
+variant review status-icon.class="border-[#22a45d] bg-linear-to-r from-[#22a45d] from-50% to-transparent to-50%" badge.class="flex bg-[#22a45d]/15" badge-label="In review" badge-label.class="text-[#22a45d]" pull.class="flex"
+variant blocked status-icon.class="border-dashed border-[#f59e0b]"

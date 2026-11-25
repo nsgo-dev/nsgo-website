@@ -1,0 +1,75 @@
+design name="Pages/Docs" device=desktop height=900 class="bg-[#ffffff]"
+box class="flex-1"
+  use site-header brand.tap="open home" features.tap="open home" docs.tap="open docs" roadmap.tap="open roadmap" sponsors.tap="open sponsors" search.tap="open search"
+  box class="flex-1 flex-row gap-8 px-8"
+    box class="w-48 gap-5 pr-2 pt-8" note="The settings' sidebar: groups fold, the one holding the page stays open. Sticky beside the content; behind the docs bar's picker below 50rem."
+      box class="gap-0.5"
+        box class="flex-row items-center justify-between px-2.5 py-1"
+          text "Start" class="text-[13px] font-semibold text-[#0b0d12]"
+          icon chevron-down class="size-3.5 text-[#8a909b]"
+        end
+        use doc-link label="Introduction"
+        use doc-link
+      end
+      box class="gap-0.5"
+        box class="flex-row items-center justify-between px-2.5 py-1"
+          text "Guides" class="text-[13px] font-semibold text-[#0b0d12]"
+          icon chevron-down class="size-3.5 text-[#8a909b]"
+        end
+        use doc-link variant=selected label="Editing"
+        use doc-link label="Code blocks"
+      end
+    end
+    box class="flex-1 flex-row gap-10"
+      box class="flex-1 pb-16 pt-8" note="The page's Markdown, rendered at build, under its title and description."
+        text "Editing" class="text-4xl font-bold leading-snug tracking-tight text-[#0b0d12]"
+        text "A sample guide in a folder of its own." class="mt-2.5 text-[17px] text-[#5b6270]"
+        box class="mt-6 gap-4"
+          text "Writing a note" class="mt-4 text-2xl font-semibold tracking-tight text-[#0b0d12]"
+          text "A guide's sections show in the table of contents beside it. Start a note with a title, then write as you would in any editor." class="text-base leading-relaxed text-[#0b0d12]/90"
+          box class="gap-2 overflow-hidden rounded-xl border border-[#e6e8ec] bg-[#f6f7f9]" note="A code block; its copy button shows on hover and reads Copied once pressed."
+            box class="flex-row items-center justify-between border-b border-[#e6e8ec] px-4 py-2"
+              text "note.md" class="font-mono text-xs text-[#8a909b]"
+              icon copy class="size-4 text-[#5b6270]"
+            end
+            box class="gap-1 px-4 pb-3.5 pt-1.5"
+              text "# Trip to the coast" class="font-mono text-sm text-[#0060d1]"
+              text "- [x] Leave on Friday morning" class="font-mono text-sm text-[#0b0d12]"
+              text "- [ ] Book a room near the harbour" class="font-mono text-sm text-[#0b0d12]"
+            end
+          end
+          text "Finding a note" class="mt-6 text-2xl font-semibold tracking-tight text-[#0b0d12]"
+          text "Each heading of the second level is an entry there." class="text-base leading-relaxed text-[#0b0d12]/90"
+          box class="gap-2 rounded-xl border-l-[3px] border-[#22a45d] bg-[#f6f7f9] px-4 py-3.5" note="An aside from :::tip; note, caution and danger take blue, amber and red."
+            text "Tip" class="text-[13px] font-semibold text-[#22a45d]"
+            text "Search finds notes by their title and text as you type." class="text-[15px] text-[#0b0d12]/90"
+          end
+        end
+        box class="mt-12 gap-6"
+          box class="flex-row items-center gap-2" note="Shown when editLink is on and the page is in its own language."
+            icon pencil class="size-4 text-[#5b6270]"
+            text "Edit page" class="text-[13px] text-[#5b6270]"
+          end
+          box class="flex-row gap-3"
+            box class="flex-1 gap-0.5 rounded-xl bg-[#f6f7f9] px-4 py-3.5" tap="open docs"
+              text "Previous" class="text-[13px] text-[#5b6270]"
+              text "Quick start" class="text-[15px] font-semibold text-[#0b0d12]"
+            end
+            box class="flex-1 items-end gap-0.5 rounded-xl bg-[#f6f7f9] px-4 py-3.5" tap="open docs"
+              text "Next" class="text-[13px] text-[#5b6270]"
+              text "Code blocks" class="text-[15px] font-semibold text-[#0b0d12]"
+            end
+          end
+        end
+      end
+      box class="w-[152px] gap-2 py-8" note="On this page, from 72rem; narrower screens open it from the docs bar. Marks the heading last scrolled past."
+        text "On this page" class="text-[13px] font-semibold text-[#0b0d12]"
+        box class="border-l border-[#e6e8ec]"
+          use toc-item
+          use toc-item variant=current label="Writing a note"
+          use toc-item label="Finding a note"
+        end
+      end
+    end
+  end
+end

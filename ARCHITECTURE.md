@@ -19,6 +19,7 @@ Vite plugins that turn a project's settings into its whole site: TanStack Start 
 | `bin/share-cards.ts` | Draws the share images with headless Chrome |
 | `example/` | A complete site that builds and type-checks the package |
 | `example-game/` | A game engine's site in the demoscene look, its home page its own |
+| `design/` | Scenra drafts of the default look's pages in its light theme, drawn from the example |
 
 ## Boundaries
 
